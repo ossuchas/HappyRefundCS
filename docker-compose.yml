@@ -1,0 +1,16 @@
+version: '3.5'
+
+services: 
+  app:
+    image: docker.io/ossuchas/happyrefundcs:v1.0.0
+    build:
+        context: .
+        dockerfile: ./Dockerfile
+    command: "yarn run start"
+    ports: 
+      - "4200:4200"
+    expose:
+      - "4200"
+    volumes:
+        - '/home/ubuntu/src/app'
+        - '/home/ubuntu/src/app/node_modules'
