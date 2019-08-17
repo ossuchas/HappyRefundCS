@@ -1,0 +1,39 @@
+<app-page-header>
+</app-page-header>
+<div class="container col row justify-content-md-center">
+    <form #myform="ngForm" (ngSubmit)="validate(myform)" class="form col-xl-6 text-xs-center">
+        <fieldset class="form-group">
+            <label class="label_header info round">Personal ID or Passport ID / เลขบัตรประชาชน หรือ พาสปอร์ต</label>
+            <input class="form-control" placeholder="fill Personal ID or Passport ID/ กรุณาระบุบัตรประชาชนหรือพาสปอร์ต "
+                name="personalid" #personalid="ngModel" ngModel>
+            <br />
+            <button type="submit" class="btn btn-success">Validate</button>
+        </fieldset>
+    </form>
+</div>
+
+<div class="container col row justify-content-md-center">
+    <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center" *ngIf="isValidate">
+        <fieldset class="form-group">
+            <label for="exampleInputFile">File input 1</label>
+            <input type="file" class="form-control-file" id="file1" class="form-control-file" name="file1"
+                #file1="ngModel" ngModel>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label for="exampleInputFile">File input 2</label>
+            <input type="file" class="form-control-file" id="file2" class="form-control-file" name="file2"
+                #file2="ngModel" ngModel>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <label for="exampleInputFile">File input 3</label>
+            <input type="file" class="form-control-file" id="file3" class="form-control-file" name="file3"
+                #file3="ngModel" ngModel>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary">Upload File</button>
+    </form>
+</div>
+<br />
+<app-page-footer></app-page-footer>

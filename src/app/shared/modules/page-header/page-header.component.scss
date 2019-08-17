@@ -1,0 +1,23 @@
+.site-header
+{
+  // background-color:#26272b;
+  background-color:#C92028;
+  // padding:45px 0 1px;
+  overflow: hidden;
+  padding: 5px 5px;
+  font-size: 30px;
+  font-family: AP-Bold;
+  line-height:24px;
+  color:#737373;
+}
+
+/* Change the background color on mouse-over */
+.site-header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.label_h1 {
+  padding: 10px;
+  color: white;
+}
