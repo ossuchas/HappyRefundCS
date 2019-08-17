@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService } from '../shared';
+import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 
 @Component({
     selector: 'app-customer',
