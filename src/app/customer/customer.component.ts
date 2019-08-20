@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-customer',
@@ -11,23 +12,24 @@ import { PageHeaderComponent } from '../shared/modules/page-header/page-header.c
 export class CustomerComponent implements OnInit {
     isValidate = false;
 
-    constructor(private srvUpload: UploadService, private srvCS: CustomerService) {}
+    constructor(private srvUpload: UploadService, private srvCS: CustomerService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {}
 
     validate(form: NgForm) {
         console.log(form.value);
-        // alert('Your Persona ID is : ' + form.value.personalid);
-        this.isValidate = true;
 
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             res => {
+                this.isValidate = true;
                 console.log(res);
-                alert('success');
             },
             error => {
-                console.log('ERROR KAI');
-                alert('error');
+                this.isValidate = false;
+                console.log(error);
+                this.snackBar.open(error.error['message'], '', {
+                    duration: 5000
+                });
             }
         );
     }

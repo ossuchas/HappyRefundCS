@@ -10,9 +10,10 @@ import { CustomerComponent } from './customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
     declarations: [CustomerComponent, FooterComponent, HeaderComponent],
-    imports: [CommonModule, CustomerRoutingModule, TranslateModule, FormsModule, ReactiveFormsModule]
+    imports: [CommonModule, CustomerRoutingModule, TranslateModule, FormsModule, ReactiveFormsModule, MatSnackBarModule]
 })
 export class CustomerModule {}
