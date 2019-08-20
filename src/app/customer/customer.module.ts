@@ -10,10 +10,20 @@ import { CustomerComponent } from './customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule, MatTable, MatTableModule, MatNativeDateModule, MatDatepickerModule } from '@angular/material';
 
 @NgModule({
     declarations: [CustomerComponent, FooterComponent, HeaderComponent],
-    imports: [CommonModule, CustomerRoutingModule, TranslateModule, FormsModule, ReactiveFormsModule, MatSnackBarModule]
+    imports: [
+        CommonModule,
+        CustomerRoutingModule,
+        TranslateModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatTableModule,
+        MatNativeDateModule,
+        MatDatepickerModule
+    ]
 })
 export class CustomerModule {}

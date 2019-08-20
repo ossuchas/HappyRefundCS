@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 
 @Component({
     selector: 'app-customer',
@@ -10,9 +10,12 @@ import { MatSnackBar } from '@angular/material';
     styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-    isValidate = false;
-
     constructor(private srvUpload: UploadService, private srvCS: CustomerService, private snackBar: MatSnackBar) {}
+
+    isValidate = false;
+    listData: MatTableDataSource<any>;
+
+    displayedColumn: string[] = ['project', 'unitnumber', 'contractnumber', 'transferdateapprove', 'remainingtotalamount'];
 
     ngOnInit() {}
 
@@ -20,9 +23,10 @@ export class CustomerComponent implements OnInit {
         console.log(form.value);
 
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
-            res => {
+            data => {
                 this.isValidate = true;
-                console.log(res);
+                this.listData = new MatTableDataSource(data);
+                console.log(data);
             },
             error => {
                 this.isValidate = false;

@@ -22,7 +22,7 @@ export class CustomerService {
         return this.currentUserSubject.value;
     }
 
-    formData: User;
+    formData: CrmContactRefund;
 
     // Base url
     readonly APIUrl = environment.apiUrl;
@@ -39,16 +39,16 @@ export class CustomerService {
     }
 
     // POST
-    login(_username: string, _password: string) {
-        return this.http.post<User>(this.APIUrl + '/login', { username: _username, password: _password }, this.httpOptions).pipe(
-            map(user => {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                return user;
-            })
-        );
-    }
+    // login(_username: string, _password: string) {
+    //     return this.http.post<User>(this.APIUrl + '/login', { username: _username, password: _password }, this.httpOptions).pipe(
+    //         map(user => {
+    //             localStorage.setItem('currentUser', JSON.stringify(user));
+    //             return user;
+    //         })
+    //     );
+    // }
 
-    checkPersonalId(_personal_id: string) {
+    checkPersonalId(_personal_id: string): Observable<CrmContactRefund[]> {
         console.log('Check Personal ID' + _personal_id);
         return this.http.get<CrmContactRefund[]>(this.APIUrl + '/checkpersonalid/' + _personal_id);
     }

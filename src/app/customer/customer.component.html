@@ -12,23 +12,53 @@
         </fieldset>
     </form>
 </div>
+<!-- <div class="mat-elevation-z8"> -->
+<div class="container table-responsive-sm" *ngIf="isValidate">
+    <mat-table [dataSource]="listData" matSort>
+        <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
+        <ng-container matColumnDef="project">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.productid }}:{{ element.project}}</mat-cell>
+        </ng-container>
 
+        <ng-container matColumnDef="unitnumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.unitnumber}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="contractnumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Contract No.</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.contractnumber }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="transferdateapprove">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Date</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.transferdateapprove | date: 'dd/MM/yyyy' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="remainingtotalamount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Refund Amount</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number }}</mat-cell>
+        </ng-container>
+    </mat-table>
+</div>
 <div class="container col row justify-content-md-center">
     <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center" *ngIf="isValidate">
         <fieldset class="form-group">
-            <label for="exampleInputFile">File input 1</label>
+            <label for="exampleInputFile" class="label_header round">สำเนาบัตรประชาชน หรือ สำเนาหนังสือเดินทาง Passport</label>
             <input type="file" class="form-control-file" id="file1" class="form-control-file" name="file1"
                 #file1="ngModel" ngModel>
         </fieldset>
 
         <fieldset class="form-group">
-            <label for="exampleInputFile">File input 2</label>
+            <label for="exampleInputFile" class="label_header round">สำเนาหน้าสมุดบัญชีเงินฝาก (ออมทรัพย์)</label>
             <input type="file" class="form-control-file" id="file2" class="form-control-file" name="file2"
                 #file2="ngModel" ngModel>
         </fieldset>
 
         <fieldset class="form-group">
-            <label for="exampleInputFile">File input 3</label>
+            <label for="exampleInputFile" class="label_header round">เอกสารอื่นๆ ที่เกี่ยวข้อง</label>
             <input type="file" class="form-control-file" id="file3" class="form-control-file" name="file3"
                 #file3="ngModel" ngModel>
         </fieldset>
