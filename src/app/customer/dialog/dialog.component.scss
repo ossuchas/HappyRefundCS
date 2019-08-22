@@ -1,0 +1,19 @@
+.mat-dialog-title {
+    background-color: gray;
+    color: white;
+}
+
+.container {
+    font-family: AP-Regular;
+}
+
+@media screen and (min-width: 768px) {
+    .custom-collapse .collapse {
+        display: block;
+    }
+}
+
+.add-files-btn {
+    font-family: AP-Regular;
+    font-size: 14px;
+}

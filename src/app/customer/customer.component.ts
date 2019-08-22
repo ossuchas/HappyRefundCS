@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+
+import { forkJoin } from 'rxjs';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
     selector: 'app-customer',
@@ -10,7 +13,12 @@ import { MatSnackBar, MatTableDataSource } from '@angular/material';
     styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-    constructor(private srvUpload: UploadService, private srvCS: CustomerService, private snackBar: MatSnackBar) {}
+    constructor(
+        private srvUpload: UploadService,
+        private srvCS: CustomerService,
+        private snackBar: MatSnackBar,
+        public dialog: MatDialog
+    ) {}
 
     isValidate = false;
     listData: MatTableDataSource<any>;
@@ -40,6 +48,18 @@ export class CustomerComponent implements OnInit {
 
     upload(form: NgForm) {
         console.log(form.value);
-        this.srvUpload.helloWorld();
+        this.srvUpload.upload(form.value.file1);
+        // this.srvUpload.helloWorld();
+        // set the component state to "uploading"
+    }
+
+    public openUploadDialog() {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '90%';
+
+        // const dialogRef = this.dialog.open(DialogComponent, { width: '50%', height: '50%' });
+        const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     }
 }

@@ -10,10 +10,24 @@ import { CustomerComponent } from './customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
-import { MatSnackBarModule, MatTable, MatTableModule, MatNativeDateModule, MatDatepickerModule } from '@angular/material';
+import {
+    MatSnackBarModule,
+    MatTable,
+    MatTableModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatCard,
+    MatIconModule
+} from '@angular/material';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-    declarations: [CustomerComponent, FooterComponent, HeaderComponent],
+    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent],
     imports: [
         CommonModule,
         CustomerRoutingModule,
@@ -23,7 +37,14 @@ import { MatSnackBarModule, MatTable, MatTableModule, MatNativeDateModule, MatDa
         MatSnackBarModule,
         MatTableModule,
         MatNativeDateModule,
-        MatDatepickerModule
-    ]
+        MatDatepickerModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatCardModule,
+        MatIconModule
+    ],
+    entryComponents: [DialogComponent]
 })
 export class CustomerModule {}

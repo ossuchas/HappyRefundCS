@@ -14,6 +14,12 @@ table {
     overflow:auto;
 }
 
+.mat-raised-button {
+    font-size:16px;
+    font-family: AP-Regular;
+    width: 130px;
+}
+
 mat-header-cell {
     font-size:13px;
     font-family: AP-Bold;
@@ -28,7 +34,6 @@ mat-header-cell {
     font-size: 16px;
     background-color: #1D7480;
     padding: 5px;
-    // border-radius: 10%;
 }
 
 .info {

@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between m-3">
+    <h5>Document Upload</h5>
+    <button mat-button (click)="onClose()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div class="container">
+    <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+    <div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+        <!-- <h1 mat-dialog-title>Upload Document Files</h1> -->
+        <ul class="list-group collapse">
+            <li class="list-group-item active">เอกสารประกอบการพิจารณา</li>
+            <li class="list-group-item">1.สำเนาบัตรประชาชน หรือ สำเนาหนังสือเดินทาง Passport</li>
+            <li class="list-group-item">2.สำเนาหน้าสมุดบัญชีเงินฝาก (ออมทรัพย์)</li>
+            <li class="list-group-item">3.เอกสารอื่นๆ ที่เกี่ยวข้อง</li>
+        </ul>
+        <br />
+        <div>
+            <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
+                (click)="addFiles()">
+                Add Files
+            </button>
+        </div>
+
+        <mat-dialog-content fxFlex>
+            <mat-list>
+                <mat-list-item *ngFor="let file of files">
+
+                    <h4 mat-line>{{file.name}}</h4>
+
+                    <mat-progress-bar *ngIf="progress" mode="determinate"
+                        [value]="progress[file.name].progress | async"></mat-progress-bar>
+
+                </mat-list-item>
+            </mat-list>
+        </mat-dialog-content>
+        <mat-dialog-actions class="actions" *ngIf="showButton">
+            <button *ngIf="showCancelButton" mat-button mat-dialog-close class="add-files-btn">Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
+                class="add-files-btn">{{primaryButtonText}}</button>
+        </mat-dialog-actions>
+    </div>
+</div>
