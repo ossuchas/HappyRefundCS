@@ -22,6 +22,7 @@ export class DialogComponent implements OnInit {
     showButton = false;
     uploading = false;
     uploadSuccessful = false;
+    _hyrf_id: string;
 
     ngOnInit() {}
 
@@ -51,9 +52,10 @@ export class DialogComponent implements OnInit {
 
         // set the component state to "uploading"
         this.uploading = true;
+        this._hyrf_id = localStorage.getItem('_hyrf_id');
 
         // start the upload and save the progress map
-        this.progress = this.uploadService.upload(this.files);
+        this.progress = this.uploadService.upload(this.files, this._hyrf_id);
         console.log(this.progress);
         for (const key in this.progress) {
             this.progress[key].progress.subscribe(val => console.log(val));

@@ -35,6 +35,9 @@ export class CustomerComponent implements OnInit {
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
                 console.log(data);
+                localStorage.setItem('currentCs', JSON.stringify(data));
+                // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+                localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
             },
             error => {
                 this.isValidate = false;
@@ -46,12 +49,12 @@ export class CustomerComponent implements OnInit {
         );
     }
 
-    upload(form: NgForm) {
-        console.log(form.value);
-        this.srvUpload.upload(form.value.file1);
-        // this.srvUpload.helloWorld();
-        // set the component state to "uploading"
-    }
+    // upload(form: NgForm) {
+    //     console.log(form.value);
+    //     this.srvUpload.upload(form.value.file1);
+    //     // this.srvUpload.helloWorld();
+    //     // set the component state to "uploading"
+    // }
 
     public openUploadDialog() {
         const dialogConfig = new MatDialogConfig();

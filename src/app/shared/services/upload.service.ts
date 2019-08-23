@@ -23,7 +23,7 @@ export class UploadService {
         console.log('Hello World Upload service111');
     }
 
-    public upload(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
+    public upload(files: Set<File>, _hyrf_id: string): { [key: string]: { progress: Observable<number> } } {
         // this will be the our resulting map
         const status: { [key: string]: { progress: Observable<number> } } = {};
 
@@ -31,7 +31,7 @@ export class UploadService {
             // create a new multipart-form for every file
             const formData: FormData = new FormData();
             formData.append('image', file, file.name);
-            formData.append('hyrf', '1');
+            formData.append('hyrf', _hyrf_id);
 
             // create a http-post request and pass the form
             // tell it to report the upload progress
