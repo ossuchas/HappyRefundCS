@@ -48,6 +48,14 @@ export class CustomerService {
     //     );
     // }
 
+    // PUT
+    sendDocRefund(_hyrf_id: string): Observable<CrmContactRefund> {
+        return this.http.put<CrmContactRefund>(this.APIUrl + '/senddoc/' + _hyrf_id, { doc_sent_status: 'Y'}, this.httpOptions).pipe(
+            retry(1),
+            catchError(this.errorHandl)
+        );
+    }
+
     checkPersonalId(_personal_id: string): Observable<CrmContactRefund[]> {
         console.log('Check Personal ID' + _personal_id);
         return this.http.get<CrmContactRefund[]>(this.APIUrl + '/checkpersonalid/' + _personal_id);

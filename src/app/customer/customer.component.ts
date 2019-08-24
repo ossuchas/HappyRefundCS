@@ -38,6 +38,7 @@ export class CustomerComponent implements OnInit {
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
+                localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
             },
             error => {
                 this.isValidate = false;
@@ -49,12 +50,9 @@ export class CustomerComponent implements OnInit {
         );
     }
 
-    // upload(form: NgForm) {
-    //     console.log(form.value);
-    //     this.srvUpload.upload(form.value.file1);
-    //     // this.srvUpload.helloWorld();
-    //     // set the component state to "uploading"
-    // }
+    upload(form: NgForm) {
+        console.log('form2');
+    }
 
     public openUploadDialog() {
         const dialogConfig = new MatDialogConfig();
@@ -62,7 +60,6 @@ export class CustomerComponent implements OnInit {
         dialogConfig.autoFocus = true;
         dialogConfig.width = '90%';
 
-        // const dialogRef = this.dialog.open(DialogComponent, { width: '50%', height: '50%' });
         const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
     }
 }

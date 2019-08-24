@@ -19,6 +19,8 @@ export class UploadService {
         })
     };
 
+    public seqn_no = 1;
+
     helloWorld() {
         console.log('Hello World Upload service111');
     }
@@ -32,16 +34,17 @@ export class UploadService {
             const formData: FormData = new FormData();
             formData.append('image', file, file.name);
             formData.append('hyrf', _hyrf_id);
+            formData.append('seqn_no', this.seqn_no.toString());
 
             // create a http-post request and pass the form
             // tell it to report the upload progress
             const req = new HttpRequest('POST', this.APIUrl + '/upload/image', formData, {
-            // const req = new HttpRequest('POST', url, formData, {
                 reportProgress: true
             });
 
             // create a new progress-subject for every file
             const progress = new Subject<number>();
+            this.seqn_no = this.seqn_no + 1;
 
             // send the http-request and subscribe for progress-updates
             const startTime = new Date().getTime();
@@ -64,6 +67,8 @@ export class UploadService {
                 progress: progress.asObservable()
             };
         });
+
+        this.seqn_no = 1;
 
         // return the map of progress.observables
         return status;

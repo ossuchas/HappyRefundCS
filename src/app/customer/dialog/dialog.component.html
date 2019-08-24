@@ -12,9 +12,12 @@
             <li class="list-group-item active">เอกสารประกอบการพิจารณา</li>
             <li class="list-group-item">1.สำเนาบัตรประชาชน หรือ สำเนาหนังสือเดินทาง Passport</li>
             <li class="list-group-item">2.สำเนาหน้าสมุดบัญชีเงินฝาก (ออมทรัพย์)</li>
-            <li class="list-group-item">3.เอกสารอื่นๆ ที่เกี่ยวข้อง</li>
+            <li class="list-group-item">3.แบบฟอร์มการขอโอนเงินไปต่างประเทศ (กรณี บัญชีเงินฝากอยู่ต่างประเทศ)
+                <a href="https://drive.google.com/open?id=1_SGm6WhPUBwnmozXgggw1KZISPG5Yfnq"
+                    target="_blank">download</a>
+            </li>
+            <li class="list-group-item">4.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)</li>
         </ul>
-        <br />
         <div>
             <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
                 (click)="addFiles()">
@@ -36,8 +39,17 @@
         </mat-dialog-content>
         <mat-dialog-actions class="actions" *ngIf="showButton">
             <button *ngIf="showCancelButton" mat-button mat-dialog-close class="add-files-btn">Cancel</button>
-            <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
+            <!-- <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
+                class="add-files-btn">{{primaryButtonText}}</button> -->
+            <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="openDialog()" *ngIf="!confirmed"
                 class="add-files-btn">{{primaryButtonText}}</button>
+
+            <button mat-raised-button color="primary" *ngIf="confirmed" (click)="onClose()"
+                class="add-files-btn">Finish</button>
+
+            <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>
+            <button mat-raised-button color="primary" (click)="onClose()" *ngIf="!canBeClosed"
+                class="add-files-btn">Finish</button> -->
         </mat-dialog-actions>
     </div>
 </div>

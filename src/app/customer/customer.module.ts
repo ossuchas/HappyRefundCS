@@ -25,9 +25,10 @@ import {
     MatIconModule
 } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
+import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent],
+    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent, ConfirmationDialogComponent],
     imports: [
         CommonModule,
         CustomerRoutingModule,
@@ -45,6 +46,6 @@ import { DialogComponent } from './dialog/dialog.component';
         MatCardModule,
         MatIconModule
     ],
-    entryComponents: [DialogComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent]
 })
 export class CustomerModule {}

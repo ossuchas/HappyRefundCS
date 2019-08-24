@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { forkJoin } from 'rxjs';
-import { UploadService } from 'src/app/shared';
+import { UploadService, CustomerService } from 'src/app/shared';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-dialog',
@@ -9,7 +10,13 @@ import { UploadService } from 'src/app/shared';
     styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-    constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService) {}
+    constructor(
+        public dialogRef: MatDialogRef<DialogComponent>,
+        public uploadService: UploadService,
+        public dialog: MatDialog,
+        private srvCS: CustomerService,
+        private snackBar: MatSnackBar
+    ) {}
 
     @ViewChild('file', { static: false }) file;
 
@@ -17,6 +24,7 @@ export class DialogComponent implements OnInit {
 
     progress;
     canBeClosed = true;
+    confirmed = false;
     primaryButtonText = 'Upload';
     showCancelButton = true;
     showButton = false;
@@ -43,53 +51,76 @@ export class DialogComponent implements OnInit {
     addFiles() {
         this.file.nativeElement.click();
     }
+    // closeDialog1() {
+    //     console.log('xxx');
+    // }
 
-    closeDialog() {
-        // if everything was uploaded already, just close the dialog
-        if (this.uploadSuccessful) {
-            return this.dialogRef.close();
-        }
+    openDialog(): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '350px',
+            data: 'Do you confirm Upload Document ?'
+        });
 
-        // set the component state to "uploading"
-        this.uploading = true;
-        this._hyrf_id = localStorage.getItem('_hyrf_id');
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(this.confirmed);
+            if (result) {
+                // console.log('Yes clicked');
 
-        // start the upload and save the progress map
-        this.progress = this.uploadService.upload(this.files, this._hyrf_id);
-        console.log(this.progress);
-        for (const key in this.progress) {
-            this.progress[key].progress.subscribe(val => console.log(val));
-        }
+                if (this.uploadSuccessful) {
+                    return this.dialogRef.close();
+                }
 
-        // convert the progress map into an array
-        const allProgressObservables = [];
-        for (const key in this.progress) {
-            allProgressObservables.push(this.progress[key].progress);
-        }
+                // set the component state to "uploading"
+                this.uploading = true;
+                this._hyrf_id = localStorage.getItem('_hyrf_id');
 
-        // Adjust the state variables
+                // start the upload and save the progress map
+                this.progress = this.uploadService.upload(this.files, this._hyrf_id);
+                console.log(this.progress);
+                for (const key in this.progress) {
+                    this.progress[key].progress.subscribe(val => console.log(val));
+                }
 
-        // The OK-button should have the text "Finish" now
-        this.primaryButtonText = 'Finish';
+                // convert the progress map into an array
+                const allProgressObservables = [];
+                for (const key in this.progress) {
+                    allProgressObservables.push(this.progress[key].progress);
+                }
 
-        // The dialog should not be closed while uploading
-        this.canBeClosed = false;
-        this.dialogRef.disableClose = true;
+                // Adjust the state variables
 
-        // Hide the cancel-button
-        this.showCancelButton = false;
+                // The OK-button should have the text "Finish" now
+                this.primaryButtonText = 'Finish';
 
-        // When all progress-observables are completed...
-        forkJoin(allProgressObservables).subscribe(end => {
-            // ... the dialog can be closed again...
-            this.canBeClosed = true;
-            this.dialogRef.disableClose = false;
+                // The dialog should not be closed while uploading
+                this.canBeClosed = false;
+                this.dialogRef.disableClose = true;
 
-            // ... the upload was successful...
-            this.uploadSuccessful = true;
+                // Hide the cancel-button
+                this.showCancelButton = false;
 
-            // ... and the component is no longer uploading
-            this.uploading = false;
+                // When all progress-observables are completed...
+                forkJoin(allProgressObservables).subscribe(end => {
+                    // ... the dialog can be closed again...
+                    this.canBeClosed = true;
+                    this.dialogRef.disableClose = false;
+
+                    // ... the upload was successful...
+                    this.uploadSuccessful = true;
+
+                    // ... and the component is no longer uploading
+                    this.uploading = false;
+                    this.confirmed = true;
+                    console.log('before call service senddoc');
+                    this.srvCS.sendDocRefund(this._hyrf_id).subscribe(res => {
+                        // this.snackBar.open('Updated transaction Successful...!! [' + res.hyrf_id + ']', '', {
+                        //     duration: 3000
+                        // });
+                    });
+                });
+
+            }
         });
     }
+
 }
