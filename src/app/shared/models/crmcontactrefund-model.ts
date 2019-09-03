@@ -3,8 +3,10 @@ export class CrmContactRefund {
     productid: string;
     project: string;
     unitnumber: string;
+    addressnumber: string;
     wbsnumber: string;
     contractnumber: string;
+    transfernumber: string;
     transferdateapprove: Date;
     remainingtotalamount: number;
     contactid: string;
@@ -15,6 +17,7 @@ export class CrmContactRefund {
     lastname: string;
     fullname: string;
     nationality: string;
+    foreigner: string;
     mobile: string;
     email: string;
 
