@@ -34,6 +34,8 @@ export class CustomerService {
         })
     };
 
+    private _listeners = new Subject<any>();
+
     helloWorld() {
         console.log('Hello World Authen.');
     }
@@ -73,5 +75,11 @@ export class CustomerService {
         }
         console.log(errorMessage);
         return throwError(errorMessage);
+    }
+    listen(): Observable<any> {
+        return this._listeners.asObservable();
+    }
+    filter(filterBy: string) {
+        this._listeners.next(filterBy);
     }
 }

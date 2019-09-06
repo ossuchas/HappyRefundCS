@@ -7,6 +7,7 @@ import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@an
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 
+
 @Component({
     selector: 'app-customer',
     templateUrl: './customer.component.html',
@@ -17,7 +18,7 @@ export class CustomerComponent implements OnInit {
         private srvUpload: UploadService,
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
-        public dialog: MatDialog
+        public dialog: MatDialog,
     ) {}
 
     isValidate = false;
@@ -25,16 +26,17 @@ export class CustomerComponent implements OnInit {
 
     displayedColumn: string[] = ['project', 'unitnumber', 'contractnumber', 'transferdateapprove', 'remainingtotalamount'];
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     validate(form: NgForm) {
-        console.log(form.value);
+        // console.log(form.value);
 
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             data => {
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
-                console.log(data);
+                // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
@@ -42,7 +44,7 @@ export class CustomerComponent implements OnInit {
             },
             error => {
                 this.isValidate = false;
-                console.log(error);
+                // console.log(error);
                 this.snackBar.open(error.error['message'], '', {
                     duration: 5000
                 });
@@ -60,6 +62,9 @@ export class CustomerComponent implements OnInit {
         dialogConfig.autoFocus = true;
         dialogConfig.width = '90%';
 
+        this.isValidate = false;
+
         const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+
     }
 }

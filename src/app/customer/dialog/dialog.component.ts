@@ -3,6 +3,7 @@ import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { UploadService, CustomerService } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dialog',
@@ -15,7 +16,8 @@ export class DialogComponent implements OnInit {
         public uploadService: UploadService,
         public dialog: MatDialog,
         private srvCS: CustomerService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private router: Router
     ) {}
 
     @ViewChild('file', { static: false }) file;
@@ -113,6 +115,8 @@ export class DialogComponent implements OnInit {
                     this.confirmed = true;
                     console.log('before call service senddoc');
                     this.srvCS.sendDocRefund(this._hyrf_id).subscribe(res => {
+                        console.log(res);
+                        // this.router.navigate(['']); // ON SUCCESS
                         // this.snackBar.open('Updated transaction Successful...!! [' + res.hyrf_id + ']', '', {
                         //     duration: 3000
                         // });
