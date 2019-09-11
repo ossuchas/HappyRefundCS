@@ -43,8 +43,14 @@ export class CrmContactRefund {
 
     email_sent_status: string;
     email_sent_date: Date;
+    email_thx_sent_status: string;
+    email_thx_sent_date: Date;
+
     sms_sent_status: string;
     sms_sent_date: Date;
+    sms_thx_sent_status: string;
+    sms_thx_sent_date: Date;
+
     doc_sent_status: string;
     doc_sent_date: Date;
 
