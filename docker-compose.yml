@@ -2,7 +2,11 @@ version: '3.5'
 
 services:
   app:
+<<<<<<< HEAD
     image: docker.io/ossuchas/happyrefundcs:v1.10.0
+=======
+    image: docker.io/ossuchas/happyrefundcs:v1.10.1
+>>>>>>> 351ca8f3ad2fbd32e4b7f78fc7038940da1fa2ac
     build:
         context: .
         dockerfile: ./Dockerfile
