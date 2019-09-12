@@ -40,6 +40,7 @@ export class CrmContactRefund {
     ac02_appv_date: Date;
     ac02_appv_by: string;
     ac02_remarks: string;
+    ac02_due_date: Date;
 
     email_sent_status: string;
     email_sent_date: Date;
