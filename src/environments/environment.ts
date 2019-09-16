@@ -2,9 +2,17 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// import { config } from '../../config';
+// import process = require('process');
+// import { process } from 'process';
+// import { config } from 'config';
+
 export const environment = {
   production: false,
   apiUrl: 'http://192.168.0.42:5000/api/v1'
+//   apiUrl: `${process.env.API_URL}`
+//   apiUrl: config.api_url
+//   apiUrl: 'http://localhost:5000/api/v1'
 //   apiUrl: 'http://happyrefundapi-happyrefunds.devops-app.apthai.com/api/v1'
 };
 

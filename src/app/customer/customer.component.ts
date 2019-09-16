@@ -6,7 +6,7 @@ import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@an
 
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
-
+import { DialogTermComponent } from './dialog-term/dialog-term.component';
 
 @Component({
     selector: 'app-customer',
@@ -18,7 +18,7 @@ export class CustomerComponent implements OnInit {
         private srvUpload: UploadService,
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
-        public dialog: MatDialog,
+        public dialog: MatDialog
     ) {}
 
     isValidate = false;
@@ -27,6 +27,9 @@ export class CustomerComponent implements OnInit {
     displayedColumn: string[] = ['project', 'unitnumber', 'contractnumber', 'transferdateapprove', 'remainingtotalamount'];
 
     ngOnInit() {
+        // // const { node_env } = require('../../config');
+        // const { node_env } = require('../../config');
+        // console.log(`Your port is ${node_env}`);
     }
 
     validate(form: NgForm) {
@@ -57,14 +60,23 @@ export class CustomerComponent implements OnInit {
     }
 
     public openUploadDialog() {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '90%';
+        const dialogRef = this.dialog.open(DialogTermComponent);
+        // const dialogRef1 = this.dialog.open(DialogComponent);
 
-        this.isValidate = false;
+        dialogRef.afterClosed().subscribe(result => {
+            // console.log(`Dialog result: ${result}`);
+            // console.log(result);
 
-        const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+            if (result) {
+                const dialogConfig = new MatDialogConfig();
+                dialogConfig.disableClose = true;
+                dialogConfig.autoFocus = true;
+                dialogConfig.width = '90%';
 
+                this.isValidate = false;
+
+                const dialogRef1 = this.dialog.open(DialogComponent, dialogConfig);
+            }
+        });
     }
 }

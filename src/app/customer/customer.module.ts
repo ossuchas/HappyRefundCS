@@ -26,9 +26,10 @@ import {
 } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
+import { DialogTermComponent } from './dialog-term/dialog-term.component';
 
 @NgModule({
-    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent, ConfirmationDialogComponent],
+    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent, ConfirmationDialogComponent, DialogTermComponent],
     imports: [
         CommonModule,
         CustomerRoutingModule,
@@ -46,6 +47,6 @@ import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confir
         MatCardModule,
         MatIconModule
     ],
-    entryComponents: [DialogComponent, ConfirmationDialogComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent]
 })
 export class CustomerModule {}
