@@ -17,6 +17,7 @@ export class CrmContactRefund {
     firstname: string;
     lastname: string;
     fullname: string;
+    coownername: string;
     nationality: string;
     foreigner: string;
     mobile: string;

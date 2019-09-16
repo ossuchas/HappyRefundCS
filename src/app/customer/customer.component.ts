@@ -39,9 +39,9 @@ export class CustomerComponent implements OnInit {
             data => {
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
-                // console.log(data);
+                console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
-                // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+                const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                 localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
             },

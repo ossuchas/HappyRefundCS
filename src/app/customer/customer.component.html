@@ -29,7 +29,8 @@
 
         <ng-container matColumnDef="contractnumber">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.namestitle }} {{ element.firstname }} {{ element.firstname }}</mat-cell>
+            <!-- <mat-cell *matCellDef="let element">{{ element.namestitle }} {{ element.firstname }} {{ element.firstname }}</mat-cell> -->
+            <mat-cell *matCellDef="let element">{{ element.coownername }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="transferdateapprove">
