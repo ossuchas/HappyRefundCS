@@ -2,6 +2,7 @@ export class CrmContactRefund {
     hyrf_id: number;
     productid: string;
     project: string;
+    companyid: string;
     unitnumber: string;
     addressnumber: string;
     wbsnumber: string;
