@@ -1,0 +1,44 @@
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+
+.mat-raised-button {
+    font-family: AP-Regular;
+}
+
+.input-group {
+    width: 600px;
+}
+
+.justify-content-between {
+    font-family: AP-Regular;
+    font-weight: 600;
+}
+
+.container {
+    font-family: AP-Regular;
+}
+
+.mat-radio-button {
+    font-family: AP-Regular;
+}
+
+mat-table{
+    font-size:8px;
+    font-family: AP-Regular;
+    color: #1a084c;
+    overflow:auto;
+}
+
+mat-header-cell {
+    font-size:13px;
+    font-family: AP-Bold;
+    background-color: gray;
+    color: white;
+    overflow:auto;
+}
+
+mat-cell {
+    font-size:12px;
+    font-family: AP-Regular;
+}

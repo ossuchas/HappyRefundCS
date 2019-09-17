@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UploadService, CustomerService } from '../shared';
+import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+CrmContactRefund;
 
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
+import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
 
 @Component({
     selector: 'app-customer',
@@ -69,16 +71,17 @@ export class CustomerComponent implements OnInit {
 
     // onView(hyrf: CrmContactRefund) {
     onView() {
-        console.log('kkkk');
-        // this.service.formData = hyrf;
-        // const dialogConfig = new MatDialogConfig();
-        // dialogConfig.disableClose = true;
-        // dialogConfig.autoFocus = true;
-        // dialogConfig.width = '55%';
-        // dialogConfig.data = {
-        //     hyrf_id: hyrf.hyrf_id
-        // };
-        // this.dialog.open(Tf02imgviewPageComponent, dialogConfig);
+        const _hyrf_id = localStorage.getItem('_hyrf_id');
+        console.log(_hyrf_id);
+        // this.srvCS.formData = hyrf;
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '55%';
+        dialogConfig.data = {
+            hyrf_id: _hyrf_id
+        };
+        this.dialog.open(ImgviewPageComponent, dialogConfig);
     }
 
     public openUploadDialog() {
@@ -90,8 +93,6 @@ export class CustomerComponent implements OnInit {
             // console.log(result);
 
             if (result) {
-                console.log('kai result');
-                console.log(result);
                 const dialogConfig = new MatDialogConfig();
                 dialogConfig.disableClose = true;
                 dialogConfig.autoFocus = true;
