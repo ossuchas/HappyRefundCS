@@ -27,9 +27,18 @@ import {
 import { DialogComponent } from './dialog/dialog.component';
 import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
+import { Tf01docstatusPipe } from '../shared/pipes';
 
 @NgModule({
-    declarations: [CustomerComponent, FooterComponent, HeaderComponent, DialogComponent, ConfirmationDialogComponent, DialogTermComponent],
+    declarations: [
+        CustomerComponent,
+        FooterComponent,
+        HeaderComponent,
+        DialogComponent,
+        ConfirmationDialogComponent,
+        DialogTermComponent,
+        Tf01docstatusPipe
+    ],
     imports: [
         CommonModule,
         CustomerRoutingModule,

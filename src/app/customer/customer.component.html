@@ -17,6 +17,14 @@
     <mat-table [dataSource]="listData" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
+        <ng-container matColumnDef="Options">
+            <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button (click)="onView()">
+                    <mat-icon>image_search</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="project">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.project}}</mat-cell>
@@ -41,6 +49,11 @@
         <ng-container matColumnDef="remainingtotalamount">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Refund Amount</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="doc_sent_status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }}</mat-cell>
         </ng-container>
     </mat-table>
 </div>

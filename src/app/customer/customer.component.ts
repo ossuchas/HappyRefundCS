@@ -24,7 +24,15 @@ export class CustomerComponent implements OnInit {
     isValidate = false;
     listData: MatTableDataSource<any>;
 
-    displayedColumn: string[] = ['project', 'unitnumber', 'contractnumber', 'transferdateapprove', 'remainingtotalamount'];
+    displayedColumn: string[] = [
+        'Options',
+        'project',
+        'unitnumber',
+        'contractnumber',
+        'transferdateapprove',
+        'remainingtotalamount',
+        'doc_sent_status'
+    ];
 
     ngOnInit() {
         // // const { node_env } = require('../../config');
@@ -59,6 +67,20 @@ export class CustomerComponent implements OnInit {
         console.log('form2');
     }
 
+    // onView(hyrf: CrmContactRefund) {
+    onView() {
+        console.log('kkkk');
+        // this.service.formData = hyrf;
+        // const dialogConfig = new MatDialogConfig();
+        // dialogConfig.disableClose = true;
+        // dialogConfig.autoFocus = true;
+        // dialogConfig.width = '55%';
+        // dialogConfig.data = {
+        //     hyrf_id: hyrf.hyrf_id
+        // };
+        // this.dialog.open(Tf02imgviewPageComponent, dialogConfig);
+    }
+
     public openUploadDialog() {
         const dialogRef = this.dialog.open(DialogTermComponent);
         // const dialogRef1 = this.dialog.open(DialogComponent);
@@ -68,14 +90,38 @@ export class CustomerComponent implements OnInit {
             // console.log(result);
 
             if (result) {
+                console.log('kai result');
+                console.log(result);
                 const dialogConfig = new MatDialogConfig();
                 dialogConfig.disableClose = true;
                 dialogConfig.autoFocus = true;
                 dialogConfig.width = '90%';
 
-                this.isValidate = false;
+                // this.isValidate = false;
 
                 const dialogRef1 = this.dialog.open(DialogComponent, dialogConfig);
+
+                dialogRef1.afterClosed().subscribe(result1 => {
+                    const per_id = localStorage.getItem('_personal_id');
+                    this.srvCS.checkPersonalId(per_id).subscribe(
+                        data => {
+                            this.isValidate = true;
+                            this.listData = new MatTableDataSource(data);
+                            console.log(data);
+                            localStorage.setItem('currentCs', JSON.stringify(data));
+                            const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+                            localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
+                            localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+                        },
+                        error => {
+                            this.isValidate = false;
+                            // console.log(error);
+                            this.snackBar.open(error.error['message'], '', {
+                                duration: 5000
+                            });
+                        }
+                    );
+                });
             }
         });
     }
