@@ -59,7 +59,7 @@
     </mat-table>
 </div>
 <div class="container col row justify-content-md-center">
-    <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center" *ngIf="isValidate">
+    <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center" *ngIf="isValidate && isValidateUpload">
         <button mat-raised-button (click)="openUploadDialog()" class="btn btn-primary">Upload Doc.</button>
     </form>
 </div>

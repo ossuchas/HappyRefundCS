@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
-CrmContactRefund;
 
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
@@ -24,6 +23,7 @@ export class CustomerComponent implements OnInit {
     ) {}
 
     isValidate = false;
+    isValidateUpload = false;
     listData: MatTableDataSource<any>;
 
     displayedColumn: string[] = [
@@ -49,11 +49,18 @@ export class CustomerComponent implements OnInit {
             data => {
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
-                console.log(data);
+                // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                 localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+
+                const doc_sent_status = JSON.parse(localStorage.getItem('currentCs'))[0].doc_sent_status;
+                if (doc_sent_status === 'A') {
+                    this.isValidateUpload = false;
+                } else {
+                    this.isValidateUpload = true;
+                }
             },
             error => {
                 this.isValidate = false;
@@ -108,7 +115,7 @@ export class CustomerComponent implements OnInit {
                         data => {
                             this.isValidate = true;
                             this.listData = new MatTableDataSource(data);
-                            console.log(data);
+                            // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
                             const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                             localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
@@ -116,7 +123,6 @@ export class CustomerComponent implements OnInit {
                         },
                         error => {
                             this.isValidate = false;
-                            // console.log(error);
                             this.snackBar.open(error.error['message'], '', {
                                 duration: 5000
                             });
