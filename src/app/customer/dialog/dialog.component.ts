@@ -33,6 +33,7 @@ export class DialogComponent implements OnInit {
     uploading = false;
     uploadSuccessful = false;
     _hyrf_id: string;
+    _isMobile: string;
 
     ngOnInit() {}
 
@@ -75,9 +76,10 @@ export class DialogComponent implements OnInit {
                 // set the component state to "uploading"
                 this.uploading = true;
                 this._hyrf_id = localStorage.getItem('_hyrf_id');
+                this._isMobile = localStorage.getItem('isMobile');
 
                 // start the upload and save the progress map
-                this.progress = this.uploadService.upload(this.files, this._hyrf_id);
+                this.progress = this.uploadService.upload(this.files, this._hyrf_id, this._isMobile);
                 console.log(this.progress);
                 for (const key in this.progress) {
                     this.progress[key].progress.subscribe(val => console.log(val));
@@ -113,7 +115,7 @@ export class DialogComponent implements OnInit {
                     // ... and the component is no longer uploading
                     this.uploading = false;
                     this.confirmed = true;
-                    console.log('before call service senddoc');
+                    // console.log('before call service senddoc');
                     this.srvCS.sendDocRefund(this._hyrf_id).subscribe(res => {
                         console.log(res);
                         // this.router.navigate(['']); // ON SUCCESS
@@ -122,9 +124,7 @@ export class DialogComponent implements OnInit {
                         // });
                     });
                 });
-
             }
         });
     }
-
 }

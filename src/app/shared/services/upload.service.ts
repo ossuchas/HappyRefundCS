@@ -25,7 +25,7 @@ export class UploadService {
         console.log('Hello World Upload service111');
     }
 
-    public upload(files: Set<File>, _hyrf_id: string): { [key: string]: { progress: Observable<number> } } {
+    public upload(files: Set<File>, _hyrf_id: string, _isMobile: string): { [key: string]: { progress: Observable<number> } } {
         // this will be the our resulting map
         const status: { [key: string]: { progress: Observable<number> } } = {};
 
@@ -35,6 +35,7 @@ export class UploadService {
             formData.append('image', file, file.name);
             formData.append('hyrf', _hyrf_id);
             formData.append('seqn_no', this.seqn_no.toString());
+            formData.append('isMobile', _isMobile);
 
             // create a http-post request and pass the form
             // tell it to report the upload progress

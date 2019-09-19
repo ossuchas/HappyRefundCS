@@ -23,6 +23,7 @@ export class CustomerComponent implements OnInit {
     ) {}
 
     isValidate = false;
+    isMobile = false;
     isValidateUpload = false;
     listData: MatTableDataSource<any>;
 
@@ -40,6 +41,14 @@ export class CustomerComponent implements OnInit {
         // // const { node_env } = require('../../config');
         // const { node_env } = require('../../config');
         // console.log(`Your port is ${node_env}`);
+        this.isMobile = window.orientation > -1;
+        // alert(this.isMobile ? 'Mobile' : 'Not mobile');
+
+        if (this.isMobile) {
+            localStorage.setItem('isMobile', '1');
+        } else {
+            localStorage.setItem('isMobile', '0');
+        }
     }
 
     validate(form: NgForm) {
@@ -80,6 +89,7 @@ export class CustomerComponent implements OnInit {
     onView() {
         const _hyrf_id = localStorage.getItem('_hyrf_id');
         console.log(_hyrf_id);
+
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
