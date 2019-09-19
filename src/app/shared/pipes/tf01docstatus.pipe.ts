@@ -12,7 +12,7 @@ export class Tf01docstatusPipe implements PipeTransform {
         } else if (value === 'P') {
             return 'รอการยืนยันวันที่เงินเข้า';
         } else if (value === 'A') {
-            return 'อนุมัติรายการแล้ว';
+            return 'APPROVED';
         } else {
             return 'N/A';
         }
