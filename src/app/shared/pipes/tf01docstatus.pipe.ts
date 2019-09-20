@@ -9,6 +9,8 @@ export class Tf01docstatusPipe implements PipeTransform {
             return 'รอการส่งเอกสาร';
         } else if (value === 'Y') {
             return 'รอการตรวจสอบเอกสาร';
+        } else if (value === 'R') {
+            return 'เอกสารไม่ถูกต้องกรุณาส่งเอกสารใหม่';
         } else if (value === 'P') {
             return 'รอการยืนยันวันที่เงินเข้า';
         } else if (value === 'A') {
