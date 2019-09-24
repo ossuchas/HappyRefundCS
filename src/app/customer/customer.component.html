@@ -14,7 +14,7 @@
 </div>
 <!-- <div class="mat-elevation-z8"> -->
 <div class="container table-responsive-sm" *ngIf="isValidate">
-<!-- <div class="example-container mat-elevation-z8" *ngIf="isValidate"> -->
+    <!-- <div class="example-container mat-elevation-z8" *ngIf="isValidate"> -->
     <mat-table [dataSource]="listData" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
@@ -54,14 +54,19 @@
 
         <ng-container matColumnDef="doc_sent_status">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }} {{ element.ac02_due_date | date: ': dd/MM/yy (วันที่เงินเข้า)' }} </mat-cell>
+            <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }}
+                {{ element.ac02_due_date | date: ': dd/MM/yy (วันที่เงินเข้า)' }} </mat-cell>
         </ng-container>
     </mat-table>
 </div>
 <div class="container col row justify-content-md-center">
-    <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center" *ngIf="isValidate && isValidateUpload">
+    <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center"
+        *ngIf="isValidate && isValidateUpload">
         <button mat-raised-button (click)="openUploadDialog()" class="btn btn-primary">Upload Doc.</button>
     </form>
 </div>
-<br />
+<!-- <br /> -->
+<!-- <div class="container col row justify-content-md-center">
+<img src="assets/images/kbankcs.jpg" width="60%" height="60%" />
+</div> -->
 <app-footer></app-footer>
