@@ -120,6 +120,7 @@ export class CustomerComponent implements OnInit {
                 const dialogRef1 = this.dialog.open(DialogComponent, dialogConfig);
 
                 dialogRef1.afterClosed().subscribe(result1 => {
+
                     const per_id = localStorage.getItem('_personal_id');
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {

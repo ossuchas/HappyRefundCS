@@ -38,6 +38,9 @@ export class DialogComponent implements OnInit {
     ngOnInit() {}
 
     onClose() {
+        this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
+            console.log(res);
+        });
         this.dialogRef.close();
     }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,15 @@ export class UploadService {
 
     helloWorld() {
         console.log('Hello World Upload service111');
+    }
+
+    // POST
+    imageMerge2PDF(_hyrf_id: string): Observable<any> {
+        // console.log(_hyrf_id);
+        return this.http.put<any>(this.APIUrl + '/img2pdf/' + _hyrf_id, this.httpOptions).pipe(
+            retry(1),
+            catchError(this.errorHandl)
+        );
     }
 
     public upload(files: Set<File>, _hyrf_id: string, _isMobile: string): { [key: string]: { progress: Observable<number> } } {

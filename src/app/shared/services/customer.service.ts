@@ -59,8 +59,8 @@ export class CustomerService {
     }
 
     checkPersonalId(_personal_id: string): Observable<CrmContactRefund[]> {
-        console.log('Check Personal ID' + _personal_id);
-        console.log('Check Personal ID' + this.APIUrl);
+        // console.log('Check Personal ID' + _personal_id);
+        // console.log('Check Personal ID' + this.APIUrl);
         return this.http.get<CrmContactRefund[]>(this.APIUrl + '/checkpersonalid/' + _personal_id);
     }
 
