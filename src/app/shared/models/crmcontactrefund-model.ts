@@ -54,6 +54,9 @@ export class CrmContactRefund {
     sms_thx_sent_status: string;
     sms_thx_sent_date: Date;
 
+    line_sent_status: string;
+    line_sent_date: Date;
+
     doc_sent_status: string;
     doc_sent_date: Date;
     doc_merge_url: string;
