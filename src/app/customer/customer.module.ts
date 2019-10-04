@@ -29,6 +29,7 @@ import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confir
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
 import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
+import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
         ConfirmationDialogComponent,
         DialogTermComponent,
         Tf01docstatusPipe,
-        ImgviewPageComponent
+        ImgviewPageComponent,
+        DialogFirstComponent
     ],
     imports: [
         CommonModule,
@@ -58,6 +60,6 @@ import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
         MatCardModule,
         MatIconModule
     ],
-    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent]
 })
 export class CustomerModule {}

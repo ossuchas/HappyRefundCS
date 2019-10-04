@@ -8,6 +8,7 @@ import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
 import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
+import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 
 @Component({
     selector: 'app-customer',
@@ -38,9 +39,16 @@ export class CustomerComponent implements OnInit {
     ];
 
     ngOnInit() {
-        // // const { node_env } = require('../../config');
-        // const { node_env } = require('../../config');
-        // console.log(`Your port is ${node_env}`);
+        // this.srvCS.formData = hyrf;
+        const dialogConfig = new MatDialogConfig();
+        // dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        // dialogConfig.width = '55%';
+        // dialogConfig.width = '250px';
+        // dialogConfig.height = '500px';
+        // dialogConfig.width = '600px';
+        this.dialog.open(DialogFirstComponent, dialogConfig);
+
         this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');
 
@@ -120,7 +128,6 @@ export class CustomerComponent implements OnInit {
                 const dialogRef1 = this.dialog.open(DialogComponent, dialogConfig);
 
                 dialogRef1.afterClosed().subscribe(result1 => {
-
                     const per_id = localStorage.getItem('_personal_id');
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
