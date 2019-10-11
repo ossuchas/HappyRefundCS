@@ -44,15 +44,30 @@ export class CrmContactRefund {
     ac02_remarks: string;
     ac02_due_date: Date;
 
+    ac03_reject_doc_flag: string;
+    ac03_reject_reason: string;
+    ac03_change_due_flag: string;
+    ac03_change_due_date: Date;
+
     email_sent_status: string;
     email_sent_date: Date;
     email_thx_sent_status: string;
     email_thx_sent_date: Date;
 
+    email_reject_doc_status: string;
+    email_reject_doc_date: Date;
+    email_change_due: string;
+    email_change_due_date: Date;
+
     sms_sent_status: string;
     sms_sent_date: Date;
     sms_thx_sent_status: string;
     sms_thx_sent_date: Date;
+
+    sms_reject_doc_status: string;
+    sms_reject_doc_date: Date;
+    sms_change_due: string;
+    sms_change_due_date: Date;
 
     line_sent_status: string;
     line_sent_date: Date;
