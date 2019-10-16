@@ -37,3 +37,6 @@ COPY --from=node /home/ubuntu/src/app/dist/ /usr/share/nginx/html
 #COPY --from=node /home/ubuntu/src/app/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
+
+ENV TZ=Asia/Bangkok
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
