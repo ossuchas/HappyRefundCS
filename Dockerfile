@@ -22,7 +22,7 @@ RUN yarn install
 #RUN ng build library-name --prod
 
 # build your application
-RUN ng build --prod
+RUN ng build --prod --aot --output-hashing=all
 
 # STAGE 2
 # Deploy APP
