@@ -4,6 +4,8 @@ pipeline {
     registryCredential = 'docker_ossuchas'
     dockerImage = ''
     image_tag_number = 'happyrefundcs_front_v1.0.2'
+    deployments = 'happyrefundcs'
+    projects = 'testrepo'
   }
   agent any
   stages {
@@ -28,9 +30,11 @@ pipeline {
         }
       }
     }
-    stage('Remove Dangling docker image') {
+    stage('Deploy to OKD') {
       steps{
-        sh 'docker rmi $(docker images -f dangling=true -q)'
+          sh "oc login --insecure-skip-tls-verify https://devops01-master.apthai.com:8443 -usuchat_s -pP@ssw0rd"
+          sh "oc project $projects"
+          sh "oc patch dc $deployments --patch='{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\": \"$deployments\", \"image\":\"docker.io/$registry:$image_tag_number\"}]}}}}'"
       }
     }
   }
