@@ -17,7 +17,7 @@ import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 })
 export class CustomerComponent implements OnInit {
     constructor(
-        private srvUpload: UploadService,
+        // private srvUpload: UploadServiceisValidateUpload,
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
         public dialog: MatDialog
@@ -47,7 +47,7 @@ export class CustomerComponent implements OnInit {
         // dialogConfig.width = '250px';
         // dialogConfig.height = '500px';
         // dialogConfig.width = '600px';
-        this.dialog.open(DialogFirstComponent, dialogConfig);
+        // this.dialog.open(DialogFirstComponent, dialogConfig);
 
         this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');
