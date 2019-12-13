@@ -21,7 +21,7 @@
         <ng-container matColumnDef="Options">
             <mat-header-cell *matHeaderCellDef>Preview</mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="onView()">
+                <button mat-icon-button (click)="onView(row.hyrf_id)">
                     <mat-icon>image_search</mat-icon>
                 </button>
             </mat-cell>
@@ -57,14 +57,27 @@
             <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }}
                 {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }} </mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="doc_upload_btn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Upload</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary"
+        *ngIf="element.doc_sent_status != 'A'">Upload Doc.</button>
+        <!-- <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary">Upload Doc.</button> -->
+
+    </mat-cell>
+
+        </ng-container>
+
     </mat-table>
 </div>
-<div class="container col row justify-content-md-center">
+<!-- Modified by Suchat S. 2019-12-14 for change upload by row -->
+<!-- <div class="container col row justify-content-md-center">
     <form #myform2="ngForm" (ngSubmit)="upload(myform2)" class="form col-xl-6 text-xs-center"
         *ngIf="isValidate && isValidateUpload">
         <button mat-raised-button (click)="openUploadDialog()" class="btn btn-primary">Upload Doc.</button>
     </form>
-</div>
+</div> -->
 <!-- <br /> -->
 <!-- <div class="container col row justify-content-md-center">
 <img src="assets/images/kbankcs.jpg" width="60%" height="60%" />

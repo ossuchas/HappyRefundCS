@@ -27,6 +27,7 @@ export class CustomerComponent implements OnInit {
     isMobile = false;
     isValidateUpload = false;
     listData: MatTableDataSource<any>;
+    btnUpload = true;
 
     displayedColumn: string[] = [
         'Options',
@@ -35,7 +36,8 @@ export class CustomerComponent implements OnInit {
         'contractnumber',
         'transferdateapprove',
         'remainingtotalamount',
-        'doc_sent_status'
+        'doc_sent_status',
+        'doc_upload_btn'
     ];
 
     ngOnInit() {
@@ -59,6 +61,7 @@ export class CustomerComponent implements OnInit {
         }
     }
 
+
     validate(form: NgForm) {
         // console.log(form.value);
 
@@ -68,8 +71,9 @@ export class CustomerComponent implements OnInit {
                 this.listData = new MatTableDataSource(data);
                 // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
-                const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
-                localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
+                // KAI 2019-12-14
+                // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+                // localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                 localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
 
                 const doc_sent_status = JSON.parse(localStorage.getItem('currentCs'))[0].doc_sent_status;
@@ -94,8 +98,8 @@ export class CustomerComponent implements OnInit {
     }
 
     // onView(hyrf: CrmContactRefund) {
-    onView() {
-        const _hyrf_id = localStorage.getItem('_hyrf_id');
+    onView(_hyrf_id: Number) {
+        // const _hyrf_id = localStorage.getItem('_hyrf_id');
         console.log(_hyrf_id);
 
         // this.srvCS.formData = hyrf;
@@ -135,8 +139,52 @@ export class CustomerComponent implements OnInit {
                             this.listData = new MatTableDataSource(data);
                             // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
+
                             const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+
                             localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
+                            localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+                        },
+                        error => {
+                            this.isValidate = false;
+                            this.snackBar.open(error.error['message'], '', {
+                                duration: 5000
+                            });
+                        }
+                    );
+                });
+            }
+        });
+    }
+
+    uploadByid(_hyrf_id: number) {
+        console.log('uploadByid = ' + _hyrf_id);
+        localStorage.setItem('_hyrf_id', _hyrf_id.toString());
+
+        const dialogRef = this.dialog.open(DialogTermComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+
+            if (result) {
+                const dialogConfig = new MatDialogConfig();
+                dialogConfig.disableClose = true;
+                dialogConfig.autoFocus = true;
+                dialogConfig.width = '90%';
+
+                const dialogRef1 = this.dialog.open(DialogComponent, dialogConfig);
+
+                dialogRef1.afterClosed().subscribe(result1 => {
+                    const per_id = localStorage.getItem('_personal_id');
+                    this.srvCS.checkPersonalId(per_id).subscribe(
+                        data => {
+                            this.isValidate = true;
+                            this.listData = new MatTableDataSource(data);
+                            // console.log(data);
+                            localStorage.setItem('currentCs', JSON.stringify(data));
+
+                            // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
+
+                            localStorage.setItem('_hyrf_id', _hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
                         },
                         error => {
