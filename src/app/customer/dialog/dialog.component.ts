@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { forkJoin } from 'rxjs';
-import { UploadService, CustomerService } from 'src/app/shared';
+import { UploadService, CustomerService, MasterService } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
 
@@ -11,14 +11,19 @@ import { Router } from '@angular/router';
     styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
+
+    public listItems: Array<string> = [];
+    public listItemsBankName: Array<string> = [];
+
     constructor(
         public dialogRef: MatDialogRef<DialogComponent>,
         public uploadService: UploadService,
         public dialog: MatDialog,
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
-        private router: Router
-    ) {}
+        private router: Router,
+        private master: MasterService,
+    ) { }
 
     @ViewChild('file', { static: false }) file;
 
@@ -35,7 +40,14 @@ export class DialogComponent implements OnInit {
     _hyrf_id: string;
     _isMobile: string;
 
-    ngOnInit() {}
+    test: any;
+    bankAccountNo: any;
+    bankAccountName: any;
+
+    ngOnInit() {
+        this.dropdownBankMasterRefresh();
+        this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
+    }
 
     onClose() {
         this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
@@ -66,7 +78,9 @@ export class DialogComponent implements OnInit {
             width: '350px',
             data: 'Do you confirm Upload Document ?'
         });
-
+        console.log('ชื่อธนาคาร', this.test);
+        console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
+        console.log('เลขบัญชี', this.bankAccountNo);
         dialogRef.afterClosed().subscribe(result => {
             console.log(this.confirmed);
             if (result) {
@@ -129,5 +143,31 @@ export class DialogComponent implements OnInit {
                 });
             }
         });
+    }
+
+    dropdownBankMasterRefresh() {
+        this.master.getBankMaster().subscribe(data => {
+            data.forEach(element => {
+                console.log('ชื่อธนาคาร', element);
+
+                this.listItems.push(element['bankname']);
+
+            });
+        });
+    }
+
+    dropdownBankNameListRefresh(id: number) {
+        this.master.getBankAccountName(id).subscribe(data => {
+            data.forEach(element => {
+                console.log('ชื่อบัญชีลูกค้า', element);
+                this.listItemsBankName.push(element['fullname']);
+
+            });
+        });
+    }
+
+    test1() {
+        console.log('test', this.test);
+        console.log('test', this.bankAccountName);
     }
 }

@@ -1,57 +1,183 @@
 <mat-dialog-content>
-<div class="d-flex justify-content-between m-3">
-    <h5>Document Upload</h5>
-    <button mat-button (click)="onClose()">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
-<div class="container">
-    <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
-    <div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-        <!-- <h1 mat-dialog-title>Upload Document Files</h1> -->
-        <ul class="list-group collapse">
-            <li class="list-group-item active">เอกสารประกอบการพิจารณา</li>
-            <li class="list-group-item">1.บัตรประชาชน (กรณีคนไทย) หรือ หนังสือเดินทาง Passport (กรณีชาวต่างชาติ) <span style="font-weight:bold;color:red">ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน</span></li>
-            <li class="list-group-item">2.หน้าสมุดบัญชีเงินฝาก (ออมทรัพย์) เช่น Kbank,SCB,BBL,BAY,KTB เป็นต้น</li>
-            <li class="list-group-item">3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)</li>
-            <li class="list-group-item">4.กรณีผู้ถือกรรมสิทธิ์เป็นชาวต่างชาติและต้องการให้โอนเงินเข้าบัญชีของตนเองในต่างประเทศ ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน
-                <a href="https://drive.google.com/open?id=1ftq6p_x5jLASov7emV9ijwUyB-4J56WY" target="_blank">download</a>
-            </li>
-        </ul>
-        <div>
-            <button [disabled]="uploading || uploadSuccessful" mat-raised-button color="primary" class="add-files-btn"
-                (click)="addFiles()">
-                Add Files
-            </button>
-            <label>&nbsp;&nbsp;</label><label class="text-danger">ไฟล์ที่สามารถส่งมาได้ เฉพาะนามสกุล JPG, JPEG, PNG นี้เท่านั้น, และห้ามตั้งชื่อ file เป็นภาษาไทย</label>
-        </div>
+    <div class="d-flex justify-content-between m-3">
+        <h5>Document Upload</h5>
+        <button
+            mat-button
+            (click)="onClose()"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div class="container">
+        <input
+            type="file"
+            #file
+            style="display: none"
+            (change)="onFilesAdded()"
+            multiple
+        />
+        <div
+            class="container"
+            fxLayout="column"
+            fxLayoutAlign="space-evenly stretch"
+        >
+            <!-- <h1 mat-dialog-title>Upload Document Files</h1> -->
+            <ul class="list-group collapse">
+                <li class="list-group-item active">เอกสารประกอบการพิจารณา</li>
+                <li class="list-group-item">1.บัตรประชาชน (กรณีคนไทย) หรือ หนังสือเดินทาง Passport (กรณีชาวต่างชาติ)
+                    <span style="font-weight:bold;color:red">ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน</span></li>
+                <li class="list-group-item">2.หน้าสมุดบัญชีเงินฝาก (ออมทรัพย์) เช่น Kbank,SCB,BBL,BAY,KTB เป็นต้น</li>
+                <li class="list-group-item">3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)</li>
+                <li class="list-group-item">
+                    4.กรณีผู้ถือกรรมสิทธิ์เป็นชาวต่างชาติและต้องการให้โอนเงินเข้าบัญชีของตนเองในต่างประเทศ
+                    ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน
+                    <a
+                        href="https://drive.google.com/open?id=1ftq6p_x5jLASov7emV9ijwUyB-4J56WY"
+                        target="_blank"
+                    >download</a>
+                </li>
+            </ul>
+            <div class="m-3 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">บัญชีธนาคารลูกค้า</span>
+                </div>
+                <!-- <input type="text" class="form-control" name="bankcode" #bankcode="ngModel"
+                            [(ngModel)]="service.formData.bankcode" placeholder="ตัวอย่าง KBANK, SCB, KTB"> -->
+                <select
+                    required
+                    type="text"
+                    class="form-control"
+                    name="bankcode"
+                    #bankcode="ngModel"
+                    [(ngModel)]="test"
+                >
+                    <option
+                        *ngFor="let dl of listItems"
+                        [value]="dl"
+                    >{{ dl }}</option>
+                </select>&nbsp;&nbsp;
+                <div class="input-group-prepend">
+                    <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
+                </div>
+                <input
+                    type="number"
+                    class="form-control"
+                    name="bankaccountno"
+                    #bankaccountno="ngModel"
+                    [(ngModel)]="bankAccountNo"
+                    placeholder="กรุณากรอกตัวเลข"
+                >&nbsp;&nbsp;
+                <div class="input-group-prepend">
+                    <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
+                </div>
+                <select
+                    required
+                    type="text"
+                    class="form-control"
+                    name="bankaccountname"
+                    #bankaccountname="ngModel"
+                    [(ngModel)]="bankAccountName"
+                >
+                    <option
+                        *ngFor="let dl of listItemsBankName"
+                        [value]="dl"
+                    >{{ dl }}</option>
+                </select>
+            </div>
+            <!-- <div class="m-3 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
+                </div>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="bankaccountno"
+                    #bankaccountno="ngModel"
+                    [(ngModel)]="bankAccountNo"
+                    placeholder="ตัวอย่างเลขบัญชี 1234567890"
+                >
 
-        <mat-dialog-content fxFlex>
-            <mat-list>
-                <mat-list-item *ngFor="let file of files">
+            </div> -->
+            <!-- <div class="m-3 input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
+                </div>
+                <select
+                    required
+                    type="text"
+                    class="form-control"
+                    name="bankaccountname"
+                    #bankaccountname="ngModel"
+                    [(ngModel)]="bankAccountName"
+                >
+                    <option
+                        *ngFor="let dl of listItemsBankName"
+                        [value]="dl"
+                    >{{ dl }}</option>
+                </select>
+            </div> -->
+            <div>
+                <button
+                    [disabled]="uploading || uploadSuccessful"
+                    mat-raised-button
+                    color="primary"
+                    class="add-files-btn"
+                    (click)="addFiles()"
+                >
+                    Add Files
+                </button>
+                <label>&nbsp;&nbsp;</label><label class="text-danger">ไฟล์ที่สามารถส่งมาได้ เฉพาะนามสกุล JPG, JPEG, PNG
+                    นี้เท่านั้น, และห้ามตั้งชื่อ file เป็นภาษาไทย</label>
+            </div>
 
-                    <h4 mat-line>{{file.name}}</h4>
+            <mat-dialog-content fxFlex>
+                <mat-list>
+                    <mat-list-item *ngFor="let file of files">
 
-                    <mat-progress-bar *ngIf="progress" mode="determinate"
-                        [value]="progress[file.name].progress | async"></mat-progress-bar>
+                        <h4 mat-line>{{file.name}}</h4>
 
-                </mat-list-item>
-            </mat-list>
-        </mat-dialog-content>
-        <mat-dialog-actions class="actions" *ngIf="showButton">
-            <button *ngIf="showCancelButton" mat-button mat-dialog-close class="add-files-btn">Cancel</button>
-            <!-- <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
+                        <mat-progress-bar
+                            *ngIf="progress"
+                            mode="determinate"
+                            [value]="progress[file.name].progress | async"
+                        ></mat-progress-bar>
+
+                    </mat-list-item>
+                </mat-list>
+            </mat-dialog-content>
+            <mat-dialog-actions
+                class="actions"
+                *ngIf="showButton"
+            >
+                <button
+                    *ngIf="showCancelButton"
+                    mat-button
+                    mat-dialog-close
+                    class="add-files-btn"
+                >Cancel</button>
+                <!-- <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
                 class="add-files-btn">{{primaryButtonText}}</button> -->
-            <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="openDialog()" *ngIf="!confirmed"
-                class="add-files-btn">{{primaryButtonText}}</button>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!canBeClosed"
+                    (click)="openDialog()"
+                    *ngIf="!confirmed"
+                    class="add-files-btn"
+                >{{primaryButtonText}}</button>
 
-            <button mat-raised-button color="primary" *ngIf="confirmed" (click)="onClose()"
-                class="add-files-btn">Finish</button>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    *ngIf="confirmed"
+                    (click)="onClose()"
+                    class="add-files-btn"
+                >Finish</button>
 
-            <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>
+                <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>
             <button mat-raised-button color="primary" (click)="onClose()" *ngIf="!canBeClosed"
                 class="add-files-btn">Finish</button> -->
-        </mat-dialog-actions>
+            </mat-dialog-actions>
+        </div>
     </div>
-</div>
 </mat-dialog-content>
