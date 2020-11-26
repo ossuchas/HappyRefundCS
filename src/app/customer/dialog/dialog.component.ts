@@ -76,7 +76,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        if (this.bankAccountNo !== '') {
+        if (this.bankAccountNo !== '' && !this.bankName && !this.bankAccountName && this.bankName !== '' && this.bankAccountName !== '') {
             this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
