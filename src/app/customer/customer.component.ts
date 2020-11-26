@@ -190,6 +190,7 @@ export class CustomerComponent implements OnInit {
 
                             localStorage.setItem('_hyrf_id', _hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+
                         },
                         error => {
                             this.isValidate = false;

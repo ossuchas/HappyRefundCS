@@ -76,13 +76,24 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
-            console.log('Submit1', res);
-        });
+        if (this.bankAccountNo !== '') {
+            this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
+                console.log('Submit1', res);
+                this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
+                    console.log('Submit2', res);
+                    this.dialogRef.close();
+                });
+            });
+        } else {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: '350px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
+            });
+        }
 
-        this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
-            console.log('Submit2', res);
-        });
+    }
+
+    onClose2() {
         this.dialogRef.close();
     }
 
