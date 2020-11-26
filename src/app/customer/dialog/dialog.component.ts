@@ -80,9 +80,8 @@ export class DialogComponent implements OnInit {
             this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
-                    console.log('Submit2', res);
-                    this.dialogRef.close();
                 });
+                this.dialogRef.close();
             });
         } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
