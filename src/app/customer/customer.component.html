@@ -2,72 +2,119 @@
 </app-page-header> -->
 <app-header></app-header>
 <div class="container col row justify-content-md-center">
-    <form #myform="ngForm" (ngSubmit)="validate(myform)" class="form col-xl-6 text-xs-center">
+    <form
+        #myform="ngForm"
+        (ngSubmit)="validate(myform)"
+        class="form col-xl-6 text-xs-center"
+    >
         <fieldset class="form-group">
             <label class="label_header info round">Personal ID or Passport ID / เลขบัตรประชาชน หรือ พาสปอร์ต</label>
-            <input class="form-control" placeholder="fill Personal ID or Passport ID/ กรุณาระบุบัตรประชาชนหรือพาสปอร์ต "
-                name="personalid" #personalid="ngModel" ngModel>
+            <input
+                class="form-control"
+                placeholder="fill Personal ID or Passport ID/ กรุณาระบุบัตรประชาชนหรือพาสปอร์ต "
+                name="personalid"
+                #personalid="ngModel"
+                ngModel
+            >
             <br />
-            <button type="submit" class="btn btn-success">Validate</button>
+            <button
+                type="submit"
+                class="btn btn-success"
+            >Validate</button>
             <!-- Kai Modified by Deployment 13.08.2020 -->
             <!-- <img src="https://i.ibb.co/dm76vC4/under-con-v3-0.png" alt="under-con-v3-0" border="0"> -->
         </fieldset>
     </form>
 </div>
 <!-- <div class="mat-elevation-z8"> -->
-<div class="container table-responsive-sm" *ngIf="isValidate">
+<div
+    class="container table-responsive-sm"
+    *ngIf="isValidate"
+>
     <!-- <div class="example-container mat-elevation-z8" *ngIf="isValidate"> -->
-    <mat-table [dataSource]="listData" matSort>
+    <mat-table
+        [dataSource]="listData"
+        matSort
+    >
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
         <ng-container matColumnDef="Options">
             <mat-header-cell *matHeaderCellDef>Preview</mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="onView(row.hyrf_id)">
+                <button
+                    mat-icon-button
+                    (click)="onView(row.hyrf_id)"
+                >
                     <mat-icon>image_search</mat-icon>
                 </button>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="project">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Project Name</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.project}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="unitnumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Unit</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.unitnumber}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="contractnumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Customer Name</mat-header-cell>
             <!-- <mat-cell *matCellDef="let element">{{ element.namestitle }} {{ element.firstname }} {{ element.firstname }}</mat-cell> -->
             <mat-cell *matCellDef="let element">{{ element.coownername }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="transferdateapprove">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Date</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Transfer Date</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.transferdateapprove | date: 'dd/MM/yyyy' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="remainingtotalamount">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Refund Amount</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Refund Amount</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="doc_sent_status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Status</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }}
                 {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="doc_upload_btn">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Upload</mat-header-cell>
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Upload</mat-header-cell>
             <mat-cell *matCellDef="let element">
-        <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary"
-        *ngIf="element.doc_sent_status != 'A'">Upload Doc.</button>
-        <!-- <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary">Upload Doc.</button> -->
+                <button
+                    mat-raised-button
+                    (click)="uploadByid(element.hyrf_id, element.bankaccountname, element.bankaccountno, element.bankcode)"
+                    class="btn btn-primary"
+                    *ngIf="element.doc_sent_status != 'A'"
+                    style="margin-left: 10px;"
+                >Upload Doc.</button>
+                <!-- <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary">Upload Doc.</button> -->
 
-    </mat-cell>
+            </mat-cell>
 
         </ng-container>
 

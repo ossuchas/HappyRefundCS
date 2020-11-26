@@ -5,6 +5,12 @@ import { UploadService, CustomerService, MasterService } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
 
+export interface ddlBank {
+    bankname: string;
+    adbankname: string;
+}
+
+
 @Component({
     selector: 'app-dialog',
     templateUrl: './dialog.component.html',
@@ -12,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class DialogComponent implements OnInit {
 
-    public listItems: Array<string> = [];
+    public listItems: Array<ddlBank> = [];
     public listItemsBankName: Array<string> = [];
 
     constructor(
@@ -40,18 +46,42 @@ export class DialogComponent implements OnInit {
     _hyrf_id: string;
     _isMobile: string;
 
-    test: any;
+    bankName: any;
     bankAccountNo: any;
     bankAccountName: any;
+
+    temp = {} as ddlBank;
 
     ngOnInit() {
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
+
+        // localStorage.setItem('bankaccountname', rowListData.bankaccountname);
+        // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
+        // localStorage.setItem('bankcode', rowListData.bankcode);
+
+        this.bankName = localStorage.getItem('bankcode');
+        this.bankAccountNo = localStorage.getItem('bankaccountno');
+        this.bankAccountName = localStorage.getItem('bankaccountname');
+
+
+        console.log('rowListData1', this.bankName);
+        console.log('rowListData2', this.bankAccountNo);
+        console.log('rowListData3', this.bankAccountName);
     }
 
     onClose() {
+
+        console.log('ชื่อธนาคาร', this.bankName);
+        console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
+        console.log('เลขบัญชี', this.bankAccountNo);
+
+        this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
+            console.log('Submit1', res);
+        });
+
         this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
-            console.log(res);
+            console.log('Submit2', res);
         });
         this.dialogRef.close();
     }
@@ -78,9 +108,12 @@ export class DialogComponent implements OnInit {
             width: '350px',
             data: 'Do you confirm Upload Document ?'
         });
-        console.log('ชื่อธนาคาร', this.test);
+
+        console.log('ชื่อธนาคาร', this.bankName);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
+
+
         dialogRef.afterClosed().subscribe(result => {
             console.log(this.confirmed);
             if (result) {
@@ -148,10 +181,11 @@ export class DialogComponent implements OnInit {
     dropdownBankMasterRefresh() {
         this.master.getBankMaster().subscribe(data => {
             data.forEach(element => {
-                console.log('ชื่อธนาคาร', element);
-
-                this.listItems.push(element['bankname']);
-
+                // console.log('ชื่อธนาคาร', element);
+                this.temp = {} as ddlBank;
+                this.temp.bankname = element.bankname;
+                this.temp.adbankname = element.adbankname;
+                this.listItems.push(this.temp);
             });
         });
     }
@@ -159,15 +193,11 @@ export class DialogComponent implements OnInit {
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
             data.forEach(element => {
-                console.log('ชื่อบัญชีลูกค้า', element);
+                // console.log('ชื่อบัญชีลูกค้า', element);
                 this.listItemsBankName.push(element['fullname']);
-
             });
         });
     }
 
-    test1() {
-        console.log('test', this.test);
-        console.log('test', this.bankAccountName);
-    }
+
 }

@@ -1,12 +1,20 @@
 <mat-dialog-content>
     <div class="d-flex justify-content-between m-3">
         <h5>Document Upload</h5>
-        <button
+        <!-- <button
             mat-button
             (click)="onClose()"
         >
             <mat-icon>close</mat-icon>
-        </button>
+        </button> -->
+
+        <a
+            mat-icon-button
+            color="warn"
+            (click)="onClose()"
+        >
+            <mat-icon>close</mat-icon>
+        </a>
     </div>
     <div class="container">
         <input
@@ -37,25 +45,81 @@
                     >download</a>
                 </li>
             </ul>
-            <div class="m-3 input-group">
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <label for="exampleSelec">บัญชีธนาคารลูกค้า</label>
+                    <select
+                        required
+                        type="text"
+                        class="form-control"
+                        name="bankcode"
+                        #bankcode="ngModel"
+                        [(ngModel)]="bankName"
+                        placeholder="กรุณากรอกบัญชีธนาคาร"
+                    >
+                        <option
+                            *ngFor="let dl of listItems"
+                            [value]="dl.adbankname"
+                        >{{ dl.bankname }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="exampleSelec">เลขที่บัญชีลูกค้า</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="bankaccountno"
+                        #bankaccountno="ngModel"
+                        [(ngModel)]="bankAccountNo"
+                        placeholder="กรุณากรอกเลขบัญชี"
+                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    >
+                </div>
+                <div class="col">
+                    <label for="exampleSelec">ชื่อบัญชีลูกค้า</label>
+                    <select
+                        required
+                        type="text"
+                        class="form-control"
+                        name="bankaccountname"
+                        #bankaccountname="ngModel"
+                        [(ngModel)]="bankAccountName"
+                        placeholder="กรุณากรอกชื่อบัญชีลูกค้า"
+                    >
+                        <option
+                            *ngFor="let dl of listItemsBankName"
+                            [value]="bankAccountName"
+                        >{{ dl }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 
+            <div class="m-3">
+
                 <div class="input-group-prepend">
                     <span class="input-group-text">บัญชีธนาคารลูกค้า</span>
                 </div>
-                <!-- <input type="text" class="form-control" name="bankcode" #bankcode="ngModel"
-                            [(ngModel)]="service.formData.bankcode" placeholder="ตัวอย่าง KBANK, SCB, KTB"> -->
+
                 <select
                     required
                     type="text"
                     class="form-control"
                     name="bankcode"
                     #bankcode="ngModel"
-                    [(ngModel)]="test"
+                    [(ngModel)]="bankName"
                 >
                     <option
                         *ngFor="let dl of listItems"
                         [value]="dl"
                     >{{ dl }}</option>
-                </select>&nbsp;&nbsp;
+                </select>
+
+                &nbsp;&nbsp;
+
                 <div class="input-group-prepend">
                     <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
                 </div>
@@ -66,7 +130,10 @@
                     #bankaccountno="ngModel"
                     [(ngModel)]="bankAccountNo"
                     placeholder="กรุณากรอกตัวเลข"
-                >&nbsp;&nbsp;
+                >
+
+                &nbsp;&nbsp;
+
                 <div class="input-group-prepend">
                     <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
                 </div>
@@ -83,7 +150,7 @@
                         [value]="dl"
                     >{{ dl }}</option>
                 </select>
-            </div>
+            </div> -->
             <!-- <div class="m-3 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
@@ -98,6 +165,8 @@
                 >
 
             </div> -->
+
+
             <!-- <div class="m-3 input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
@@ -122,6 +191,7 @@
                     mat-raised-button
                     color="primary"
                     class="add-files-btn"
+                    style="background-color: #007bff;"
                     (click)="addFiles()"
                 >
                     Add Files
@@ -154,6 +224,7 @@
                     mat-button
                     mat-dialog-close
                     class="add-files-btn"
+                    style="background-color: #f44336; color: white;"
                 >Cancel</button>
                 <!-- <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
                 class="add-files-btn">{{primaryButtonText}}</button> -->
@@ -164,6 +235,7 @@
                     (click)="openDialog()"
                     *ngIf="!confirmed"
                     class="add-files-btn"
+                    style="background-color: #1e7e34;"
                 >{{primaryButtonText}}</button>
 
                 <button
@@ -172,6 +244,7 @@
                     *ngIf="confirmed"
                     (click)="onClose()"
                     class="add-files-btn"
+                    style="background-color: #1e7e34;"
                 >Finish</button>
 
                 <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>

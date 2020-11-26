@@ -21,7 +21,7 @@ export class CustomerComponent implements OnInit {
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
         public dialog: MatDialog
-    ) {}
+    ) { }
 
     isValidate = false;
     isMobile = false;
@@ -157,9 +157,13 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    uploadByid(_hyrf_id: number) {
+    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string) {
         console.log('uploadByid = ' + _hyrf_id);
         localStorage.setItem('_hyrf_id', _hyrf_id.toString());
+
+        localStorage.setItem('bankaccountname', bankaccountname);
+        localStorage.setItem('bankaccountno', bankaccountno);
+        localStorage.setItem('bankcode', bankcode);
 
         const dialogRef = this.dialog.open(DialogTermComponent);
 

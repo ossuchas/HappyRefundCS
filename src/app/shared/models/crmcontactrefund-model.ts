@@ -23,22 +23,22 @@ export class CrmContactRefund {
     mobile: string;
     email: string;
 
-    tf01_appv_flag:	string;
-    tf01_appv_date:	Date;
+    tf01_appv_flag: string;
+    tf01_appv_date: Date;
     tf01_appv_by: string;
     tf01_remarks: string;
 
-    tf02_appv_flag:	string;
-    tf02_appv_date:	Date;
+    tf02_appv_flag: string;
+    tf02_appv_date: Date;
     tf02_appv_by: string;
     tf02_remarks: string;
 
-    ac01_appv_flag:	string;
+    ac01_appv_flag: string;
     ac01_appv_date: Date;
     ac01_appv_by: string;
     ac01_remarks: string;
 
-    ac02_appv_flag:	string;
+    ac02_appv_flag: string;
     ac02_appv_date: Date;
     ac02_appv_by: string;
     ac02_remarks: string;
@@ -82,4 +82,8 @@ export class CrmContactRefund {
     createdate: Date;
     modifyby: string;
     modifydate: Date;
+
+    bankaccountname: string;
+    bankaccountno: string;
+    bankcode: string;
 }
