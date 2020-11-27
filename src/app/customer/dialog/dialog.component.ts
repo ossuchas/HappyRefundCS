@@ -61,7 +61,7 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
         this.bankName = localStorage.getItem('bankcode');
-        this.bankAccountNo = localStorage.getItem('bankaccountno') ? localStorage.getItem('bankaccountno') : '';
+        this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname');
 
 
