@@ -61,7 +61,7 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
         this.bankName = localStorage.getItem('bankcode');
-        this.bankAccountNo = localStorage.getItem('bankaccountno');
+        this.bankAccountNo = localStorage.getItem('bankaccountno') ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname');
 
 
@@ -76,7 +76,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        if (this.bankAccountNo !== '' && !this.bankName && !this.bankAccountName && this.bankName !== '' && this.bankAccountName !== '') {
+        if (this.bankAccountNo !== '' && this.bankName !== '' && this.bankAccountName !== '') {
             this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
