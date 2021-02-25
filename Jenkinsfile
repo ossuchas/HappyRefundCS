@@ -3,7 +3,7 @@ pipeline {
     registry = "apthailand/suchat_s"
     registryCredential = 'docker_ossuchas'
     dockerImage = ''
-    image_tag_number = 'happyrefundcs_front_v2.0.8'
+    image_tag_number = 'happyrefundcs_front_v2.0.9'
     deployments = 'happyrefundcs'
     projects = 'testrepo'
   }
@@ -32,7 +32,7 @@ pipeline {
     }
     stage('Deploy to OKD') {
       steps{
-          sh "oc login --insecure-skip-tls-verify https://devops01-master.apthai.com:8443 -usuchat_s -pP@ssw0rd"
+          sh "oc login --insecure-skip-tls-verify https://devopsapp01.apthai.com:8443 -usuchat_s -pP@ssw0rd"
           sh "oc project $projects"
           sh "oc patch dc $deployments --patch='{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\": \"$deployments\", \"image\":\"docker.io/$registry:$image_tag_number\"}]}}}}'"
       }
