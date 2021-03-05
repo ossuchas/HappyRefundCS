@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { CrmContactRefundListImgUrlService, CrmContactRefundListImgUrl } from 'src/app/shared';
+import { CrmContactRefundListImgUrlService, CrmContactRefundListImgUrl, MasterService, AuthenticationService } from 'src/app/shared';
 import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 
@@ -10,10 +10,13 @@ import { Inject } from '@angular/core';
     styleUrls: ['./imgview-page.component.scss']
 })
 export class ImgviewPageComponent implements OnInit {
+
     constructor(
         public dialogbox: MatDialogRef<ImgviewPageComponent>,
         public service: CrmContactRefundListImgUrlService,
         private snackBar: MatSnackBar,
+        private master: MasterService,
+        private authen:AuthenticationService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.service.listen().subscribe((m: any) => {
@@ -23,7 +26,7 @@ export class ImgviewPageComponent implements OnInit {
     }
 
     listData: MatTableDataSource<any>;
-    displayedColumn: string[] = ['Options', 'img_seqn', 'img_name'];
+    displayedColumn: string[] = ['View', 'Delete', 'img_seqn', 'img_name'];
 
     ngOnInit() {
         this.refreshDataList(this.data.hyrf_id);
@@ -44,4 +47,15 @@ export class ImgviewPageComponent implements OnInit {
         const img_url = data.img_url;
         window.open(img_url, '_blank');
     }
+
+   onDelete(Data: CrmContactRefundListImgUrl){
+        this.authen.LoginCRM().subscribe(data => {
+            this.master.deleteImg(data.token,Data.img_id).subscribe(data =>{
+                //this.listBankBranch = data;
+                //console.log(this.bankbranch);
+                console.log(Data.img_id);
+            })
+          });
+          alert("Delete Success")
+   }
 }

@@ -33,12 +33,31 @@
             <ul class="list-group collapse">
                 <li class="list-group-item active">เอกสารประกอบการพิจารณา</li>
                 <li class="list-group-item">1.บัตรประชาชน (กรณีคนไทย) หรือ หนังสือเดินทาง Passport (กรณีชาวต่างชาติ)
-                    <span style="font-weight:bold;color:red">ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน</span></li>
-                <li class="list-group-item">2.หน้าสมุดบัญชีเงินฝาก (ออมทรัพย์) เช่น Kbank,SCB,BBL,BAY,KTB เป็นต้น</li>
-                <li class="list-group-item">3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)</li>
+                    <span style="font-weight:bold;color:red">ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน</span> / 
+                    <br> 
+                    <span style="font-weight:bold;color:black;font-size:small;">
+                        Valid Passport copy and co-ownership's passport copy(if any).
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    2.หน้าสมุดบัญชีเงินฝาก (ออมทรัพย์) เช่น Kbank,SCB,BBL,BAY,KTB เป็นต้น / 
+                    <br> 
+                    <span style="font-weight:bold;color:black;font-size:small;">
+                    Thai Bank passbook or overseas bank passbook or e-statement which shown Customer name and bank account number.
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี) / 
+                    <span style="font-weight:bold;color:black;font-size:small;">
+                    Change name certificate(if any).
+                    </span>
+                </li>
                 <li class="list-group-item">
                     4.กรณีผู้ถือกรรมสิทธิ์เป็นชาวต่างชาติและต้องการให้โอนเงินเข้าบัญชีของตนเองในต่างประเทศ
-                    ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน
+                    ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน / <br>
+                    <span style="font-weight:bold;color:black;font-size:small;">
+                    In case request AP to transfer refund to Overseas bank account,please fill in 'Global Outward Application From'  
+                    </span> 
                     <a
                         href="https://drive.google.com/open?id=1ftq6p_x5jLASov7emV9ijwUyB-4J56WY"
                         target="_blank"
@@ -48,24 +67,46 @@
             <br>
             <div class="form-row">
                 <div class="col">
-                    <label for="exampleSelec">บัญชีธนาคารลูกค้า</label>
+                    <label for="exampleSelec">บัญชีธนาคารลูกค้า / Customer Bank Name</label>
+                    <form #f="ngForm">
+                        <select
+                            required
+                            type="text"
+                            class="form-control"
+                            name="dl"
+                            [(ngModel)]="bankName"
+                            placeholder="กรุณากรอกบัญชีธนาคาร"
+                            (change)="changdropdown(f)"
+                        >
+                            <option
+                                *ngFor="let dl of listItems"
+                                [ngValue]="dl"
+                            >{{ dl.bankname }}</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="col">
+                    <label for="exampleSelec">สาขาธนาคารลูกค้า / Customer Bank Branch</label>
                     <select
                         required
                         type="text"
                         class="form-control"
-                        name="bankcode"
-                        #bankcode="ngModel"
-                        [(ngModel)]="bankName"
-                        placeholder="กรุณากรอกบัญชีธนาคาร"
+                        name="bankbranch"
+                        [(ngModel)]="bankbranch"
+                        placeholder="กรุณากรอกสาขาธนาคาร"
+                        [disabled]="bankName.bankno=='999'"
                     >
                         <option
-                            *ngFor="let dl of listItems"
-                            [value]="dl.adbankname"
-                        >{{ dl.bankname }}</option>
-                    </select>
+                            *ngFor="let dl of listBankBranch"
+                            [ngValue]="dl"
+                        >{{ dl.bankBranchName }}</option>
+                    </select> 
                 </div>
+            </div>
+            <br>
+            <div class="form-row">
                 <div class="col">
-                    <label for="exampleSelec">เลขที่บัญชีลูกค้า</label>
+                    <label for="exampleSelec">เลขที่บัญชีลูกค้า / Customer Bank Account Number</label>
                     <input
                         type="text"
                         class="form-control"
@@ -76,7 +117,7 @@
                     >
                 </div>
                 <div class="col">
-                    <label for="exampleSelec">ชื่อบัญชีลูกค้า</label>
+                    <label for="exampleSelec">ชื่อบัญชีลูกค้า / Bank Account Name</label>
                     <select
                         required
                         type="text"

@@ -95,8 +95,10 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Status</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.doc_sent_status | tf01docstatus }}
-                {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }} </mat-cell>
+            <mat-cell *matCellDef="let element">
+                {{ element.doc_sent_status | tf01docstatus }}
+                {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }} 
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="doc_upload_btn">

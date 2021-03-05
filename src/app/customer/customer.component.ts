@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
-import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig, MatCell, MatCellDef, MatColumnDef } from '@angular/material';
 
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
 import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
 import { DialogFirstComponent } from './dialog-first/dialog-first.component';
+import { Tf01docstatusPipe } from '../shared/pipes';
 
 @Component({
     selector: 'app-customer',
@@ -28,6 +29,7 @@ export class CustomerComponent implements OnInit {
     isValidateUpload = false;
     listData: MatTableDataSource<any>;
     btnUpload = true;
+    Remark:string;
 
     displayedColumn: string[] = [
         'Options',
@@ -59,6 +61,8 @@ export class CustomerComponent implements OnInit {
         } else {
             localStorage.setItem('isMobile', '0');
         }
+
+
     }
 
 
@@ -203,4 +207,5 @@ export class CustomerComponent implements OnInit {
             }
         });
     }
+
 }

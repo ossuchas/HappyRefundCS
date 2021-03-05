@@ -1,14 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { forkJoin } from 'rxjs';
-import { UploadService, CustomerService, MasterService } from 'src/app/shared';
+import { forkJoin ,Observable} from 'rxjs';
+import { UploadService, CustomerService, MasterService, AuthenticationService, User } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
+import { FormControl, FormBuilder, FormGroup} from '@angular/forms';
+import { map, startWith} from 'rxjs/operators';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 export interface ddlBank {
     bankname: string;
     adbankname: string;
+    bankno:string;
 }
+export interface dlBankBranch {
+    bankBranchName: string;
+    bankBranchCode:string;
+    bankCode:string;
+
+}
+export interface BankBranchDropdown {
+    name: string;
+  }
 
 
 @Component({
@@ -29,6 +42,7 @@ export class DialogComponent implements OnInit {
         private snackBar: MatSnackBar,
         private router: Router,
         private master: MasterService,
+        private authen:AuthenticationService,
     ) { }
 
     @ViewChild('file', { static: false }) file;
@@ -46,11 +60,18 @@ export class DialogComponent implements OnInit {
     _hyrf_id: string;
     _isMobile: string;
 
-    bankName: any;
+    bankName = {} as ddlBank;
     bankAccountNo: any;
     bankAccountName: any;
+    bankbranch = {} as dlBankBranch;
+
+    listBankBranch:any;
 
     temp = {} as ddlBank;
+    myControl = new FormControl();
+    options: BankBranchDropdown[] = [{name: this.bankbranch.bankBranchName}];
+
+    filteredOptions: Observable<BankBranchDropdown[]>;
 
     ngOnInit() {
         this.dropdownBankMasterRefresh();
@@ -60,24 +81,53 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
-        this.bankName = localStorage.getItem('bankcode');
+        this.bankName.adbankname = localStorage.getItem('bankcode');
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname');
-
 
         console.log('rowListData1', this.bankName);
         console.log('rowListData2', this.bankAccountNo);
         console.log('rowListData3', this.bankAccountName);
+        
+        this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.options.slice())
+      );
     }
+
+    private _filter(name: string): BankBranchDropdown[] {
+        const filterValue = name.toLowerCase();
+        return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    }
+
+
+    changdropdown()
+    {
+        this.authen.LoginCRM().subscribe(data => {
+            this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
+                this.listBankBranch = data;
+                console.log(this.bankbranch);
+            })
+          });
+
+    }
+
 
     onClose() {
 
-        console.log('ชื่อธนาคาร', this.bankName);
+        console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        if (this.bankAccountNo !== '' && this.bankName !== '' && this.bankAccountName !== '') {
-            this.master.bankSubmit(this._hyrf_id, this.bankName, this.bankAccountNo, this.bankAccountName).subscribe(res => {
+        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && !this.bankbranch) {
+            this.master.bankSubmit(this._hyrf_id, 
+                                   this.bankName.adbankname, 
+                                   this.bankAccountNo, 
+                                   this.bankAccountName, 
+                                   this.bankName.bankno,
+                                   this.bankName.bankno === '999'? '0000':this.bankbranch.bankBranchCode,
+                                   this.bankName.bankno === '999'? '-':this.bankbranch.bankBranchName).subscribe(res => { 
+                                    alert("Upload Success");
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
                 });
@@ -89,7 +139,6 @@ export class DialogComponent implements OnInit {
                 data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
             });
         }
-
     }
 
     onClose2() {
@@ -119,7 +168,7 @@ export class DialogComponent implements OnInit {
             data: 'Do you confirm Upload Document ?'
         });
 
-        console.log('ชื่อธนาคาร', this.bankName);
+        console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
@@ -195,6 +244,7 @@ export class DialogComponent implements OnInit {
                 this.temp = {} as ddlBank;
                 this.temp.bankname = element.bankname;
                 this.temp.adbankname = element.adbankname;
+                this.temp.bankno = element.bankid;
                 this.listItems.push(this.temp);
             });
         });
@@ -208,6 +258,8 @@ export class DialogComponent implements OnInit {
             });
         });
     }
+
+    
 
 
 }

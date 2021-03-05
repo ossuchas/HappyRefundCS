@@ -8,11 +8,19 @@
     <mat-table [dataSource]="listData" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
-        <ng-container matColumnDef="Options">
+        <ng-container matColumnDef="View">
             <mat-header-cell *matHeaderCellDef>View Images</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button mat-icon-button (click)="onView(row)">
                     <mat-icon>zoom_in</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Delete">
+            <mat-header-cell *matHeaderCellDef>Delete Images</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button (click)="onDelete(row)">
+                    <mat-icon>delete</mat-icon>
                 </button>
             </mat-cell>
         </ng-container>
