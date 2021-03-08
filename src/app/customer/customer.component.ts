@@ -190,8 +190,8 @@ export class CustomerComponent implements OnInit {
                             this.isValidate = true;
                             this.listData = new MatTableDataSource(data);
                             // console.log(data);
-                            console.log('test')
-                            this.toasterService.success('Success');
+                            console.log('asdasdasd',result1)
+                            // this.toasterService.success('Success');
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
                             // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;

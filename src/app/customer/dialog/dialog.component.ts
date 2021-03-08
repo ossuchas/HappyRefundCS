@@ -8,6 +8,8 @@ import { FormControl, FormBuilder, FormGroup} from '@angular/forms';
 import { map, startWith} from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
+import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
+import { DialogFirstComponent } from '../dialog-first/dialog-first.component';
 
 export interface ddlBank {
     bankname: string;
@@ -41,6 +43,7 @@ export class DialogComponent implements OnInit {
         private master: MasterService,
         private authen:AuthenticationService,
         private config: NgSelectConfig,
+        private toasterService: ToastrService,
      
     ) { 
         this.config.notFoundText = 'Custom not found';
@@ -104,6 +107,12 @@ export class DialogComponent implements OnInit {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
                 console.log(this.bankbranch);
+                if(data.length === 0 && this.bankName.bankno !== '999'){
+                    const dialogRef = this.dialog.open(WarningDialogComponent, {
+                        width: '350px',
+                        data: 'ระบบไม่แสดงสาขาธนาคาร กรุณาติดต่อ IT Consult 0-2261-2518 Ext.333'
+                    });
+                }
             })
           });
 
@@ -127,10 +136,10 @@ export class DialogComponent implements OnInit {
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
                     console.log("aaaa")
-             
-                
+                    this.toasterService.success('Success');
+                    this.dialogRef.close();
                 });
-                this.dialogRef.close();
+
             });
         } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -156,7 +165,17 @@ export class DialogComponent implements OnInit {
     }
 
     addFiles() {
+        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+        {
         this.file.nativeElement.click();
+        }
+        else
+        {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: '350px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
+            });
+        }
     }
     // closeDialog1() {
     //     console.log('xxx');
@@ -280,5 +299,7 @@ export class DialogComponent implements OnInit {
         this.select1Comp.close()
       }
 
+      close(){
 
+      }
 }

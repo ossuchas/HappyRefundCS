@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -7,7 +7,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent {
+
+
     constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>, @Inject(MAT_DIALOG_DATA) public message: string) {}
+
     onNoClick(): void {
         this.dialogRef.close();
     }

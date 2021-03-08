@@ -107,7 +107,8 @@
                         [items]="listBankBranch"
                         bindLabel="bankBranchName"
                         dropdownPosition="show"
-                        [(ngModel)]="bankbranch" *ngIf="bankName.bankno !== '999'">
+                        [(ngModel)]="bankbranch" 
+                        *ngIf="bankName.bankno !== '999' && (bankName&&bankName.bankno) && listBankBranch.length>0">
                     </ng-select>
                     <ng-select 
                         name="bankbranch"
@@ -115,7 +116,7 @@
                         bindLabel="bankBranchName"
                         dropdownPosition="show"
                         [(ngModel)]="bankbranch" 
-                        [(ngModel)]="bankbranch" *ngIf="bankName.bankno === '999'"
+                        *ngIf="bankName.bankno === '999' || !(bankName&&bankName.bankno) || listBankBranch.length === 0"
                         disabled>
                     </ng-select>
                 </div>
@@ -302,7 +303,11 @@
                     (click)="onClose()"
                     class="add-files-btn"
                     style="background-color: #1e7e34;"
-                >Finish</button>
+                >
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                    
+                </span>
+                Finish</button>
 
                 <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>
             <button mat-raised-button color="primary" (click)="onClose()" *ngIf="!canBeClosed"

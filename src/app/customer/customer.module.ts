@@ -32,6 +32,7 @@ import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
 import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
+import { WarningDialogComponent } from './dialog/warning-dialog/warning-dialog.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ToastrModule } from 'ngx-toastr';
         DialogTermComponent,
         Tf01docstatusPipe,
         ImgviewPageComponent,
-        DialogFirstComponent
+        DialogFirstComponent,
+        WarningDialogComponent
     ],
     imports: [
         CommonModule,
@@ -66,6 +68,6 @@ import { ToastrModule } from 'ngx-toastr';
             positionClass :'toast-bottom-right'
           }),
     ],
-    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent, WarningDialogComponent]
 })
 export class CustomerModule {}
