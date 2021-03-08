@@ -103,11 +103,20 @@
                         >{{ dl.bankBranchName }}</option>
                     </select>  -->
                     <ng-select 
+                        name="bankbranch"
                         [items]="listBankBranch"
                         bindLabel="bankBranchName"
                         dropdownPosition="show"
-                        [(ngModel)]="bankbranch">
-                        [disabled]="bankName.bankno==='999'"
+                        [(ngModel)]="bankbranch" *ngIf="bankName.bankno !== '999'">
+                    </ng-select>
+                    <ng-select 
+                        name="bankbranch"
+                        [items]="listBankBranch"
+                        bindLabel="bankBranchName"
+                        dropdownPosition="show"
+                        [(ngModel)]="bankbranch" 
+                        [(ngModel)]="bankbranch" *ngIf="bankName.bankno === '999'"
+                        disabled>
                     </ng-select>
                 </div>
             </div>

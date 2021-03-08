@@ -91,10 +91,15 @@ export class DialogComponent implements OnInit {
         
 
     }
-
+4
 
     changdropdown()
     {
+
+        if(this.bankName.bankno=== '999'){
+            this.bankbranch = {} as dlBankBranch;
+        }
+
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
@@ -111,7 +116,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '') {
+        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName)))) {
             this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 

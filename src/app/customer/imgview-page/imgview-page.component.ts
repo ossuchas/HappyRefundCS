@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { CrmContactRefundListImgUrlService, CrmContactRefundListImgUrl, MasterService, AuthenticationService } from 'src/app/shared';
 import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-imgview-page',
@@ -10,7 +11,6 @@ import { Inject } from '@angular/core';
     styleUrls: ['./imgview-page.component.scss']
 })
 export class ImgviewPageComponent implements OnInit {
-    toasterService: any;
 
     constructor(
         public dialogbox: MatDialogRef<ImgviewPageComponent>,
@@ -18,6 +18,7 @@ export class ImgviewPageComponent implements OnInit {
         private snackBar: MatSnackBar,
         private master: MasterService,
         private authen:AuthenticationService,
+        private toasterService:ToastrService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.service.listen().subscribe((m: any) => {
@@ -52,11 +53,11 @@ export class ImgviewPageComponent implements OnInit {
    onDelete(Data: CrmContactRefundListImgUrl){
         this.authen.LoginCRM().subscribe(data => {
             this.master.deleteImg(data.token,Data.img_id).subscribe(data =>{
-                //this.listBankBranch = data;
-                //console.log(this.bankbranch);
                 console.log(Data.img_id);
+                this.toasterService.success('Delete Success');
+                this.refreshDataList(this.data.hyrf_id);
             })
           });
-          this.toasterService.success('Delete Success');
+          
    }
 }
