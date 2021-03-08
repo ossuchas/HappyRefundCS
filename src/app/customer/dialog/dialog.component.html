@@ -76,7 +76,7 @@
                             name="dl"
                             [(ngModel)]="bankName"
                             placeholder="กรุณากรอกบัญชีธนาคาร"
-                            (change)="changdropdown(f)"
+                            (change)="changdropdown()"
                         >
                             <option
                                 *ngFor="let dl of listItems"
@@ -103,12 +103,11 @@
                         >{{ dl.bankBranchName }}</option>
                     </select>  -->
                     <ng-select 
-                        [items]="listBankBranch" #select1
+                        [items]="listBankBranch"
                         bindLabel="bankBranchName"
-                        
                         dropdownPosition="show"
                         [(ngModel)]="bankbranch">
-                        [disabled]="bankName.bankno=='999'"
+                        [disabled]="bankName.bankno==='999'"
                     </ng-select>
                 </div>
             </div>
