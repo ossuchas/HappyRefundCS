@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { forkJoin ,Observable} from 'rxjs';
+import { forkJoin ,Observable, Subscription} from 'rxjs';
 import { UploadService, CustomerService, MasterService, AuthenticationService, User } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
@@ -76,6 +76,10 @@ export class DialogComponent implements OnInit {
 
     temp = {} as ddlBank;
 
+    busy: Subscription;
+
+    loading: boolean;
+
     ngOnInit() {
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
@@ -109,8 +113,8 @@ export class DialogComponent implements OnInit {
                 console.log(this.bankbranch);
                 if(data.length === 0 && this.bankName.bankno !== '999'){
                     const dialogRef = this.dialog.open(WarningDialogComponent, {
-                        width: '350px',
-                        data: 'ระบบไม่แสดงสาขาธนาคาร กรุณาติดต่อ IT Consult 0-2261-2518 Ext.333'
+                        width: '340px',
+                        data: 'ระบบไม่แสดงสาขาธนาคาร กรุณาติดต่อ \nIT Consult 0-2261-2518 Ext.333'
                     });
                 }
             })
@@ -120,13 +124,11 @@ export class DialogComponent implements OnInit {
 
 
     onClose() {
-
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
-
         if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName)))) {
-            this.master.bankSubmit(this._hyrf_id, 
+            this.busy = this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 
                                    this.bankAccountName, 
@@ -134,14 +136,16 @@ export class DialogComponent implements OnInit {
                                    this.bankName.bankno === '999'? '0000':this.bankbranch.bankBranchCode,
                                    this.bankName.bankno === '999'? '-':this.bankbranch.bankBranchName).subscribe(res => { 
                 console.log('Submit1', res);
-                this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
-                    console.log("aaaa")
+                this.busy = this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
                     this.toasterService.success('Success');
+                    
                     this.dialogRef.close();
                 });
 
             });
+            
         } else {
+            this.loading = false;
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '350px',
                 data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
@@ -302,4 +306,6 @@ export class DialogComponent implements OnInit {
       close(){
 
       }
+
+
 }
