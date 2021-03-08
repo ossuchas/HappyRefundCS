@@ -21,6 +21,7 @@
                 type="submit"
                 class="btn btn-success"
             >Validate</button>
+
             <!-- Kai Modified by Deployment 13.08.2020 -->
             <!-- <img src="https://i.ibb.co/dm76vC4/under-con-v3-0.png" alt="under-con-v3-0" border="0"> -->
         </fieldset>
@@ -97,7 +98,11 @@
             >Status</mat-header-cell>
             <mat-cell *matCellDef="let element">
                 {{ element.doc_sent_status | tf01docstatus }}
-                {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }} 
+                {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }}
+                <div *ngIf="element.ac02_appv_flag !== 'N'">หมายเหตุ : {{element.ac02_remarks}}</div>
+                <div *ngIf="element.ac01_appv_flag !== 'N'&&element.ac02_appv_flag === 'N'">หมายเหตุ : {{element.ac01_remarks}}</div>
+                <div *ngIf="element.tf02_appv_flag !== 'N'&&element.ac01_appv_flag === 'N'">หมายเหตุ : {{element.tf02_remarks}}</div>
+                <div *ngIf="element.tf01_appv_flag !== 'N'&&element.tf02_appv_flag === 'N'">หมายเหตุ : {{element.tf01_remarks}}</div>
             </mat-cell>
         </ng-container>
 

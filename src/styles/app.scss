@@ -5,7 +5,7 @@
 @import "rtl";
 @import "responsive";
 @import "font";
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
 @media print {
     .breadcrumb {
         display: none !important;

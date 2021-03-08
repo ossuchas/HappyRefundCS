@@ -10,6 +10,7 @@ import { DialogTermComponent } from './dialog-term/dialog-term.component';
 import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
 import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-customer',
@@ -21,7 +22,8 @@ export class CustomerComponent implements OnInit {
         // private srvUpload: UploadServiceisValidateUpload,
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private toasterService: ToastrService,
     ) { }
 
     isValidate = false;
@@ -188,6 +190,8 @@ export class CustomerComponent implements OnInit {
                             this.isValidate = true;
                             this.listData = new MatTableDataSource(data);
                             // console.log(data);
+                            console.log('test')
+                            this.toasterService.success('Success');
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
                             // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;

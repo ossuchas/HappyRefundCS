@@ -87,7 +87,7 @@
                 </div>
                 <div class="col">
                     <label for="exampleSelec">สาขาธนาคารลูกค้า / Customer Bank Branch</label>
-                    <select
+                    <!-- <select
                         required
                         type="text"
                         class="form-control"
@@ -95,12 +95,21 @@
                         [(ngModel)]="bankbranch"
                         placeholder="กรุณากรอกสาขาธนาคาร"
                         [disabled]="bankName.bankno=='999'"
+                        (search)=""
                     >
                         <option
                             *ngFor="let dl of listBankBranch"
                             [ngValue]="dl"
                         >{{ dl.bankBranchName }}</option>
-                    </select> 
+                    </select>  -->
+                    <ng-select 
+                        [items]="listBankBranch" #select1
+                        bindLabel="bankBranchName"
+                        
+                        dropdownPosition="show"
+                        [(ngModel)]="bankbranch">
+                        [disabled]="bankName.bankno=='999'"
+                    </ng-select>
                 </div>
             </div>
             <br>

@@ -10,6 +10,7 @@ import { Inject } from '@angular/core';
     styleUrls: ['./imgview-page.component.scss']
 })
 export class ImgviewPageComponent implements OnInit {
+    toasterService: any;
 
     constructor(
         public dialogbox: MatDialogRef<ImgviewPageComponent>,
@@ -26,7 +27,7 @@ export class ImgviewPageComponent implements OnInit {
     }
 
     listData: MatTableDataSource<any>;
-    displayedColumn: string[] = ['View', 'Delete', 'img_seqn', 'img_name'];
+    displayedColumn: string[] = ['View', 'Delete', 'img_name'];
 
     ngOnInit() {
         this.refreshDataList(this.data.hyrf_id);
@@ -56,6 +57,6 @@ export class ImgviewPageComponent implements OnInit {
                 console.log(Data.img_id);
             })
           });
-          alert("Delete Success")
+          this.toasterService.success('Delete Success');
    }
 }

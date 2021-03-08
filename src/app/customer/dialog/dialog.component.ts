@@ -6,7 +6,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { Router } from '@angular/router';
 import { FormControl, FormBuilder, FormGroup} from '@angular/forms';
 import { map, startWith} from 'rxjs/operators';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { ToastrService } from 'ngx-toastr';
 
 export interface ddlBank {
     bankname: string;
@@ -19,10 +20,6 @@ export interface dlBankBranch {
     bankCode:string;
 
 }
-export interface BankBranchDropdown {
-    name: string;
-  }
-
 
 @Component({
     selector: 'app-dialog',
@@ -43,9 +40,16 @@ export class DialogComponent implements OnInit {
         private router: Router,
         private master: MasterService,
         private authen:AuthenticationService,
-    ) { }
+        private config: NgSelectConfig,
+     
+    ) { 
+        this.config.notFoundText = 'Custom not found';
+    }
 
     @ViewChild('file', { static: false }) file;
+    isbeingSearched: boolean = false;
+    @ViewChild('select1',{ static: false })
+    select1Comp: NgSelectComponent;
 
     public files: Set<File> = new Set();
 
@@ -68,10 +72,6 @@ export class DialogComponent implements OnInit {
     listBankBranch:any;
 
     temp = {} as ddlBank;
-    myControl = new FormControl();
-    options: BankBranchDropdown[] = [{name: this.bankbranch.bankBranchName}];
-
-    filteredOptions: Observable<BankBranchDropdown[]>;
 
     ngOnInit() {
         this.dropdownBankMasterRefresh();
@@ -89,15 +89,7 @@ export class DialogComponent implements OnInit {
         console.log('rowListData2', this.bankAccountNo);
         console.log('rowListData3', this.bankAccountName);
         
-        this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
-    }
 
-    private _filter(name: string): BankBranchDropdown[] {
-        const filterValue = name.toLowerCase();
-        return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
     }
 
 
@@ -119,7 +111,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
 
-        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && !this.bankbranch) {
+        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '') {
             this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 
@@ -127,9 +119,11 @@ export class DialogComponent implements OnInit {
                                    this.bankName.bankno,
                                    this.bankName.bankno === '999'? '0000':this.bankbranch.bankBranchCode,
                                    this.bankName.bankno === '999'? '-':this.bankbranch.bankBranchName).subscribe(res => { 
-                                    alert("Upload Success");
                 console.log('Submit1', res);
                 this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
+                    console.log("aaaa")
+             
+                
                 });
                 this.dialogRef.close();
             });
@@ -139,6 +133,7 @@ export class DialogComponent implements OnInit {
                 data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
             });
         }
+        
     }
 
     onClose2() {
@@ -259,7 +254,26 @@ export class DialogComponent implements OnInit {
         });
     }
 
-    
+    OnOpen(){
+        console.log("OnOpen");
+        if(!this.isbeingSearched)
+        {
+          this.select1Comp.close()      
+        }
+      
+      }
+      
+      OnSearch(){
+        this.isbeingSearched = true;
+        console.log("OnSearch");
+        this.select1Comp.open()
+      }
+      
+      OnBlue(){
+        console.log("OnBlue");
+        this.isbeingSearched = false;
+        this.select1Comp.close()
+      }
 
 
 }
