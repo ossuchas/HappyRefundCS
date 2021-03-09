@@ -33,7 +33,7 @@ export class MasterService {
 
   getBankBranch(token,bankID): Observable<any>
   {
-   var  httpOptions = {
+   var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization' : 'Bearer '+token

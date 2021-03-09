@@ -11,7 +11,14 @@
         </ol>
     </div>
 </div> -->
-<header class="site-header">
+<header class="site-header" *ngIf="production===true">
+    <picture>
+        <img src="assets/images/aplogo.png" width="50px" />
+        <label class="label_h1">Happy Refund</label>
+    </picture>
+</header>
+
+<header class="site-header-dev" *ngIf="production===false">
     <picture>
         <img src="assets/images/aplogo.png" width="50px" />
         <label class="label_h1">Happy Refund</label>

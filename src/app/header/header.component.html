@@ -1,4 +1,12 @@
-<header class="site-header">
+<header class="site-header" *ngIf="production===true">
+    <picture>
+    <a href="https://happyrefund.apthai.com">
+        <img src="assets/images/aplogo.png" width="50px" /></a>
+        <label class="label_h1">Happy Refund</label>
+    </picture>
+</header>
+
+<header class="site-header-dev" *ngIf="production===false">
     <picture>
     <a href="https://happyrefund.apthai.com">
         <img src="assets/images/aplogo.png" width="50px" /></a>

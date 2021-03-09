@@ -98,15 +98,12 @@ export class DialogComponent implements OnInit {
         
 
     }
-4
 
     changdropdown()
     {
-
         if(this.bankName.bankno=== '999'){
             this.bankbranch = {} as dlBankBranch;
         }
-
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
