@@ -3,7 +3,7 @@ pipeline {
     registry = "apthailand/suchat_s"
     registryCredential = 'docker_ossuchas'
     dockerImage = ''
-    image_tag_number = 'happyrefundcs_front_v3.0.6'
+    image_tag_number = 'happyrefundcs_front_v3.0.7'
     deployments = 'happyrefundcs'
     projects = 'testrepo'
   }
