@@ -15,6 +15,7 @@ export interface ddlBank {
     bankname: string;
     adbankname: string;
     bankno:string;
+    banknameEN:string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
@@ -98,7 +99,7 @@ export class DialogComponent implements OnInit {
         
 
     }
-
+    bankbranchDefult:string;
     changdropdown()
     {
         if(this.bankName.bankno=== '999'){
@@ -109,11 +110,9 @@ export class DialogComponent implements OnInit {
                 this.listBankBranch = data;
                 console.log(this.bankbranch);
                 if(data.length === 0 && this.bankName.bankno !== '999'){
-                    const dialogRef = this.dialog.open(WarningDialogComponent, {
-                        width: '340px',
-                        data: 'ระบบไม่แสดงสาขาธนาคาร กรุณาติดต่อ \nIT Consult 0-2261-2518 Ext.333'
-                    });
+                    this.bankbranchDefult = 'สำนักงานใหญ่'
                 }
+                console.log(this.bankbranchDefult)
             })
           });
 
@@ -156,17 +155,31 @@ export class DialogComponent implements OnInit {
     }
 
     onFilesAdded() {
+        let regexp = new RegExp('^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$');
         const files: { [key: string]: File } = this.file.nativeElement.files;
-        for (const key in files) {
-            if (!isNaN(parseInt(key))) {
-                this.files.add(files[key]);
+        console.log(this.file.nativeElement.files[0].name)
+        console.log(regexp.test(this.file.nativeElement.files[0].name))
+        if(regexp.test(this.file.nativeElement.files[0].name))
+        {
+            for (const key in files) {
+                if (!isNaN(parseInt(key))) {
+                    this.files.add(files[key]);
+                }
             }
+            this.showButton = true;
         }
-        this.showButton = true;
+        else
+        {
+            const dialogRef = this.dialog.open(WarningDialogComponent, {
+                width: '300px',
+                data: 'ชื่อไฟล์ต้องเป็นภาษาอังกฤษเท่านั้น\nThe file name must be in English only.'
+            });
+        }
+
     }
 
-    addFiles() {
-        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+    addFiles() { 
+        if (this.bankAccountName!== '' && this.bankAccountNo !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
         this.file.nativeElement.click();
         }
@@ -265,6 +278,7 @@ export class DialogComponent implements OnInit {
                 this.temp.bankname = element.bankname;
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
+                this.temp.banknameEN = element.banknameEN;
                 this.listItems.push(this.temp);
             });
         });

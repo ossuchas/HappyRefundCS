@@ -23,7 +23,23 @@ p {
     font-family: AP-Regular;
 }
 
+:focus {
 
+    outline-width: 0px;
+}
+
+.mat-dialog-content{
+    display: block;
+    // padding: 24px;
+    // border-radius: 4px;
+    // box-sizing: border-box;
+    // overflow: auto;
+    // outline: 0;
+    width: 105%;
+    height: 150%;
+    // min-height: inherit;
+    // max-height: inherit;
+}
 // .mat-typography {
 //     font-family: AP-Regular;
 //     font-size:14px;

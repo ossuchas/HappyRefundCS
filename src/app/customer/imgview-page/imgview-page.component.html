@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between m-3">
-    <h5>List of Document Upload</h5>
+    <h5>List of Uploaded Documents</h5>
     <button mat-button (click)="onClose()">
         <mat-icon>close</mat-icon>
     </button>
@@ -8,17 +8,12 @@
     <mat-table [dataSource]="listData" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
-        <ng-container matColumnDef="View">
-            <mat-header-cell *matHeaderCellDef>View Images</mat-header-cell>
+        <ng-container matColumnDef="View/Delete">
+            <mat-header-cell *matHeaderCellDef>View/Delete</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button mat-icon-button (click)="onView(row)">
                     <mat-icon>zoom_in</mat-icon>
                 </button>
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Delete">
-            <mat-header-cell *matHeaderCellDef>Delete Images</mat-header-cell>
-            <mat-cell *matCellDef="let row">
                 <button mat-icon-button (click)="onDelete(row)">
                     <mat-icon>delete_outline</mat-icon>
                 </button>
@@ -41,7 +36,7 @@
         </ng-container> -->
 
         <ng-container matColumnDef="img_name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ชื่อไฟล์ภาพ</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Filenames</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.img_name}}</mat-cell>
         </ng-container>
 

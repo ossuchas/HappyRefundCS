@@ -8,10 +8,10 @@
         class="form col-xl-6 text-xs-center"
     >
         <fieldset class="form-group">
-            <label class="label_header info round">Personal ID or Passport ID / เลขบัตรประชาชน หรือ พาสปอร์ต</label>
+            <label class="label_header info round">เลขบัตรประชาชน หรือ พาสปอร์ต / Personal ID or Passport ID</label>
             <input
                 class="form-control"
-                placeholder="fill Personal ID or Passport ID/ กรุณาระบุบัตรประชาชนหรือพาสปอร์ต "
+                placeholder="เลขบัตรประชาชน หรือ พาสปอร์ต / Please fill in Personal ID or Passport ID"
                 name="personalid"
                 #personalid="ngModel"
                 ngModel
@@ -40,7 +40,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
         <ng-container matColumnDef="Options">
-            <mat-header-cell *matHeaderCellDef>Preview</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button
                     mat-icon-button
@@ -87,7 +87,7 @@
             <mat-header-cell
                 *matHeaderCellDef
                 mat-sort-header
-            >Refund Amount</mat-header-cell>
+            >Refund Amount (Baht)</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
@@ -110,7 +110,7 @@
             <mat-header-cell
                 *matHeaderCellDef
                 mat-sort-header
-            >Upload</mat-header-cell>
+            >Upload Doc.</mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <button
                     mat-raised-button

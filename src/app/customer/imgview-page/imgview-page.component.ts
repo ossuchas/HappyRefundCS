@@ -28,7 +28,7 @@ export class ImgviewPageComponent implements OnInit {
     }
 
     listData: MatTableDataSource<any>;
-    displayedColumn: string[] = ['View', 'Delete', 'img_name'];
+    displayedColumn: string[] = ['View/Delete', 'img_name'];
 
     ngOnInit() {
         this.refreshDataList(this.data.hyrf_id);
@@ -41,7 +41,10 @@ export class ImgviewPageComponent implements OnInit {
     refreshDataList(id: number) {
         this.service.getImgList(id).subscribe(data => {
             this.listData = new MatTableDataSource(data);
-        });
+            console.log(this.listData)
+        },
+        err => { this.listData= new MatTableDataSource()
+        },);
     }
 
     onView(data: CrmContactRefundListImgUrl) {
@@ -50,14 +53,14 @@ export class ImgviewPageComponent implements OnInit {
         window.open(img_url, '_blank');
     }
 
-   onDelete(Data: CrmContactRefundListImgUrl){
+    onDelete(Data: CrmContactRefundListImgUrl){
         this.authen.LoginCRM().subscribe(data => {
             this.master.deleteImg(data.token,Data.img_id).subscribe(data =>{
                 console.log(Data.img_id);
-                this.toasterService.success('Delete Success');
                 this.refreshDataList(this.data.hyrf_id);
+                this.toasterService.success('Delete Success');
+                
             })
-          });
-          
-   }
+        });
+    }
 }
