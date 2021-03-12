@@ -7,7 +7,7 @@
 }
 
 .input-group {
-    width: 600px;
+    width: 300px;
 }
 
 .justify-content-between {
@@ -42,4 +42,15 @@ mat-cell {
     font-size:12px;
     font-family: AP-Regular;
 }
-
+.mat-column-View-Delete{
+    flex: 0 0 40%;
+ }
+ .mat-column-img_name{
+    flex: 0 0 60%;
+    text-align: left;
+ }
+.mat-dialog-container {
+    padding: 24px;
+    width: 40%;
+    height: 100%;
+}

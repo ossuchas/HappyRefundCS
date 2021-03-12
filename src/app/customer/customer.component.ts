@@ -4,7 +4,7 @@ import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig, MatCell, MatCellDef, MatColumnDef } from '@angular/material';
 
-import { forkJoin } from 'rxjs';
+import { forkJoin, from } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogTermComponent } from './dialog-term/dialog-term.component';
 import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
@@ -70,7 +70,6 @@ export class CustomerComponent implements OnInit {
 
     validate(form: NgForm) {
         // console.log(form.value);
-
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             data => {
                 this.isValidate = true;
@@ -97,6 +96,7 @@ export class CustomerComponent implements OnInit {
                 });
             }
         );
+
     }
 
     upload(form: NgForm) {

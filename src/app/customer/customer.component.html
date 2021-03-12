@@ -36,9 +36,11 @@
     <mat-table
         [dataSource]="listData"
         matSort
+        
     >
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
+        
         <ng-container matColumnDef="Options">
             <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -50,6 +52,7 @@
                 </button>
             </mat-cell>
         </ng-container>
+    
         <ng-container matColumnDef="project">
             <mat-header-cell
                 *matHeaderCellDef
@@ -67,7 +70,7 @@
         </ng-container>
 
         <ng-container matColumnDef="contractnumber">
-            <mat-header-cell
+            <mat-header-cell 
                 *matHeaderCellDef
                 mat-sort-header
             >Customer Name</mat-header-cell>

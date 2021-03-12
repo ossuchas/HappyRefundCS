@@ -107,8 +107,9 @@ export class DialogComponent implements OnInit {
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
-                console.log(this.bankbranch);
-                if(data.length === 0 && this.bankName.bankno !== '999'){
+                console.log('bankbranchCount',this.listBankBranch.length);
+                console.log('bankbranchCount',this.bankName.bankno);
+                if(this.listBankBranch.length === null && this.bankName.bankno !== '999'){
                     this.bankbranch.bankBranchName = 'สำนักงานใหญ่'
                 }
             })
@@ -121,13 +122,16 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
-        if(this.bankName.bankno === '999')
-        {
+        if(this.bankName.bankno === '999'){
             this.bankbranch.bankBranchCode = '0000';
             this.bankbranch.bankBranchName = '-';
         }
-        console.log()
-        if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName)))) {
+        else if (this.bankName.bankno !== '999' && this.listBankBranch.length === 0){
+            this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
+            this.bankbranch.bankBranchCode = '0001';
+        }
+        
+        if (this.bankAccountNo && this.bankName.adbankname && this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)))) {
             this.busy = this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 
@@ -183,16 +187,15 @@ export class DialogComponent implements OnInit {
     }
 
     addFiles() {
-        if (this.bankAccountNo!==''&&((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+        if (this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
         this.file.nativeElement.click();
-        
         }
         else
         {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                width: '280px',
-                data: 'กรุณากรอกข้อมูลให้ครบถ้วน\nPlease fill up required fields.'
+                width: '350px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
             });
         }
     }
@@ -203,7 +206,7 @@ export class DialogComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
-            data: 'คุณต้องการยืนยันการแนบเอกสารใช่หรือไม่\nDo you want to confirm your attached files?'
+            data: 'Do you confirm Upload Document ?'
         });
 
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
@@ -316,10 +319,6 @@ export class DialogComponent implements OnInit {
         console.log("OnBlue");
         this.isbeingSearched = false;
         this.select1Comp.close()
-      }
-
-      close(){
-
       }
 
 

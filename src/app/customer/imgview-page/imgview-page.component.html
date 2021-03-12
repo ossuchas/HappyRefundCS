@@ -1,3 +1,4 @@
+
 <div class="d-flex justify-content-between m-3">
     <h5>List of Uploaded Documents</h5>
     <button mat-button (click)="onClose()">
@@ -8,19 +9,21 @@
     <mat-table [dataSource]="listData" matSort>
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
-        <ng-container matColumnDef="View/Delete">
-            <mat-header-cell *matHeaderCellDef>View/Delete</mat-header-cell>
+
+
+        <ng-container matColumnDef="View-Delete">
+            <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button mat-icon-button (click)="onView(row)">
                     <mat-icon>zoom_in</mat-icon>
                 </button>
-                <button mat-icon-button (click)="onDelete(row)">
+                <!-- <button mat-icon-button (click)="onDelete(row)">
                     <mat-icon>delete_outline</mat-icon>
-                </button>
+                </button> -->
             </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="img_id">
+        <!-- <ng-container matColumnDef="img_id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>img_id</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.img_id}}</mat-cell>
         </ng-container>
@@ -28,7 +31,7 @@
         <ng-container matColumnDef="img_ref_contact_refund">
             <mat-header-cell *matHeaderCellDef mat-sort-header>img_ref_contact_refund</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.img_ref_contact_refund}}</mat-cell>
-        </ng-container>
+        </ng-container> -->
 
         <!-- <ng-container matColumnDef="img_seqn">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ลำดับภาพ</mat-header-cell>
@@ -40,9 +43,9 @@
             <mat-cell *matCellDef="let element">{{ element.img_name}}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="img_url">
+        <!-- <ng-container matColumnDef="img_url">
             <mat-header-cell *matHeaderCellDef mat-sort-header>img_url</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.img_url}}</mat-cell>
-        </ng-container>
+        </ng-container> -->
     </mat-table>
-    </div>
+</div>
