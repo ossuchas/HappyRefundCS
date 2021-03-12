@@ -15,7 +15,6 @@ export interface ddlBank {
     bankname: string;
     adbankname: string;
     bankno:string;
-    banknameEN:string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
@@ -99,7 +98,7 @@ export class DialogComponent implements OnInit {
         
 
     }
-    bankbranchDefult:string;
+
     changdropdown()
     {
         if(this.bankName.bankno=== '999'){
@@ -110,9 +109,8 @@ export class DialogComponent implements OnInit {
                 this.listBankBranch = data;
                 console.log(this.bankbranch);
                 if(data.length === 0 && this.bankName.bankno !== '999'){
-                    this.bankbranchDefult = 'สำนักงานใหญ่'
+                    this.bankbranch.bankBranchName = 'สำนักงานใหญ่'
                 }
-                console.log(this.bankbranchDefult)
             })
           });
 
@@ -123,14 +121,20 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
+        if(this.bankName.bankno === '999')
+        {
+            this.bankbranch.bankBranchCode = '0000';
+            this.bankbranch.bankBranchName = '-';
+        }
+        console.log()
         if (this.bankAccountNo !== '' && this.bankName.adbankname !== '' && this.bankAccountName !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName)))) {
             this.busy = this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 
                                    this.bankAccountName, 
                                    this.bankName.bankno,
-                                   this.bankName.bankno === '999'? '0000':this.bankbranch.bankBranchCode,
-                                   this.bankName.bankno === '999'? '-':this.bankbranch.bankBranchName).subscribe(res => { 
+                                   this.bankbranch.bankBranchCode,
+                                   this.bankbranch.bankBranchName).subscribe(res => { 
                 console.log('Submit1', res);
                 this.busy = this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
                     this.toasterService.success('Success');
@@ -178,16 +182,17 @@ export class DialogComponent implements OnInit {
 
     }
 
-    addFiles() { 
-        if (this.bankAccountName!== '' && this.bankAccountNo !== '' && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+    addFiles() {
+        if (this.bankAccountNo!==''&&((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
         this.file.nativeElement.click();
+        
         }
         else
         {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                width: '350px',
-                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
+                width: '280px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน\nPlease fill up required fields.'
             });
         }
     }
@@ -198,7 +203,7 @@ export class DialogComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
-            data: 'Do you confirm Upload Document ?'
+            data: 'คุณต้องการยืนยันการแนบเอกสารใช่หรือไม่\nDo you want to confirm your attached files?'
         });
 
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
@@ -278,7 +283,6 @@ export class DialogComponent implements OnInit {
                 this.temp.bankname = element.bankname;
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
-                this.temp.banknameEN = element.banknameEN;
                 this.listItems.push(this.temp);
             });
         });

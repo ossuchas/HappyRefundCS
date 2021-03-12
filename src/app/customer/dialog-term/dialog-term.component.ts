@@ -11,5 +11,15 @@ export class DialogTermComponent implements OnInit {
 
   ngOnInit() {
   }
+  tabpage = false
+  onClick(){
 
+    
+    // if(this.tabpage = false){
+      this.tabpage = true
+    // }
+    // else{
+    //   this.tabpage = false
+    // }
+  }
 }
