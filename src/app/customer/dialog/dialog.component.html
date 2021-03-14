@@ -71,13 +71,16 @@
                 </li>
 
                 <!-- <div>1</div> -->
-                <li class="list-group-item list-group-item-info">กรณีคนไทยและโอนเงินคืนเข้าธนาคารภายในประเทศไทย/<br>
-                    <span style="color:black;font-size:15px;">Thai citizen who requests AP to transfer a refund to Thai bank account</span></li>
+                <!-- <li class="list-group-item list-group-item-info">กรณีคนไทยและโอนเงินคืนเข้าธนาคารภายในประเทศไทย/<br>
+                    <span style="color:black;font-size:15px;">Thai citizen who requests AP to transfer a refund to Thai bank account</span></li> -->
                 <li class="list-group-item">1.บัตรประชาชนของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน
                     <span style="color:red"></span>
                     <br> 
                     <span style="color:black;font-size:15px;">
-                        Copy of a valid ID card of all co-owners
+                        Copy of a valid ID card (for Thai citizen) and a valid passport (for non-Thai citizen) 
+                    </span>
+                    <span style="color:red;font-size:15px;">
+                        of all co-owners
                     </span>
                 </li>
                 <li class="list-group-item">
@@ -85,7 +88,7 @@
                     <span style="font-weight:bold;color:red"> (โดยชื่อบัญชีธนาคารต้องเป็นผู้ถือกรรมสิทธิ์เท่านั้น) / </span>
                     <br> 
                     <span style="color:black;font-size:16px;">
-                        Copy of a valid Thai bank savings passbook required to show the owner's name ang bank accoung number
+                        Copy of a valid Thai bank savings passbook required to show the owner's name and bank account number
                     </span>
                 </li>
                 <li class="list-group-item">
@@ -110,7 +113,7 @@
                     <span style="font-weight:bold;color:red"> (โดยชื่อบัญชีธนาคารต้องเป็นผู้ถือกรรมสิทธิ์เท่านั้น) / </span>
                     <br> 
                     <span style="color:black;font-size:16px;">
-                        Copy of a valid Thai bank saveings passbook required to show the owner's name and bank account number
+                        Copy of a valid Thai bank savings passbook required to show the owner's name and bank account number
                     </span>
                 </li>
                 <li class="list-group-item">
@@ -122,7 +125,7 @@
 
                 <!-- <div>3</div> -->
                 <li class="list-group-item list-group-item-info">กรณีชาวต่างชาติและโอนเงินคืนเข้าธนาคารต่างประเทศ/<br>
-                    <span style="color:black;font-size:15px;">Non-Thai citizen who requests AP to transfer a refund to an overseas bank account</span></li>
+                    <span style="color:black;font-size:15px;">Non-Thai citizen who requests AP to transfer a refund to overseas bank account</span></li>
                 <li class="list-group-item">1.หนังสือเดินทาง Passport ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน/
                     <span style="color:red"></span>
                     <br> 
@@ -147,7 +150,7 @@
                 <li class="list-group-item">
                     4.ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน/<br>
                     <span style="color:black;font-size:15px;">
-                        Need to complete 'Global Outward Application Form'.
+                        Please fill up 'Global Outward Application Form' completely.
                     </span>
                     <a href="https://drive.google.com/open?id=1ftq6p_x5jLASov7emV9ijwUyB-4J56WY" target="_blank"
                     >download</a>
@@ -353,10 +356,12 @@
             <div>
                 <br>
                 <label class="text-danger">
-                    ไฟล์ที่สามารถส่งมาได้ เฉพาะนามสกุล JPG, JPEG, PNGนี้เท่านั้น, และห้ามตั้งชื่อ file เป็นภาษาไทย/</label>
+                    <span style="color:red;font-size:12px;">
+                    *ไฟล์ที่สามารถส่งมาได้ เฉพาะนามสกุล JPG, JPEG, PNGนี้เท่านั้น, และห้ามตั้งชื่อ file เป็นภาษาไทย/</span></label>
+                    
                     <br>
-                    <span style="color:red;font-size:14px;">
-                        Only JPG, JPEG, PNG files and filenames not containing any Thai characters allowed.
+                    <span style="color:red;font-size:12px;">
+                        Only JPG, JPEG, PNG files and filenames not containing any Thai characters are allowed.
                     </span><br>
                 <button
                     [disabled]="uploading || uploadSuccessful"

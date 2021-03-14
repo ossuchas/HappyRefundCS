@@ -91,9 +91,11 @@ export class CustomerComponent implements OnInit {
             error => {
                 this.isValidate = false;
                 // console.log(error);
-                this.snackBar.open(error.error['message'], '', {
-                    duration: 5000
-                });
+                // this.snackBar.open(error.error['message'], 
+                // 'กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID', {
+                //     duration: 5000
+                // });
+                this.toasterService.error('กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID');
             }
         );
 

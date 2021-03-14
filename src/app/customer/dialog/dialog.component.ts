@@ -15,12 +15,12 @@ export interface ddlBank {
     bankname: string;
     adbankname: string;
     bankno:string;
+    banknameEN:string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
     bankBranchCode:string;
     bankCode:string;
-
 }
 
 @Component({
@@ -79,6 +79,7 @@ export class DialogComponent implements OnInit {
     busy: Subscription;
 
     loading: boolean;
+    
 
     ngOnInit() {
         this.dropdownBankMasterRefresh();
@@ -96,7 +97,7 @@ export class DialogComponent implements OnInit {
         console.log('rowListData2', this.bankAccountNo);
         console.log('rowListData3', this.bankAccountName);
         
-
+        
     }
 
     changdropdown()
@@ -185,17 +186,20 @@ export class DialogComponent implements OnInit {
         }
 
     }
-
+    
     addFiles() {
-        if (this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+        
+        
+        console.log('name',this.bankAccountName)
+        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName !== null))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
-        this.file.nativeElement.click();
+           this.file.nativeElement.click();
         }
         else
         {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                width: '350px',
-                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
+                width: '300px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน/Please fill up all required fields.'
             });
         }
     }
@@ -206,7 +210,7 @@ export class DialogComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
-            data: 'Do you confirm Upload Document ?'
+            data: 'คุณต้องการยืนยันการแนบเอกสารใช่หรือไม่ Do you want to confirm your attached files?'
         });
 
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
@@ -294,8 +298,10 @@ export class DialogComponent implements OnInit {
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
             data.forEach(element => {
+                
                 // console.log('ชื่อบัญชีลูกค้า', element);
                 this.listItemsBankName.push(element['fullname']);
+                console.log('ll',this.listItemsBankName)
             });
         });
     }
