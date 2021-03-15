@@ -81,6 +81,8 @@ export class DialogComponent implements OnInit {
     loading: boolean;
     personalid:string;
 
+    tooltips=false;
+
     ngOnInit() {
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
@@ -303,34 +305,9 @@ export class DialogComponent implements OnInit {
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
             data.forEach(element => {
-                
-                // console.log('ชื่อบัญชีลูกค้า', element);
                 this.listItemsBankName.push(element['fullname']);
                 console.log('ll',this.listItemsBankName)
             });
         });
     }
-
-    OnOpen(){
-        console.log("OnOpen");
-        if(!this.isbeingSearched)
-        {
-          this.select1Comp.close()      
-        }
-      
-      }
-      
-      OnSearch(){
-        this.isbeingSearched = true;
-        console.log("OnSearch");
-        this.select1Comp.open()
-      }
-      
-      OnBlue(){
-        console.log("OnBlue");
-        this.isbeingSearched = false;
-        this.select1Comp.close()
-      }
-
-
 }

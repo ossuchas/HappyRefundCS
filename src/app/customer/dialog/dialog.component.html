@@ -159,9 +159,6 @@
                 
             </ul>
 
-
-
-
             <br>
             <div class="form-row">
                 <div class="col">
@@ -189,21 +186,6 @@
                 <div class="col">
                     <label for="exampleSelec">สาขาธนาคารลูกค้า / Customer Bank Branch</label>
                     <span style="color:red;font-size:14px;">*</span>
-                    <!-- <select
-                        required
-                        type="text"
-                        class="form-control"
-                        name="bankbranch"
-                        [(ngModel)]="bankbranch"
-                        placeholder="กรุณากรอกสาขาธนาคาร"
-                        [disabled]="bankName.bankno=='999'"
-                        (search)=""
-                    >
-                        <option
-                            *ngFor="let dl of listBankBranch"
-                            [ngValue]="dl"
-                        >{{ dl.bankBranchName }}</option>
-                    </select>  -->
                     <ng-select 
                         name="bankbranch"
                         [items]="listBankBranch"
@@ -262,97 +244,6 @@
                     </select>
                 </div>
             </div>
-
-            <!-- <br> -->
-
-            <!-- 
-            <div class="m-3">
-
-                <div class="input-group-prepend">
-                    <span class="input-group-text">บัญชีธนาคารลูกค้า</span>
-                </div>
-
-                <select
-                    required
-                    type="text"
-                    class="form-control"
-                    name="bankcode"
-                    #bankcode="ngModel"
-                    [(ngModel)]="bankName"
-                >
-                    <option
-                        *ngFor="let dl of listItems"
-                        [value]="dl"
-                    >{{ dl }}</option>
-                </select>
-
-                &nbsp;&nbsp;
-
-                <div class="input-group-prepend">
-                    <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
-                </div>
-                <input
-                    type="number"
-                    class="form-control"
-                    name="bankaccountno"
-                    #bankaccountno="ngModel"
-                    [(ngModel)]="bankAccountNo"
-                    placeholder="กรุณากรอกตัวเลข"
-                >
-
-                &nbsp;&nbsp;
-
-                <div class="input-group-prepend">
-                    <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
-                </div>
-                <select
-                    required
-                    type="text"
-                    class="form-control"
-                    name="bankaccountname"
-                    #bankaccountname="ngModel"
-                    [(ngModel)]="bankAccountName"
-                >
-                    <option
-                        *ngFor="let dl of listItemsBankName"
-                        [value]="dl"
-                    >{{ dl }}</option>
-                </select>
-            </div> -->
-            <!-- <div class="m-3 input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">เลขที่บัญชีลูกค้า</span>
-                </div>
-                <input
-                    type="text"
-                    class="form-control"
-                    name="bankaccountno"
-                    #bankaccountno="ngModel"
-                    [(ngModel)]="bankAccountNo"
-                    placeholder="ตัวอย่างเลขบัญชี 1234567890"
-                >
-
-            </div> -->
-
-
-            <!-- <div class="m-3 input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">ชื่อบัญชีลูกค้า</span>
-                </div>
-                <select
-                    required
-                    type="text"
-                    class="form-control"
-                    name="bankaccountname"
-                    #bankaccountname="ngModel"
-                    [(ngModel)]="bankAccountName"
-                >
-                    <option
-                        *ngFor="let dl of listItemsBankName"
-                        [value]="dl"
-                    >{{ dl }}</option>
-                </select>
-            </div> -->
             <div>
                 <br>
                 <label class="text-danger">
@@ -402,8 +293,6 @@
                     class="add-files-btn"
                     style="background-color: #f44336; color: white;"
                 >Cancel</button>
-                <!-- <button mat-raised-button color="primary" [disabled]="!canBeClosed" (click)="closeDialog()"
-                class="add-files-btn">{{primaryButtonText}}</button> -->
                 <button
                     mat-raised-button
                     color="primary"
@@ -424,10 +313,6 @@
                     [disabled]="busy"
                 >
                 Finish</button>
-
-                <!-- <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="canBeClosed" class="add-files-btn">Upload</button>
-            <button mat-raised-button color="primary" (click)="onClose()" *ngIf="!canBeClosed"
-                class="add-files-btn">Finish</button> -->
             </mat-dialog-actions>
         </div>
     </div>

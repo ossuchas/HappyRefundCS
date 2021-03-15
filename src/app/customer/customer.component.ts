@@ -11,6 +11,8 @@ import { ImgviewPageComponent } from './imgview-page/imgview-page.component';
 import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
 import { ToastrService } from 'ngx-toastr';
+import { DialogTooltipComponent } from './tooltips/tooltip.component';
+
 
 @Component({
     selector: 'app-customer',
@@ -33,7 +35,8 @@ export class CustomerComponent implements OnInit {
     btnUpload = true;
     Remark:string;
     personalid:string;
-
+    tooltips = false
+        
     displayedColumn: string[] = [
         'Options',
         'project',
@@ -207,7 +210,7 @@ export class CustomerComponent implements OnInit {
                             this.isValidate = true;
                             this.listData = new MatTableDataSource(data);
                             // console.log(data);
-                            console.log('asdasdasd',result1)
+                            //console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -227,6 +230,9 @@ export class CustomerComponent implements OnInit {
                 });
             }
         });
+    }
+    openTooltip(){
+        this.dialog.open(DialogTooltipComponent);
     }
 
 }

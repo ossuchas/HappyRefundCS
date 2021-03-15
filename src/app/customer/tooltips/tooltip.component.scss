@@ -1,0 +1,47 @@
+.mat-dialog-title {
+    background-color: gray;
+    color: white;
+}
+
+.container {
+    font-family: AP-Regular;
+}
+
+@media screen and (min-width: 768px) {
+    .custom-collapse .collapse {
+        display: block;
+    }
+}
+
+.add-files-btn {
+    font-family: AP-Regular;
+    font-size: 14px;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+
+.has-space {
+  padding: 0 0.5rem;
+}
+
+._toolbar-right-buttons {
+  margin-left: auto;
+}
+
+// .list-group-item-title {
+//   z-index: 2;
+//   color: #fff;
+//   background-color:yellow;
+//   border-color: yellow;
+//   color: black;
+// }

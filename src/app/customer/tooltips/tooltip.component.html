@@ -1,0 +1,114 @@
+<mat-dialog-content>
+    <div class="d-flex justify-content-between m-3">
+        <h5>List of Required Documents</h5>
+        
+
+        <a
+            mat-icon-button
+            color="warn"
+            (click)="onClose2()"
+        >
+            <mat-icon>close</mat-icon>
+        </a>
+    </div>
+    <div class="container">
+        <div
+            class="container"
+            fxLayout="column"
+            fxLayoutAlign="space-evenly stretch"
+        >
+
+
+            <ul class="list-group collapse">
+                <li class="list-group-item active" style="font-weight: bold;font-size:18px;">เอกสารประกอบการพิจารณา/
+                    <span style="font-weight: bold;color:white;font-size:18px;">Required documents with signature on each page</span>
+                </li>
+
+                <li class="list-group-item">1.บัตรประชาชนของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน
+                    <span style="color:red"></span>
+                    <br> 
+                    <span style="color:black;font-size:15px;">
+                        Copy of a valid ID card (for Thai citizen) and a valid passport (for non-Thai citizen) 
+                    </span>
+                    <span style="color:red;font-size:15px;">
+                        of all co-owners
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    2.หน้าสมุดบัญชีธนาคารในประเทศไทย ประเภทออมทรัพย์ 
+                    <span style="font-weight:bold;color:red"> (โดยชื่อบัญชีธนาคารต้องเป็นผู้ถือกรรมสิทธิ์เท่านั้น) / </span>
+                    <br> 
+                    <span style="color:black;font-size:16px;">
+                        Copy of a valid Thai bank savings passbook required to show the owner's name and bank account number
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)/<br>
+                    <span style="color:black;font-size:15px;">
+                        Copy of a change of name certificate (If any)
+                    </span>
+                </li>
+
+                <!-- <div>2</div> -->
+                <li class="list-group-item list-group-item-info">กรณีชาวต่างชาติและโอนเงินคืนเข้าธนาคารภายในประเทศไทย/<br>
+                    <span style="color:black;font-size:15px;">Non-Thai citizen who requests AP to transfer a refund to Thai bank account</span></li>
+                <li class="list-group-item">1.หนังสือเดินทาง Passport ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน/
+                    <span style="color:red"></span>
+                    <br> 
+                    <span style="color:black;font-size:15px;">
+                        Copy of a valid passport of all co-owners
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    2.หน้าสมุดบัญชีธนาคารในประเทศไทย ประเภทออมทรัพย์
+                    <span style="font-weight:bold;color:red"> (โดยชื่อบัญชีธนาคารต้องเป็นผู้ถือกรรมสิทธิ์เท่านั้น) / </span>
+                    <br> 
+                    <span style="color:black;font-size:16px;">
+                        Copy of a valid Thai bank savings passbook required to show the owner's name and bank account number
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    3.เอกสารใบเปลี่ยนชื่อตัว - ชื่อสกุล (ถ้ามี)/<br>
+                    <span style="color:black;font-size:15px;">
+                        Copy of a change of name certificate (If any)
+                    </span>
+                </li>
+
+                <!-- <div>3</div> -->
+                <li class="list-group-item list-group-item-info">กรณีชาวต่างชาติและโอนเงินคืนเข้าธนาคารต่างประเทศ/<br>
+                    <span style="color:black;font-size:15px;">Non-Thai citizen who requests AP to transfer a refund to overseas bank account</span></li>
+                <li class="list-group-item">1.หนังสือเดินทาง Passport ของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน/
+                    <span style="color:red"></span>
+                    <br> 
+                    <span style="color:black;font-size:15px;">
+                        Copy of a valid passport of all co-owners
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    2.หน้าบัญชีธนาคารต่างประเทศ หรือ statement ที่เห็นชื่อธนาคารหรือเลขที่บัญชี
+                    <span style="font-weight:bold;color:red"> (โดยชื่อบัญชีธนาคารต้องเป็นผู้ถือกรรมสิทธิ์เท่านั้น) / </span>
+                    <br> 
+                    <span style="color:black;font-size:16px;">
+                        Copy of a valid overseas passbook or e-statement required to show the owner’s name and bank account number
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    3.อ.ช. ๒๓ (สัญญาซื้อขายห้องชุด)/<br>
+                    <span style="color:black;font-size:15px;">
+                        Copy of Or Chor 23 'Agreement To Purchase And To Sell Condominium Unit(s)'
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    4.ต้องกรอกแบบฟอร์มการขอโอนเงินไปต่างประเทศให้ครบถ้วน/<br>
+                    <span style="color:black;font-size:15px;">
+                        Please fill up 'Global Outward Application Form' completely.
+                    </span>
+                    <a href="https://drive.google.com/open?id=1ftq6p_x5jLASov7emV9ijwUyB-4J56WY" target="_blank"
+                    >download</a>
+                </li>
+                
+            </ul>
+
+        </div>
+    </div>
+</mat-dialog-content>
