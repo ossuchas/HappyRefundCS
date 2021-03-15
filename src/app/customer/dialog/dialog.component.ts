@@ -15,7 +15,7 @@ export interface ddlBank {
     bankname: string;
     adbankname: string;
     bankno:string;
-    banknameEN:string;
+    banknameen:string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
@@ -69,17 +69,17 @@ export class DialogComponent implements OnInit {
 
     bankName = {} as ddlBank;
     bankAccountNo: any;
-    bankAccountName: any;
+    bankAccountName:any;
     bankbranch = {} as dlBankBranch;
-
-    listBankBranch:any;
+    
+    listBankBranch:any[];
 
     temp = {} as ddlBank;
 
     busy: Subscription;
 
     loading: boolean;
-    
+    personalid:string;
 
     ngOnInit() {
         this.dropdownBankMasterRefresh();
@@ -92,11 +92,12 @@ export class DialogComponent implements OnInit {
         this.bankName.adbankname = localStorage.getItem('bankcode');
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname');
+        this.bankName.banknameen = localStorage.getItem('banknameen');
 
         console.log('rowListData1', this.bankName);
         console.log('rowListData2', this.bankAccountNo);
         console.log('rowListData3', this.bankAccountName);
-        
+        this.bankAccountName = '';
         
     }
 
@@ -108,11 +109,16 @@ export class DialogComponent implements OnInit {
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
-                console.log('bankbranchCount',this.listBankBranch.length);
+                
                 console.log('bankbranchCount',this.bankName.bankno);
-                if(this.listBankBranch.length === null && this.bankName.bankno !== '999'){
-                    this.bankbranch.bankBranchName = 'สำนักงานใหญ่'
+                if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
+                    console.log('qwertyuiop',this.listBankBranch);
+                    console.log('qwertyuiop',this.bankName.bankno);
+                    this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
+                }else{
+                    this.bankbranch = {} as dlBankBranch;
                 }
+                // this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
             })
           });
 
@@ -188,10 +194,8 @@ export class DialogComponent implements OnInit {
     }
     
     addFiles() {
-        
-        
-        console.log('name',this.bankAccountName)
-        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName !== null))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+
+        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName&&this.bankAccountName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
            this.file.nativeElement.click();
         }
@@ -290,6 +294,7 @@ export class DialogComponent implements OnInit {
                 this.temp.bankname = element.bankname;
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
+                this.temp.banknameen = element.banknameen;
                 this.listItems.push(this.temp);
             });
         });

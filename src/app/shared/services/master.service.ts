@@ -23,8 +23,12 @@ export class MasterService {
 
   readonly APIUrl = environment.apiUrl;
 
+  // getBankMaster(): Observable<CRMMasterBank[]> {
+  //   return this.http.get<CRMMasterBank[]>('https://happyrefundapi.apthai.com/api/v1/bankmasterlist');
+  // }
+
   getBankMaster(): Observable<CRMMasterBank[]> {
-    return this.http.get<CRMMasterBank[]>('https://happyrefundapi.apthai.com/api/v1/bankmasterlist');
+    return this.http.get<CRMMasterBank[]>(this.APIUrl+'/bankmasterlist');
   }
 
   getBankAccountName(hyrf_id: number): Observable<CRMBankNameList[]> {

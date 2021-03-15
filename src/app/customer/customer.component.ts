@@ -32,6 +32,7 @@ export class CustomerComponent implements OnInit {
     listData: MatTableDataSource<any>;
     btnUpload = true;
     Remark:string;
+    personalid:string;
 
     displayedColumn: string[] = [
         'Options',
@@ -88,7 +89,20 @@ export class CustomerComponent implements OnInit {
                     this.isValidateUpload = true;
                 }
             },
+            
             error => {
+                console.log(error)
+                if (error.error&&error.error.message==='No Data Found'){
+                    this.isValidate = false;
+                    // console.log(error);
+                    // this.snackBar.open(error.error['message'], 
+                    // 'กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID', {
+                    //     duration: 5000
+                    // });
+                    this.toasterService.error('ไม่พบข้อมูล/Do not found');
+                
+                    
+                }else{
                 this.isValidate = false;
                 // console.log(error);
                 // this.snackBar.open(error.error['message'], 
@@ -97,6 +111,7 @@ export class CustomerComponent implements OnInit {
                 // });
                 this.toasterService.error('กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID');
             }
+        }
         );
 
     }
@@ -114,7 +129,7 @@ export class CustomerComponent implements OnInit {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.width = '55%';
+        dialogConfig.width = '40%';
         dialogConfig.data = {
             hyrf_id: _hyrf_id
         };
