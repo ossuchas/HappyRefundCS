@@ -160,8 +160,8 @@ export class DialogComponent implements OnInit {
         } else {
             this.loading = false;
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                width: '350px',
-                data: 'กรุณากรอกข้อมูลให้ครบถ้วน'
+                width: '300px',
+                data: 'กรุณากรอกข้อมูลให้ครบถ้วน/Please fill up all required fields.'
             });
         }
         

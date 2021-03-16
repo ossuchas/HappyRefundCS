@@ -102,7 +102,7 @@ export class CustomerComponent implements OnInit {
                     // 'กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID', {
                     //     duration: 5000
                     // });
-                    this.toasterService.error('ไม่พบข้อมูล/Do not found');
+                    this.toasterService.error('ไม่พบข้อมูลเลขที่บัตรประชาชนหรือพาสปอร์ต/Your Personal ID or Passport ID not found in the system!');
                 
                     
                 }else{
