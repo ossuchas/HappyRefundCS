@@ -31,13 +31,10 @@
     </form>
 </div>
 
-
 <div
     class="container table-responsive-sm"
     *ngIf="isValidate"
 >
-
-
     <!-- <div class="example-container mat-elevation-z8" *ngIf="isValidate"> -->
     <mat-table
         [dataSource]="listData"
@@ -129,24 +126,24 @@
                     style="margin-left: 10px;"
                 >Upload Doc.</button>
                 <!-- <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary">Upload Doc.</button> -->
-
             </mat-cell>
-
         </ng-container>
-
     </mat-table>
 </div>
 <div class="container col row justify-content-md-center">
-    <form>
         <picture>
-            <img src="assets/images/kbankfasttransfer.jpg" width="219.6027258" height="204.999987"/>
+            <img
+            src="assets/images/kbank.png" />
         </picture>
-    </form>
-    <form>
+
         <picture>
-            <img src="assets/images/refund_doc.jpg"/>
+            <img src="assets/images/id_bb.png"/>
         </picture>
-    </form>
+        <!-- <picture>
+            <img src="assets/images/doc.jpg"  
+            width="1000" 
+            height="220"/> -->
+        <!-- </picture> -->
 </div>
 <!-- Modified by Suchat S. 2019-12-14 for change upload by row -->
 <!-- <div class="container col row justify-content-md-center">
