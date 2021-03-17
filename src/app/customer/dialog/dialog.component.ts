@@ -92,22 +92,22 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
-        this.master.getBankMaster().subscribe(data=>{
-            console.log('Test_Friend',this.bankName);
-            console.log('Friend_id', localStorage.getItem('bankcode'));
+        // this.master.getBankMaster().subscribe(data=>{
+        //     console.log('Test_Friend',this.bankName);
+        //     console.log('Friend_id', localStorage.getItem('bankcode'));
 
-            this.bankName = {} as ddlBank;
+        //     this.bankName = {} as ddlBank;
             
-            data.forEach(item=>{
-                if(localStorage.getItem('bankcode')===item.adbankname){
-                    this.bankName.adbankname = item.adbankname;
-                    this.bankName.banknameen = item.banknameen;
-                    this.bankName.bankname = item.bankname;
-                    this.bankName.bankno = item.bankid;
-                }
-            });
-        });
-        
+        //     data.forEach(item=>{
+        //         if(localStorage.getItem('bankcode')===item.adbankname){
+        //             this.bankName.adbankname = item.adbankname;
+        //             this.bankName.banknameen = item.banknameen;
+        //             this.bankName.bankname = item.bankname;
+        //             this.bankName.bankno = item.bankid;
+        //         }
+        //     });
+        // });
+        this.bankName.adbankname = localStorage.getItem('bankcode')
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
     }
