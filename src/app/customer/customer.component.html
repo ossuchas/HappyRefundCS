@@ -2,13 +2,25 @@
 </app-page-header> -->
 <app-header></app-header>
 <div class="container col row justify-content-md-center">
+    <picture>
+        <img
+        src="assets/images/kbank.png" 
+
+        height="180px"/>
+    </picture>
+
+    <picture>
+        <img src="assets/images/id_bb.png"
+
+        height="180px"/>
+    </picture>
     <form
         #myform="ngForm"
         (ngSubmit)="validate(myform)"
         class="form col-xl-6 text-xs-center"
     >
         <fieldset class="form-group">
-            <label class="label_header info round">เลขบัตรประชาชน หรือ พาสปอร์ต / Personal ID or Passport ID</label>
+            <label class="label_header info round">เลขบัตรประชาชน หรือ พาสปอร์ต /<br> Personal ID or Passport ID</label>
             <input
                 class="form-control"
                 placeholder="เลขบัตรประชาชน หรือ พาสปอร์ต / Please fill in Personal ID or Passport ID"
@@ -131,7 +143,7 @@
     </mat-table>
 </div>
 <div class="container col row justify-content-md-center">
-        <picture>
+        <!-- <picture>
             <img
             src="assets/images/kbank.png" 
 
@@ -142,12 +154,7 @@
             <img src="assets/images/id_bb.png"
 
             height="180px"/>
-        </picture>
-        <!-- <picture>
-            <img src="assets/images/doc.jpg"  
-            width="1000" 
-            height="220"/> -->
-        <!-- </picture> -->
+        </picture> -->
 </div>
 <!-- Modified by Suchat S. 2019-12-14 for change upload by row -->
 <!-- <div class="container col row justify-content-md-center">

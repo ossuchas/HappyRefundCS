@@ -165,21 +165,22 @@
                     <label for="exampleSelec">บัญชีธนาคารลูกค้า / Customer Bank Name</label>
                     <span style="color:red;font-size:14px;">*</span>
                     <form #f="ngForm">
+
                         <select
                             required
                             type="text"
                             class="form-control"
                             name="dl"
-                            
+                            #dl="ngModel"
                             [(ngModel)]="bankName"
                             placeholder="กรุณากรอกบัญชีธนาคาร"
-                            (change)="changdropdown()"
-                            
+                            (change)="changdropdown()" 
                         >
                             <option
                                 *ngFor="let dl of listItems"
-                                [ngValue]="dl"
-                            >{{ dl.bankname }} / {{dl.banknameen}}</option>
+                                [value]="dl"
+                            >{{ dl.bankname }} / {{dl.banknameen}}
+                        </option>
                         </select>
                     </form>
                 </div>

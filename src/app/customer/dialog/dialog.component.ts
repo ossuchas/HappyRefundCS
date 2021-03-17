@@ -10,6 +10,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { DialogFirstComponent } from '../dialog-first/dialog-first.component';
+import { JsonpClientBackend } from '@angular/common/http';
 
 export interface ddlBank {
     bankname: string;
@@ -72,7 +73,7 @@ export class DialogComponent implements OnInit {
     bankAccountName:any;
     bankbranch = {} as dlBankBranch;
     
-    listBankBranch:any[];
+    listBankBranch:any[] = [];
 
     temp = {} as ddlBank;
 
@@ -80,7 +81,7 @@ export class DialogComponent implements OnInit {
 
     loading: boolean;
     personalid:string;
-
+    txt:string;
     tooltips=false;
 
     ngOnInit() {
@@ -91,16 +92,24 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
-        this.bankName.adbankname = localStorage.getItem('bankcode');
-        this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
-        this.bankAccountName = localStorage.getItem('bankaccountname');
-        this.bankName.banknameen = localStorage.getItem('banknameen');
+        this.master.getBankMaster().subscribe(data=>{
+            console.log('Test_Friend',this.bankName);
+            console.log('Friend_id', localStorage.getItem('bankcode'));
 
-        console.log('rowListData1', this.bankName);
-        console.log('rowListData2', this.bankAccountNo);
-        console.log('rowListData3', this.bankAccountName);
-        this.bankAccountName = '';
+            this.bankName = {} as ddlBank;
+            
+            data.forEach(item=>{
+                if(localStorage.getItem('bankcode')===item.adbankname){
+                    this.bankName.adbankname = item.adbankname;
+                    this.bankName.banknameen = item.banknameen;
+                    this.bankName.bankname = item.bankname;
+                    this.bankName.bankno = item.bankid;
+                }
+            });
+        });
         
+        this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
+        this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
     }
 
     changdropdown()
@@ -120,7 +129,6 @@ export class DialogComponent implements OnInit {
                 }else{
                     this.bankbranch = {} as dlBankBranch;
                 }
-                // this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
             })
           });
 
@@ -131,6 +139,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
+
         if(this.bankName.bankno === '999'){
             this.bankbranch.bankBranchCode = '0000';
             this.bankbranch.bankBranchName = '-';
@@ -140,7 +149,7 @@ export class DialogComponent implements OnInit {
             this.bankbranch.bankBranchCode = '0001';
         }
         
-        if (this.bankAccountNo && this.bankName.adbankname && this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)))) {
+        if (this.bankAccountNo && this.bankName.bankname && this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)))) {
             this.busy = this.master.bankSubmit(this._hyrf_id, 
                                    this.bankName.adbankname, 
                                    this.bankAccountNo, 
