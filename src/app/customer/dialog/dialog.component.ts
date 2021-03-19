@@ -94,19 +94,20 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
-        // this.master.getBankMaster().subscribe(data=>{
-        //     this.bankName = {} as ddlBank;       
-        //     data.forEach(item=>{
-        //         if(localStorage.getItem('bankcode')===item.adbankname){
-        //             this.bankName.adbankname = item.adbankname;
-        //             this.bankName.banknameen = item.banknameen;
-        //             this.bankName.bankname = item.bankname;
-        //             this.bankName.bankno = item.bankid;
-        //         }
-        //     });
-        // });
+        this.master.getBankMaster().subscribe(data=>{
+            this.bankName = {} as ddlBank;       
+            data.forEach(item=>{
+                if(localStorage.getItem('bankcode')===item.adbankname){
+                    this.bankName.adbankname = item.adbankname;
+                    this.bankName.banknameen = item.banknameen;
+                    this.bankName.bankname = item.bankname;
+                    this.bankName.bankno = item.bankid;
+                    this.listItems.push(this.bankName);
+                }
+            });
+        });
         
-        this.bankName.adbankname = localStorage.getItem('bankcode')
+        this.bankName.adbankname = localStorage.getItem('bankcode');
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
     }
@@ -133,7 +134,6 @@ export class DialogComponent implements OnInit {
           });
 
     }
-
 
     onClose() {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
