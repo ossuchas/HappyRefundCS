@@ -12,6 +12,7 @@ import { WarningDialogComponent } from './warning-dialog/warning-dialog.componen
 import { DialogFirstComponent } from '../dialog-first/dialog-first.component';
 import { JsonpClientBackend } from '@angular/common/http';
 
+
 export interface ddlBank {
     bankname: string;
     adbankname: string;
@@ -32,6 +33,7 @@ export interface dlBankBranch {
 export class DialogComponent implements OnInit {
 
     public listItems: Array<ddlBank> = [];
+    public listItemsSort: Array<ddlBank> = [];
     public listItemsBankName: Array<string> = [];
 
     constructor(
@@ -111,6 +113,10 @@ export class DialogComponent implements OnInit {
 
     changdropdown()
     {
+        console.log('a',this.bankName.bankname)
+        console.log('a',this.bankbranch.bankBranchName)
+        console.log('a',this.bankAccountNo)
+        console.log('a',this.bankAccountName)
         if(this.bankName.bankno=== '999'){
             this.bankbranch = {} as dlBankBranch;
         }
@@ -119,8 +125,6 @@ export class DialogComponent implements OnInit {
                 this.listBankBranch = data;
                 console.log('bankbranchCount',this.bankName.bankno);
                 if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
-                    console.log('qwertyuiop',this.listBankBranch);
-                    console.log('qwertyuiop',this.bankName.bankno);
                     this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
                 }else{
                     this.bankbranch = {} as dlBankBranch;
@@ -298,7 +302,7 @@ export class DialogComponent implements OnInit {
             data.forEach(element => {
                 // console.log('ชื่อธนาคาร', element);
                 this.temp = {} as ddlBank;
-                this.temp.bankname = element.bankname;
+                this.temp.bankname = element.bankname
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
                 this.temp.banknameen = element.banknameen;
@@ -311,7 +315,7 @@ export class DialogComponent implements OnInit {
         this.master.getBankAccountName(id).subscribe(data => {
             data.forEach(element => {
                 this.listItemsBankName.push(element['fullname']);
-                console.log('ll',this.listItemsBankName)
+                //console.log('ll',this.listItemsBankName)
             });
         });
     }
