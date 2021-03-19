@@ -98,26 +98,30 @@ export class DialogComponent implements OnInit {
             this.bankName = {} as ddlBank;       
             data.forEach(item=>{
                 if(localStorage.getItem('bankcode')===item.adbankname){
+                    console.log('adname',item.adbankname)
+                    console.log('en',item.banknameen)
+                    console.log('name',item.bankname)
+                    console.log('id',item.bankid)
                     this.bankName.adbankname = item.adbankname;
                     this.bankName.banknameen = item.banknameen;
                     this.bankName.bankname = item.bankname;
                     this.bankName.bankno = item.bankid;
                     this.listItems.push(this.bankName);
+                    this.changdropdown();
                 }
             });
         });
+
         
-        this.bankName.adbankname = localStorage.getItem('bankcode');
+        this.bankName.bankno = localStorage.getItem('bankcode');
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
+
+
     }
 
     changdropdown()
     {
-        console.log('a',this.bankName.bankname)
-        console.log('a',this.bankbranch.bankBranchName)
-        console.log('a',this.bankAccountNo)
-        console.log('a',this.bankAccountName)
         if(this.bankName.bankno=== '999'){
             this.bankbranch = {} as dlBankBranch;
         }
