@@ -72,8 +72,8 @@
                 </li>
 
                 <!-- <div>1</div> -->
-                <!-- <li class="list-group-item list-group-item-info">กรณีคนไทยและโอนเงินคืนเข้าธนาคารภายในประเทศไทย/<br>
-                    <span style="color:black;font-size:15px;">Thai citizen who requests AP to transfer a refund to Thai bank account</span></li> -->
+                <li class="list-group-item list-group-item-info">กรณีคนไทยและโอนเงินคืนเข้าธนาคารภายในประเทศไทย/<br>
+                    <span style="color:black;font-size:15px;">Thai citizen who requests AP to transfer a refund to Thai bank account</span></li>
                 <li class="list-group-item">1.บัตรประชาชนของผู้ถือกรรมสิทธิ์ร่วมทุกท่าน
                     <span style="color:red"></span>
                     <br> 
@@ -164,8 +164,6 @@
                 <div class="col">
                     <label for="exampleSelec">บัญชีธนาคารลูกค้า / Customer Bank Name</label>
                     <span style="color:red;font-size:14px;">*</span>
-                    <form #f="ngForm">
-
                         <select
                             required
                             type="text"
@@ -182,8 +180,8 @@
                             >{{ dl.bankname }} / {{dl.banknameen}}
                         </option>
                         </select>
-                    </form>
                 </div>
+
                 <div class="col">
                     <label for="exampleSelec">สาขาธนาคารลูกค้า / Customer Bank Branch</label>
                     <span style="color:red;font-size:14px;">*</span>
@@ -236,7 +234,6 @@
                         #bankaccountname="ngModel"
                         [(ngModel)]="bankAccountName"
                         placeholder="กรุณากรอกชื่อบัญชีลูกค้า"
-                        required
                     >
                         <option
                             *ngFor="let dl of listItemsBankName"

@@ -93,11 +93,7 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
         // this.master.getBankMaster().subscribe(data=>{
-        //     console.log('Test_Friend',this.bankName);
-        //     console.log('Friend_id', localStorage.getItem('bankcode'));
-
-        //     this.bankName = {} as ddlBank;
-            
+        //     this.bankName = {} as ddlBank;       
         //     data.forEach(item=>{
         //         if(localStorage.getItem('bankcode')===item.adbankname){
         //             this.bankName.adbankname = item.adbankname;
@@ -107,6 +103,7 @@ export class DialogComponent implements OnInit {
         //         }
         //     });
         // });
+        
         this.bankName.adbankname = localStorage.getItem('bankcode')
         this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
@@ -120,7 +117,6 @@ export class DialogComponent implements OnInit {
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
-                
                 console.log('bankbranchCount',this.bankName.bankno);
                 if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
                     console.log('qwertyuiop',this.listBankBranch);

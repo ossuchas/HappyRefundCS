@@ -2,13 +2,14 @@
 </app-page-header> -->
 <app-header></app-header>
 <div class="container col row justify-content-md-center">
+    <!-- <div class="col-md-1">
+    </div>
+    <div class="col-md-10"> -->
     <picture>
         <img
         src="assets/images/kbank.png" 
-
         height="180px"/>
     </picture>
-
     <picture>
         <img src="assets/images/id_bb.png"
 
@@ -17,13 +18,13 @@
     <form
         #myform="ngForm"
         (ngSubmit)="validate(myform)"
-        class="form col-xl-6 text-xs-center"
+        class="form col-xl-4 text-xs-center"
     >
         <fieldset class="form-group">
             <label class="label_header info round">เลขบัตรประชาชน หรือ พาสปอร์ต /<br> Personal ID or Passport ID</label>
             <input
                 class="form-control"
-                placeholder="เลขบัตรประชาชน หรือ พาสปอร์ต / Please fill in Personal ID or Passport ID"
+                placeholder="เลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID"
                 name="personalid"
                 #personalid="ngModel"
                 ngModel
@@ -40,7 +41,8 @@
             <!-- Kai Modified by Deployment 13.08.2020 -->
             <!-- <img src="https://i.ibb.co/dm76vC4/under-con-v3-0.png" alt="under-con-v3-0" border="0"> -->
         </fieldset>
-    </form>
+    </form>  
+
 </div>
 
 <div

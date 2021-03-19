@@ -30,6 +30,9 @@ export class MasterService {
   getBankMaster(): Observable<CRMMasterBank[]> {
     return this.http.get<CRMMasterBank[]>(this.APIUrl+'/bankmasterlist');
   }
+  getBankDefult(adbankname: string): Observable<CRMMasterBank[]> {
+    return this.http.get<CRMMasterBank[]>(this.APIUrl+'/bankmasterlist' + adbankname);
+  }
 
   getBankAccountName(hyrf_id: number): Observable<CRMBankNameList[]> {
     return this.http.get<CRMBankNameList[]>('https://happyrefundapi.apthai.com/api/v1/banknamelist/' + hyrf_id);
