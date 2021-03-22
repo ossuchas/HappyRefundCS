@@ -342,23 +342,44 @@ export class DialogComponent implements OnInit {
             if(this.bankName.bankno=== '999'){
                 this.bankbranch = {} as dlBankBranch;
             }
+
             this.authen.LoginCRM().subscribe(data2 => {
                 this.master.getBankBranch(data2.token,this.bankName.bankno).subscribe(data2 =>{
                     this.listBankBranch = data2;
                     this.bankbranch = {} as dlBankBranch
+                    const store = {} as any;
                     data2.forEach(item => {
-                        console.log('aaaaa',data.bot_bank_branch_code)
-                        console.log('Test_Tae',item.bankBranchCode)
-
-                        if(data.bot_bank_branch_code === item.bankBranchCode){
+                        console.log('a',data.bot_bank_branch_code)
+                        console.log('b',item.bankBranchCode)
+                        if((data.bot_bank_branch_code === item.bankBranchCode) && (data.bot_bank_branch_code !== '999')){
+                            console.log('1')
                             this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
                             this.bankbranch.bankBranchName = data.bot_bank_branch_name;
                             this.bankbranch.bankCode = data.bankcode
                             this.listBankBranch.push(this.bankbranch);
+                            return store.toPromise();
+                            
+                        }
+                        else if (data.bot_bank_branch_code !== item.bankBranchCode && data.bot_bank_branch_code !== '999')
+                        {
+                            console.log('2')
+                            this.bankbranch.bankBranchCode = '0001';
+                            this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
+                            this.bankbranch.bankCode = data.bankcode
+                            this.listBankBranch.push(this.bankbranch);
+                            return store.toPromise();
+                        }else if (data.bot_bank_branch_code === '999')
+                        {
+                            console.log('3')
+                            this.bankbranch.bankBranchCode = '0000';
+                            this.bankbranch.bankBranchName = '-';
+                            this.bankbranch.bankCode = data.bankcode
+                            this.listBankBranch.push(this.bankbranch);
+                            return store.toPromise();
                         }
                     });
                 })
-              });
+            });
 
             this.bankAccountNo = data.bankaccountno;
             this.bankAccountName = data.bankaccountname ;
