@@ -4,11 +4,11 @@ import { CRMMasterBank } from '../models/vw_crm_refund_mst_bank';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CRMBankNameList } from '../models/vw_crm_refund_banknamelst';
 import { environment } from 'src/environments/environment';
+import { csBankDelt } from '../models/csbankdelt-model';
 
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class MasterService {
 
@@ -26,6 +26,10 @@ export class MasterService {
   // getBankMaster(): Observable<CRMMasterBank[]> {
   //   return this.http.get<CRMMasterBank[]>('https://happyrefundapi.apthai.com/api/v1/bankmasterlist');
   // }
+  getCSBankDelt(hyrf_id: number): Observable<csBankDelt>{
+    return this.http.get<csBankDelt>(this.APIUrl + '/csbankdetl/' + hyrf_id);
+  }
+
 
   getBankMaster(): Observable<CRMMasterBank[]> {
     return this.http.get<CRMMasterBank[]>(this.APIUrl+'/bankmasterlist');

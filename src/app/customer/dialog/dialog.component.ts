@@ -25,6 +25,12 @@ export interface dlBankBranch {
     bankCode:string;
 }
 
+export interface CSBankDelt {
+    bankname:string;
+    bankbranchname:string;
+    bankaccountno:string;
+    bankaccountname:string;
+}
 @Component({
     selector: 'app-dialog',
     templateUrl: './dialog.component.html',
@@ -86,6 +92,8 @@ export class DialogComponent implements OnInit {
     txt:string;
     tooltips=false;
 
+    csbankdelt = {} as CSBankDelt
+
     ngOnInit() {
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
@@ -94,29 +102,26 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankaccountno', rowListData.bankaccountno);
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
-        this.master.getBankMaster().subscribe(data=>{
-            this.bankName = {} as ddlBank;       
-            data.forEach(item=>{
-                if(localStorage.getItem('bankcode')===item.adbankname){
-                    console.log('adname',item.adbankname)
-                    console.log('en',item.banknameen)
-                    console.log('name',item.bankname)
-                    console.log('id',item.bankid)
-                    this.bankName.adbankname = item.adbankname;
-                    this.bankName.banknameen = item.banknameen;
-                    this.bankName.bankname = item.bankname;
-                    this.bankName.bankno = item.bankid;
-                    this.listItems.push(this.bankName);
-                    this.changdropdown();
-                }
-            });
-        });
+        // this.master.getBankMaster().subscribe(data=>{
+        //     this.bankName = {} as ddlBank;       
+        //     data.forEach(item=>{
+        //         if(localStorage.getItem('bankcode')===item.adbankname){
+        //             this.bankName.adbankname = item.adbankname;
+        //             this.bankName.banknameen = item.banknameen;
+        //             this.bankName.bankname = item.bankname;
+        //             this.bankName.bankno = item.bankid;
+        //             this.listItems.push(this.bankName);
+        //             this.changdropdown();
+        //         }
+        //     });
+        // });
 
         
-        this.bankName.bankno = localStorage.getItem('bankcode');
-        this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
-        this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
+        // this.bankName.bankno = localStorage.getItem('bankcode');
+        // this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
+        // this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
 
+        this.CSBankDelt();
 
     }
 
@@ -323,4 +328,26 @@ export class DialogComponent implements OnInit {
             });
         });
     }
+
+    CSBankDelt() {
+        this.master.getCSBankDelt(Number(localStorage.getItem('_hyrf_id'))).subscribe(data => {
+            this.bankName.adbankname = data.bankcode;
+            this.bankName.banknameen = data.bank_name_en;
+            this.bankName.bankname = data.bankname_th;
+            this.bankName.bankno = data.bank_id;
+            this.listItems.push(this.bankName);
+
+            this.bankbranch = {} as dlBankBranch
+            this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
+            this.bankbranch.bankBranchName = data.bot_bank_branch_name;
+            this.bankbranch.bankCode = data.bankcode
+            this.listBankBranch.push(this.bankbranch);
+
+            this.bankAccountNo = data.bankaccountno;
+            this.bankAccountName = data.bankaccountname ;
+
+            
+        });
+    }
+
 }

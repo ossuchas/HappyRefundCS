@@ -67,8 +67,6 @@ export class CustomerComponent implements OnInit {
         } else {
             localStorage.setItem('isMobile', '0');
         }
-
-
     }
 
 
@@ -171,13 +169,14 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string) {
+    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string,bankBranchName: string) {
         console.log('uploadByid = ' + _hyrf_id);
         localStorage.setItem('_hyrf_id', _hyrf_id.toString());
 
         localStorage.setItem('bankaccountname', bankaccountname);
         localStorage.setItem('bankaccountno', bankaccountno);
         localStorage.setItem('bankcode', bankcode);
+        localStorage.setItem('bankBranchName',bankBranchName);
 
         const dialogRef = this.dialog.open(DialogTermComponent);
 
