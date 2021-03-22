@@ -134,6 +134,7 @@ export class DialogComponent implements OnInit {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
                 console.log('bankbranchCount',this.bankName.bankno);
+
                 if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
                     this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
                 }else{
@@ -337,11 +338,27 @@ export class DialogComponent implements OnInit {
             this.bankName.bankno = data.bank_id;
             this.listItems.push(this.bankName);
 
-            this.bankbranch = {} as dlBankBranch
-            this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
-            this.bankbranch.bankBranchName = data.bot_bank_branch_name;
-            this.bankbranch.bankCode = data.bankcode
-            this.listBankBranch.push(this.bankbranch);
+
+            if(this.bankName.bankno=== '999'){
+                this.bankbranch = {} as dlBankBranch;
+            }
+            this.authen.LoginCRM().subscribe(data2 => {
+                this.master.getBankBranch(data2.token,this.bankName.bankno).subscribe(data2 =>{
+                    this.listBankBranch = data2;
+                    this.bankbranch = {} as dlBankBranch
+                    data2.forEach(item => {
+                        console.log('aaaaa',data.bot_bank_branch_code)
+                        console.log('Test_Tae',item.bankBranchCode)
+
+                        if(data.bot_bank_branch_code === item.bankBranchCode){
+                            this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
+                            this.bankbranch.bankBranchName = data.bot_bank_branch_name;
+                            this.bankbranch.bankCode = data.bankcode
+                            this.listBankBranch.push(this.bankbranch);
+                        }
+                    });
+                })
+              });
 
             this.bankAccountNo = data.bankaccountno;
             this.bankAccountName = data.bankaccountname ;
