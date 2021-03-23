@@ -119,6 +119,7 @@ export class CustomerComponent implements OnInit {
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = '40%';
+        dialogConfig.height = '500px';
         dialogConfig.data = {
             hyrf_id: _hyrf_id
         };

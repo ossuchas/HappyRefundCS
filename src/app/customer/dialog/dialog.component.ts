@@ -99,7 +99,7 @@ export class DialogComponent implements OnInit {
 
     ngOnInit() {
         this.cksl = localStorage.getItem('_hyrf_id');
-        console.log('ckck',this.cksl)
+        
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
 
@@ -127,7 +127,8 @@ export class DialogComponent implements OnInit {
         // this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
 
         this.CSBankDelt();
-
+        this.changdropdown();
+        
     }
 
     changdropdown()
@@ -138,8 +139,6 @@ export class DialogComponent implements OnInit {
         this.authen.LoginCRM().subscribe(data => {
             this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
                 this.listBankBranch = data;
-                console.log('bankbranchCount',this.bankName.bankno);
-
                 if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
                     this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
                 }else{
@@ -178,9 +177,7 @@ export class DialogComponent implements OnInit {
                     
                     this.dialogRef.close();
                 });
-
             });
-            
         } else {
             this.loading = false;
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -188,7 +185,6 @@ export class DialogComponent implements OnInit {
                 data: 'กรุณากรอกข้อมูลให้ครบถ้วน/Please fill up all required fields.'
             });
         }
-        
     }
 
     onClose2() {
@@ -342,33 +338,32 @@ export class DialogComponent implements OnInit {
             this.bankName.banknameen = data.bank_name_en;
             this.bankName.bankname = data.bankname_th;
             this.bankName.bankno = data.bank_id;
+
             this.cksl = localStorage.getItem('bankcode')
             if (this.cksl === 'null'){
-                console.log('มี');
                 this.bankName.playlistbankname = '';
-                
             }else{
-                console.log('ไม่มี');
                 this.bankName.playlistbankname = data.bankname_th + ' / ' + data.bank_name_en;
             }
             this.listItems.push(this.bankName);
 
             console.log('playlistbankname',this.bankName.playlistbankname)
 
-
-            if(this.bankName.bankno=== '999'){
-                this.bankbranch = {} as dlBankBranch;
-            }
-
+            // if(this.bankName.bankno === '999'){
+            //     this.bankbranch = {} as dlBankBranch;
+            // }
             this.authen.LoginCRM().subscribe(data2 => {
                 this.master.getBankBranch(data2.token,this.bankName.bankno).subscribe(data2 =>{
                     this.listBankBranch = data2;
                     this.bankbranch = {} as dlBankBranch
                     const store = {} as any;
                     data2.forEach(item => {
-                        console.log('a',data.bot_bank_branch_code)
-                        console.log('b',item.bankBranchCode)
-                        if((data.bot_bank_branch_code === item.bankBranchCode) && (data.bot_bank_branch_code !== '999')){
+
+                        // console.log('a',data.bot_bank_branch_code)
+                        // console.log('b',item.bankBranchCode)
+                        // console.log('c',item.bankCode)
+
+                        if((data.bot_bank_branch_code === item.bankBranchCode) && (item.bankCode !== '999')){
                             console.log('1')
                             this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
                             this.bankbranch.bankBranchName = data.bot_bank_branch_name;
@@ -376,11 +371,11 @@ export class DialogComponent implements OnInit {
                             this.listBankBranch.push(this.bankbranch);
                             return store.toPromise();
                         }
-                        else if (data.bot_bank_branch_code !== item.bankBranchCode && data.bot_bank_branch_code !== '999')
+                        else if (data.bot_bank_branch_code === '0001' && item.bankCode !== '999')
                         {
                             console.log('2')
-                            this.bankbranch.bankBranchCode = '0001';
-                            this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
+                            this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
+                            this.bankbranch.bankBranchName = data.bot_bank_branch_name;
                             this.bankbranch.bankCode = data.bankcode
                             this.listBankBranch.push(this.bankbranch);
                             return store.toPromise();
@@ -396,11 +391,8 @@ export class DialogComponent implements OnInit {
                     });
                 })
             });
-
             this.bankAccountNo = data.bankaccountno;
             this.bankAccountName = data.bankaccountname ;
-
-            
         });
     }
 
