@@ -387,7 +387,7 @@ export class DialogComponent implements OnInit {
             this.bankAccountNo = data.bankaccountno;
             this.bankAccountName = data.bankaccountname ;
 
-            debugger
+            
             if (data.bot_bank_branch_code === '0001'){
                 this.changdropdown();
             }
