@@ -137,16 +137,18 @@
                                 <div *ngIf="element.tf02_appv_flag === 'N' && 
                                 element.ac01_appv_flag === 'N' && 
                                 element.tf02_remarks !== null &&
-                                element.tf01_appv3101702544447_flag !== 'A' &&
+                                element.tf01_appv_flag !== 'A' &&
                                 element.ac01_remarks === null && element.ac02_remarks === null
                                 "
                                 
-                                >หมายเหตุ : {{element.tf02_remarks}}</div>
+                                >หมายเหตุ : {{element.tf02_remarks}} //</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
                                 element.tf02_appv_flag === 'N' && 
-                                element.tf02_remarks === null"
-                                >หมายเหตุ : {{element.tf01_remarks}}</div>
+                                element.tf02_remarks === null &&
+                                element.ac01_remarks === null &&
+                                element.ac02_remarks === null"
+                                >หมายเหตุ : {{element.tf01_remarks}} /</div>
                             <!-- </div>
                         </div>
                     </div>
