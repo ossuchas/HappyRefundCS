@@ -18,6 +18,7 @@ export interface ddlBank {
     adbankname: string;
     bankno:string;
     banknameen:string;
+    playlistbankname:string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
@@ -94,7 +95,11 @@ export class DialogComponent implements OnInit {
 
     csbankdelt = {} as CSBankDelt
 
+    cksl:string;
+
     ngOnInit() {
+        this.cksl = localStorage.getItem('_hyrf_id');
+        console.log('ckck',this.cksl)
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
 
@@ -316,6 +321,7 @@ export class DialogComponent implements OnInit {
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
                 this.temp.banknameen = element.banknameen;
+                this.temp.playlistbankname = element.bankname + ' / ' + element.banknameen;
                 this.listItems.push(this.temp);
             });
         });
@@ -336,7 +342,18 @@ export class DialogComponent implements OnInit {
             this.bankName.banknameen = data.bank_name_en;
             this.bankName.bankname = data.bankname_th;
             this.bankName.bankno = data.bank_id;
+            this.cksl = localStorage.getItem('bankcode')
+            if (this.cksl === 'null'){
+                console.log('มี');
+                this.bankName.playlistbankname = '';
+                
+            }else{
+                console.log('ไม่มี');
+                this.bankName.playlistbankname = data.bankname_th + ' / ' + data.bank_name_en;
+            }
             this.listItems.push(this.bankName);
+
+            console.log('playlistbankname',this.bankName.playlistbankname)
 
 
             if(this.bankName.bankno=== '999'){
@@ -358,7 +375,6 @@ export class DialogComponent implements OnInit {
                             this.bankbranch.bankCode = data.bankcode
                             this.listBankBranch.push(this.bankbranch);
                             return store.toPromise();
-                            
                         }
                         else if (data.bot_bank_branch_code !== item.bankBranchCode && data.bot_bank_branch_code !== '999')
                         {

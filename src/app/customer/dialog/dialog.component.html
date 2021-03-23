@@ -177,8 +177,8 @@
                             <option
                                 *ngFor="let dl of listItems"
                                 [ngValue]="dl"
-                            >{{ dl.bankname }} / {{dl.banknameen}}
-                        </option>
+                            >{{ dl.playlistbankname}}
+                            </option>
                         </select>
                 </div>
 
@@ -219,7 +219,7 @@
                         name="bankaccountno"
                         #bankaccountno="ngModel"
                         [(ngModel)]="bankAccountNo"
-                        placeholder="กรุณากรอกเลขบัญชี"
+                        placeholder="กรุณากรอกเลขบัญชี/Please fill in Bank Account Number"
                     >
                 </div>
                 <div class="col">
