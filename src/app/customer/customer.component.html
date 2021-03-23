@@ -119,10 +119,35 @@
             <mat-cell *matCellDef="let element">
                 {{ element.doc_sent_status | tf01docstatus }}
                 {{ element.ac02_due_date | date: ': เงินเข้าภายในวันที่ dd/MM/yy' }}
-                <div *ngIf="element.ac02_appv_flag !== 'N'">หมายเหตุ : {{element.ac02_remarks}}</div>
-                <div *ngIf="element.ac01_appv_flag !== 'N'&&element.ac02_appv_flag === 'N'">หมายเหตุ : {{element.ac01_remarks}}</div>
-                <div *ngIf="element.tf02_appv_flag !== 'N'&&element.ac01_appv_flag === 'N'">หมายเหตุ : {{element.tf02_remarks}}</div>
-                <div *ngIf="element.tf01_appv_flag !== 'N'&&element.tf02_appv_flag === 'N'">หมายเหตุ : {{element.tf01_remarks}}</div>
+
+                <!-- <div *ngIf="element.ac02_appv_flag !== 'A' || element.ac02_due_date === null" >
+                    <div *ngIf="element.ac01_appv_flag !== 'A'">
+                        <div *ngIf="element.tf02_appv_flag !== 'A'">
+                            <div *ngIf="element.tf01_appv_flag !== 'A'"> -->
+                                <div *ngIf="element.ac02_appv_flag === 'N' &&
+                                element.ac02_remarks !== null"
+                                >หมายเหตุ : {{element.ac02_remarks}}</div>
+
+                                <div *ngIf="element.ac01_appv_flag === 'N' && 
+                                element.ac02_appv_flag === 'N' && 
+                                element.ac01_remarks !== null"
+                                >หมายเหตุ : {{element.ac01_remarks}}</div>
+
+                                <div *ngIf="element.tf02_appv_flag === 'N' && 
+                                element.ac01_appv_flag === 'N' && 
+                                element.tf02_remarks !== null"
+                                >หมายเหตุ : {{element.tf02_remarks}}</div>
+
+                                <div *ngIf="element.tf01_appv_flag === 'R' && 
+                                element.tf02_appv_flag === 'N' && 
+                                element.tf02_remarks === null"
+                                >หมายเหตุ : {{element.tf01_remarks}}</div>
+                            <!-- </div>
+                        </div>
+                    </div>
+                </div>
+                 -->
+
             </mat-cell>
         </ng-container>
 
