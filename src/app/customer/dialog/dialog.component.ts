@@ -99,7 +99,6 @@ export class DialogComponent implements OnInit {
 
     ngOnInit() {
         this.cksl = localStorage.getItem('_hyrf_id');
-        
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
 
@@ -128,12 +127,12 @@ export class DialogComponent implements OnInit {
 
         this.CSBankDelt();
         this.changdropdown();
-        
+
     }
 
     changdropdown()
     {
-        if(this.bankName.bankno=== '999'){
+        if(this.bankName.bankno === '999'){
             this.bankbranch = {} as dlBankBranch;
         }
         this.authen.LoginCRM().subscribe(data => {
@@ -229,9 +228,7 @@ export class DialogComponent implements OnInit {
             });
         }
     }
-    // closeDialog1() {
-    //     console.log('xxx');
-    // }
+
 
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -327,18 +324,17 @@ export class DialogComponent implements OnInit {
         this.master.getBankAccountName(id).subscribe(data => {
             data.forEach(element => {
                 this.listItemsBankName.push(element['fullname']);
-                //console.log('ll',this.listItemsBankName)
             });
         });
     }
 
     CSBankDelt() {
         this.master.getCSBankDelt(Number(localStorage.getItem('_hyrf_id'))).subscribe(data => {
+            this.bankName = {} as ddlBank
             this.bankName.adbankname = data.bankcode;
             this.bankName.banknameen = data.bank_name_en;
             this.bankName.bankname = data.bankname_th;
             this.bankName.bankno = data.bank_id;
-
             this.cksl = localStorage.getItem('bankcode')
             if (this.cksl === 'null'){
                 this.bankName.playlistbankname = '';
@@ -374,11 +370,7 @@ export class DialogComponent implements OnInit {
                         else if (data.bot_bank_branch_code === '0001' && item.bankCode !== '999')
                         {
                             console.log('2')
-                            this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
-                            this.bankbranch.bankBranchName = data.bot_bank_branch_name;
-                            this.bankbranch.bankCode = data.bankcode
-                            this.listBankBranch.push(this.bankbranch);
-                            return store.toPromise();
+                            this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
                         }else if (data.bot_bank_branch_code === '999')
                         {
                             console.log('3')
@@ -391,9 +383,10 @@ export class DialogComponent implements OnInit {
                     });
                 })
             });
+            
             this.bankAccountNo = data.bankaccountno;
             this.bankAccountName = data.bankaccountname ;
+            this.changdropdown();
         });
     }
-
 }
