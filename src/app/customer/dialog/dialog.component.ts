@@ -126,12 +126,13 @@ export class DialogComponent implements OnInit {
         // this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
 
         this.CSBankDelt();
-        this.changdropdown();
+        //this.changdropdown();
 
     }
 
     changdropdown()
     {
+        console.log('change')
         if(this.bankName.bankno === '999'){
             this.bankbranch = {} as dlBankBranch;
         }
@@ -355,9 +356,9 @@ export class DialogComponent implements OnInit {
                     const store = {} as any;
                     data2.forEach(item => {
 
-                        // console.log('a',data.bot_bank_branch_code)
-                        // console.log('b',item.bankBranchCode)
-                        // console.log('c',item.bankCode)
+                        console.log('a',data.bot_bank_branch_code)
+                        console.log('b',item.bankBranchCode)
+                        console.log('c',item.bankCode)
 
                         if((data.bot_bank_branch_code === item.bankBranchCode) && (item.bankCode !== '999')){
                             console.log('1')
@@ -389,6 +390,7 @@ export class DialogComponent implements OnInit {
 
             
             if (data.bot_bank_branch_code === '0001'){
+                console.log('in11')
                 this.changdropdown();
             }
         });
