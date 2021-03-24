@@ -132,7 +132,7 @@ export class DialogComponent implements OnInit {
 
     changdropdown()
     {
-        console.log('change')
+        //console.log('change')
         if(this.bankName.bankno === '999'){
             this.bankbranch = {} as dlBankBranch;
         }
@@ -390,9 +390,10 @@ export class DialogComponent implements OnInit {
 
             
             if (data.bot_bank_branch_code === '0001'){
-                console.log('in11')
+                //console.log('in11')
                 this.changdropdown();
             }
+            
         });
     }
 }
