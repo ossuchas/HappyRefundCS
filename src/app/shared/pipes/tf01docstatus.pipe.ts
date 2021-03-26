@@ -6,15 +6,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class Tf01docstatusPipe implements PipeTransform {
     transform(value: any, args?: any): any {
         if (value === 'N') {
-            return 'รอการส่งเอกสาร/Waiting for documents to be sent';
+            return 'รอการส่งเอกสาร/Waiting for documents submitted';
         } else if (value === 'Y') {
-            return 'รอการตรวจสอบเอกสาร/Considering documents';
+            return 'รอการตรวจสอบเอกสาร/Verifying documents';
         } else if (value === 'R') {
-            return 'เอกสารไม่ถูกต้องกรุณาส่งเอกสารใหม่/Invalid document, please submit new document.';
+            return 'เอกสารไม่ถูกต้อง กรุณาส่งเอกสารใหม่/Invalid documents, please resubmit new documents.';
         } else if (value === 'P') {
-            return 'รอการยืนยันวันที่เงินเข้า/Wait for confirmation of the deposit date';
+            return 'รอการยืนยันวันที่เงินเข้า/Waiting for confirming deposit date';
         } else if (value === 'A') {
-            return 'APPROVED';
+            return 'APPROVED: เงินเข้าภายในวันที่/Money arrived within ';
         } else {
             return 'N/A';
         }

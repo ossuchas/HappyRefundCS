@@ -173,7 +173,7 @@ export class DialogComponent implements OnInit {
                                    this.bankbranch.bankBranchName).subscribe(res => { 
                 console.log('Submit1', res);
                 this.busy = this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
-                    this.toasterService.success('Success');
+                    this.toasterService.success('ทำรายการสำเร็จ กรุณารอการตรวจสอบ / Success! Please wait for verifying your documents.');
                     
                     this.dialogRef.close();
                 });
