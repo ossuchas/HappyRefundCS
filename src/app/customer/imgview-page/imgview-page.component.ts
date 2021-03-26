@@ -28,7 +28,7 @@ export class ImgviewPageComponent implements OnInit {
     }
 
     listData: MatTableDataSource<any>;
-    displayedColumn: string[] = ['View-Delete', 'img_name'];
+    displayedColumn: string[] = ['View-Delete', 'img_name','creatdate'];
 
     ngOnInit() {
         this.refreshDataList(this.data.hyrf_id);
