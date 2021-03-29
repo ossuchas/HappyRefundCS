@@ -12,14 +12,14 @@
 
 
         <ng-container matColumnDef="View-Delete">
-            <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>View/Delete</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button mat-icon-button (click)="onView(row)">
                     <mat-icon>zoom_in</mat-icon>
                 </button>
-                <!-- <button mat-icon-button (click)="onDelete(row)">
+                <button mat-icon-button (click)="onDelete(row)">
                     <mat-icon>delete_outline</mat-icon>
-                </button> -->
+                </button>
             </mat-cell>
         </ng-container>
 
@@ -49,7 +49,7 @@
         </ng-container> -->
 
         <ng-container matColumnDef="creatdate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>วันที่ Upload</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Date Uploaded</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.createdate | date : 'dd/MM/yyyy'}}</mat-cell>
         </ng-container>
     </mat-table>
