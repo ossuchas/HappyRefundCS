@@ -204,8 +204,8 @@
                         [(ngModel)]="bankbranch" 
                         *ngIf="(bankName.bankno === '999' || !(bankName&&bankName.bankno))||(listBankBranch.length === 0 && bankName.bankno !== '999')"
                         disabled>
-                    </ng-select>
-                    <span style="color:red;font-size:10px;">
+                    </ng-select>&nbsp;
+                    <span style="color:blue;font-size:10px;">
                         *For an overseas bank account, no need to choose a bank branch.
                     </span>
                 </div>
