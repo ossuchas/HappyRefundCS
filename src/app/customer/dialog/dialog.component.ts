@@ -328,7 +328,7 @@ export class DialogComponent implements OnInit {
 
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
-            this.listItemsBankName.push('กรุณาเลือก');
+            this.listItemsBankName.push('---กรุณาเลือกชื่อบัญชีธนาคาร---');
             data.forEach(element => {
                 this.listItemsBankName.push(element['fullname']);
             });
