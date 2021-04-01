@@ -222,7 +222,7 @@ export class DialogComponent implements OnInit {
         console.log(this.bankAccountNo)
         console.log(this.bankAccountName)
 
-        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName&&this.bankAccountName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
+        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
            this.file.nativeElement.click();
         }
@@ -391,7 +391,8 @@ export class DialogComponent implements OnInit {
             });
             
             this.bankAccountNo = data.bankaccountno;
-            this.bankAccountName = data.bankaccountname ;
+            console.log('data.bankaccountname',data.bankaccountname);
+            this.bankAccountName = data.bankaccountname?data.bankaccountname: 'Test';
 
             
             if (data.bot_bank_branch_code === '0001'){
