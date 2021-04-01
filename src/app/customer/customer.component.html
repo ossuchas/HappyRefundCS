@@ -117,7 +117,9 @@
             >Status</mat-header-cell>
             <mat-cell *matCellDef="let element">
                 {{ element.doc_sent_status | tf01docstatus }}
-                {{ element.ac02_due_date | date: 'dd/MM/yy' }}
+                <div *ngIf="element.ac01_appv_flag === 'A'">
+                    {{ element.ac02_due_date | date: 'dd/MM/yy' }}
+                </div>
 
                 <!-- <div *ngIf="element.ac02_appv_flag !== 'A' || element.ac02_due_date === null" >
                     <div *ngIf="element.ac01_appv_flag !== 'A'">
