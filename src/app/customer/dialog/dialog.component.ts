@@ -328,6 +328,7 @@ export class DialogComponent implements OnInit {
 
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
+            this.listItemsBankName.push('กรุณาเลือก');
             data.forEach(element => {
                 this.listItemsBankName.push(element['fullname']);
             });
@@ -391,8 +392,10 @@ export class DialogComponent implements OnInit {
             });
             
             this.bankAccountNo = data.bankaccountno;
-            console.log('data.bankaccountname',data.bankaccountname);
-            this.bankAccountName = data.bankaccountname?data.bankaccountname: 'Test';
+            // console.log('data.bankaccountname',data);
+            this.bankAccountName = data.bankaccountname !== undefined && data.bankaccountname !== null ?data.bankaccountname:'กรุณาเลือก';
+            // this.listItemsBankName.push('');
+            // console.log('this.bankAccountName','');
 
             
             if (data.bot_bank_branch_code === '0001'){
