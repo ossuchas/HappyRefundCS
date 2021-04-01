@@ -33,8 +33,10 @@ export class ImgviewPageComponent implements OnInit {
     
     listData: MatTableDataSource<any>;
     displayedColumn: string[] = ['View-Delete', 'img_name', 'creatdate'];
+    appv_flag: string;
 
     ngOnInit() {
+        this.appv_flag = localStorage.getItem('flag_appv');
         this.refreshDataList(this.data.hyrf_id);
     }
 

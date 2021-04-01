@@ -74,6 +74,7 @@ export class CustomerComponent implements OnInit {
         // console.log(form.value);
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             data => {
+                localStorage.setItem('flag_appv',data[0].ac01_appv_flag);
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
                 // console.log(data);
@@ -178,6 +179,8 @@ export class CustomerComponent implements OnInit {
         localStorage.setItem('bankaccountno', bankaccountno);
         localStorage.setItem('bankcode', bankcode);
         localStorage.setItem('bankBranchName',bankBranchName);
+       
+        
 
         const dialogRef = this.dialog.open(DialogTermComponent);
 
