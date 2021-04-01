@@ -217,6 +217,11 @@ export class DialogComponent implements OnInit {
     
     addFiles() {
 
+        console.log(this.bankName.bankname)
+        console.log(this.bankbranch.bankBranchName)
+        console.log(this.bankAccountNo)
+        console.log(this.bankAccountName)
+
         if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName&&this.bankAccountName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
         {
            this.file.nativeElement.click();
