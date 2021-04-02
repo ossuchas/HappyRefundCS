@@ -204,13 +204,19 @@
                         [(ngModel)]="bankbranch" 
                         *ngIf="(bankName.bankno === '999' || !(bankName&&bankName.bankno))||(listBankBranch.length === 0 && bankName.bankno !== '999')"
                         disabled>
-                    </ng-select>&nbsp;
-                    <span style="color:blue;font-size:10px;">
-                        *For an overseas bank account, no need to choose a bank branch.
-                    </span>
+                    </ng-select>
+                    
                 </div>
             </div>
-            <br>
+            <!-- <div class="form-row"> -->
+                <span style="color:blue;font-size:10px;">&nbsp;
+                    *กรณีไม่มีสาขาให้เลือก กรุณาเลือกเป็น สำนักงานใหญ่/If there's no bank branch that you want, please select Head Office.
+                </span><br>
+                <span style="color:blue;font-size:10px;">&nbsp;
+                    *กรณีที่เลือก INTERBANK ไม่ต้องเลือกสาขา/For an overseas bank account, no need to choose a bank branch.
+                </span>
+            <!-- </div> -->
+            <br><br>
             <div class="form-row">
                 <div class="col">
                     <label for="exampleSelec">เลขที่บัญชีลูกค้า / Customer Bank Account Number<span style="color:red;font-size:14px;">*</span></label>
