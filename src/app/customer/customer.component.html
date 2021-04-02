@@ -157,8 +157,15 @@
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
+                                element.ac01_appv_date !== null &&
+                                element.tf02_appv_date !== null &&
                                 element.tf01_appv_date > element.ac01_appv_date &&
                                 element.tf01_appv_date > element.tf02_appv_date"
+                                >หมายเหตุ : {{element.tf01_remarks}}</div>
+
+                                <div *ngIf="element.tf01_appv_flag === 'R' && 
+                                element.ac01_appv_date === null &&
+                                element.tf02_appv_date === null"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
                             <!-- </div>
                         </div>
