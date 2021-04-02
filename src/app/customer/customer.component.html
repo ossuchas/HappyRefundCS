@@ -143,7 +143,16 @@
                                 element.ac01_appv_flag === 'N' && 
                                 element.tf02_remarks !== null &&
                                 element.tf01_appv_flag === 'R' &&
+                                element.ac01_appv_flag !== null &&
                                 element.tf02_appv_date > element.ac01_appv_date &&
+                                element.tf02_appv_date > element.tf01_appv_date"
+                                >หมายเหตุ : {{element.tf02_remarks}}</div>
+
+                                <div *ngIf="element.tf02_appv_flag === 'N' && 
+                                element.ac01_appv_flag === 'N' && 
+                                element.tf02_remarks !== null &&
+                                element.tf01_appv_flag === 'R' &&
+                                element.ac01_appv_date === null &&
                                 element.tf02_appv_date > element.tf01_appv_date"
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
