@@ -334,7 +334,7 @@ export class DialogComponent implements OnInit {
             });
         });
     }
-    
+     
     CSBankDelt() {
         this.master.getCSBankDelt(Number(localStorage.getItem('_hyrf_id'))).subscribe(data => {
             this.bankName = {} as ddlBank
