@@ -95,10 +95,10 @@ export class DialogComponent implements OnInit {
 
     csbankdelt = {} as CSBankDelt
 
-    cksl:string;
+    id:string;
 
     ngOnInit() {
-        this.cksl = localStorage.getItem('_hyrf_id');
+        this.id = localStorage.getItem('_hyrf_id');
         this.dropdownBankMasterRefresh();
         this.dropdownBankNameListRefresh(Number(localStorage.getItem('_hyrf_id')));
 
@@ -342,16 +342,18 @@ export class DialogComponent implements OnInit {
             this.bankName.banknameen = data.bank_name_en;
             this.bankName.bankname = data.bankname_th;
             this.bankName.bankno = data.bank_id;
-            this.cksl = localStorage.getItem('bankcode')
-            if (this.cksl === 'null'){
+            this.id = localStorage.getItem('bankcode')
+
+            
+            if (this.id === 'null'){
                 this.bankName.playlistbankname = '';
             }else{
                 this.bankName.playlistbankname = data.bankname_th + ' / ' + data.bank_name_en;
             }
             this.listItems.push(this.bankName);
-
+            
             console.log('playlistbankname',this.bankName.playlistbankname)
-
+            
             // if(this.bankName.bankno === '999'){
             //     this.bankbranch = {} as dlBankBranch;
             // }
