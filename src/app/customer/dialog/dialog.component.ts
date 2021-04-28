@@ -323,6 +323,7 @@ export class DialogComponent implements OnInit {
                 this.temp.playlistbankname = element.bankname + ' / ' + element.banknameen;
                 this.listItems.push(this.temp);
             });
+
         });
     }
 
@@ -338,19 +339,12 @@ export class DialogComponent implements OnInit {
     CSBankDelt() {
         this.master.getCSBankDelt(Number(localStorage.getItem('_hyrf_id'))).subscribe(data => {
             this.bankName = {} as ddlBank
-            this.bankName.adbankname = data.bankcode;
-            this.bankName.banknameen = data.bank_name_en;
-            this.bankName.bankname = data.bankname_th;
-            this.bankName.bankno = data.bank_id;
-            this.id = localStorage.getItem('bankcode')
-
-            
-            if (this.id === 'null'){
-                this.bankName.playlistbankname = '';
-            }else{
-                this.bankName.playlistbankname = data.bankname_th + ' / ' + data.bank_name_en;
-            }
-            this.listItems.push(this.bankName);
+  
+            this.listItems.forEach(item=>{
+                if(data.bank_id===item.bankno){
+                    this.bankName = item;
+                }
+            });
             
             console.log('playlistbankname',this.bankName.playlistbankname)
             
@@ -373,7 +367,8 @@ export class DialogComponent implements OnInit {
                             this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
                             this.bankbranch.bankBranchName = data.bot_bank_branch_name;
                             this.bankbranch.bankCode = data.bankcode
-                            this.listBankBranch.push(this.bankbranch);
+                            // this.listBankBranch.push(this.bankbranch);
+                            this.bankbranch = item;
                             return store.toPromise();
                         }
                         else if (data.bot_bank_branch_code === '0001' && item.bankCode !== '999')
