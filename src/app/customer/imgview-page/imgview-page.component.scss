@@ -43,12 +43,17 @@ mat-cell {
     font-family: AP-Regular;
 }
 .mat-column-View-Delete{
-    flex: 0 0 30%;
+    flex: 0 0 133px;
  }
  .mat-column-img_name{
-    flex: 0 0 42%;
+    flex: 0 0 187px;
     text-align: left;
  }
+ .mat-column-creatdate{
+    flex: 0 0 130px;
+    text-align: left;
+ }
+
 .mat-dialog-container {
     padding: 24px;
     width: 60%;
