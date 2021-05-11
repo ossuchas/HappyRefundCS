@@ -1,18 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { MasterService } from 'src/app/shared';
+export interface modelWelcome{
+  hyrf_id:number;
+  receiveWelcomehome:boolean;
+}
 @Component({
   selector: 'app-dialog-term',
   templateUrl: './dialog-term.component.html',
   styleUrls: ['./dialog-term.component.scss']
 })
+
+
 export class DialogTermComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private MSsrv: MasterService,
+  ) { }
+
+  @Input() welcomeHomeFlag: string;
+  @Input() welcomeHomeAcceptDatetime: Date;
+  @Input() hyrf_id: number;
+  
   showTha:any;
   showEng:any;
+
+  showBtnTha:any;
+  showBtnEng:any;
+
+  checkWelcomehome:boolean;
   ngOnInit() {
   this.showTha = true;
   this.showEng = true;
+  this.checkWelcomehome = false;
+  console.log('testttttttt',this.welcomeHomeFlag);
+  console.log('testttttttt',this.welcomeHomeAcceptDatetime);
   }
 
   openButton = false;
@@ -32,20 +53,34 @@ export class DialogTermComponent implements OnInit {
     if(this.showTha === true && this.showEng === true)
     {
       this.showEng = false;
+      this.showBtnTha = true;
     }
     else if (this.showTha === true && this.showEng === false)
     {
       this.showEng = true;
+      this.showBtnTha = false;
     }
   }
+
   onShowEng(){
     if(this.showTha === true && this.showEng === true)
     {
       this.showTha = false;
+      this.showBtnEng = true;
     }
     else if (this.showTha === false && this.showEng === true)
     {
       this.showTha = true;
+      this.showBtnEng = false;
     }
+  }
+
+
+  appvWelcomehome(){
+    const dataSave = {} as modelWelcome;
+    dataSave.receiveWelcomehome = this.checkWelcomehome;
+    dataSave.hyrf_id = this.hyrf_id
+    this.MSsrv.AcceptWelcomehome(this.hyrf_id,this.checkWelcomehome).subscribe(resp => {})
+    // console.log('success', this.checkWelcomehome);
   }
 }

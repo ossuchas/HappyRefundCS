@@ -65,9 +65,6 @@ export class MasterService {
   bankSubmit(hyrf_id: string, bankcodeInput: string, bankaccountnoInput: string, bankaccountnameInput: string, botbankcodeInput:string, botbankbranchcodeInput: string, botbankbranchnameInput:string): Observable<any> {
     apiUrl: 'https://happyrefundapi.apthai.com/api/v1';
     // return this.http.put<any>('http://happyrefund-api-testrepo.devops-app.apthai.com/api/v1/banksubmit/' + hyrf_id, { bankcode: bankcodeInput, bankaccountno: bankaccountnoInput, bankaccountname: bankaccountnameInput }, this.httpOptions);
-    console.log(botbankcodeInput);
-    console.log(botbankbranchcodeInput);
-    console.log(botbankbranchnameInput);
     return this.http.put<any>(this.APIUrl + '/banksubmit/' + hyrf_id, 
     { bankcode: bankcodeInput, 
       bankaccountno: bankaccountnoInput, 
@@ -76,4 +73,8 @@ export class MasterService {
       bot_bank_branch_code: botbankbranchcodeInput, 
       bot_bank_branch_name: botbankbranchnameInput}, this.httpOptions);
   }
+
+  AcceptWelcomehome(hyrf_id: number , _receiveWelcomehome: boolean): Observable<any>{
+    return this.http.put<any>(this.APIUrl + '/acceptwelcome/' + hyrf_id, {receiveWelcomehome: _receiveWelcomehome},this.httpOptions);
+}
 }

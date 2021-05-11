@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
@@ -12,6 +12,7 @@ import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
 import { ToastrService } from 'ngx-toastr';
 import { DialogTooltipComponent } from './tooltips/tooltip.component';
+import { elementAt } from 'rxjs/operators';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class CustomerComponent implements OnInit {
         public dialog: MatDialog,
         private toasterService: ToastrService,
     ) { }
-
+    @Output() welcomeHomeFlag = new EventEmitter<string>();
     isValidate = false;
     isMobile = false;
     isValidateUpload = false;
@@ -36,6 +37,9 @@ export class CustomerComponent implements OnInit {
     Remark:string;
     personalid:string;
     tooltips = false
+    sentDataRefund: CrmContactRefund[] = [];
+
+    totalAmount:number;
         
     displayedColumn: string[] = [
         'Options',
@@ -44,6 +48,8 @@ export class CustomerComponent implements OnInit {
         'contractnumber',
         'transferdateapprove',
         'remainingtotalamount',
+        'welcomehomeamount',
+        'totalamount',
         'doc_sent_status',
         'doc_upload_btn'
     ];
@@ -77,13 +83,15 @@ export class CustomerComponent implements OnInit {
                 localStorage.setItem('flag_appv',data[0].ac01_appv_flag);
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
+                this.sentDataRefund = data;
+                // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
+                
                 // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 // KAI 2019-12-14
                 // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 // localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                 localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
-
                 const doc_sent_status = JSON.parse(localStorage.getItem('currentCs'))[0].doc_sent_status;
                 if (doc_sent_status === 'A') {
                     this.isValidateUpload = false;
@@ -183,6 +191,9 @@ export class CustomerComponent implements OnInit {
         
 
         const dialogRef = this.dialog.open(DialogTermComponent);
+        dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
+        dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
+        dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
 
         dialogRef.afterClosed().subscribe(result => {
 

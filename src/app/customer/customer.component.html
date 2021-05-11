@@ -18,7 +18,7 @@
     <form
         #myform="ngForm"
         (ngSubmit)="validate(myform)"
-        class="form col-xl-4 text-xs-center"
+        class="form col-xl-4 text-xs-center" 
     >
         <fieldset class="form-group">
             <label class="label_header info round">เลขบัตรประชาชน หรือ พาสปอร์ต <br> Personal ID or Passport ID</label>
@@ -108,6 +108,21 @@
                 mat-sort-header
             >Refund Amount (Baht)</mat-header-cell>
             <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="welcomehomeamount">
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Welcome Home Amount (Baht)</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{(element.welcomehome_amount === null?0:element.welcomehome_amount) | number : '1.2-2' }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="totalamount">
+            <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+            >Total Amount (Baht)</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount + element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="doc_sent_status">

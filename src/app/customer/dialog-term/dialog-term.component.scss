@@ -22,6 +22,10 @@ p {
     font-size:12px;
 
 }
+label{
+    font-family: AP-Regular;
+    font-size:13px;
+}
 
 .mat-button {
     font-family: AP-Regular;
@@ -56,4 +60,9 @@ table{
 
 hr{
 	border-top: 1px solid black;
+}
+.welcomehome-warning{
+    color: red;
+    text-align: right;
+    font-family: AP-Regular;
 }
