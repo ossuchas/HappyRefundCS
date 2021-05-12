@@ -52,34 +52,38 @@ export class DialogTermComponent implements OnInit {
   onShowTha(){
     if(this.showTha === true && this.showEng === true)
     {
-      this.showEng = false;
       this.showBtnTha = true;
+      this.showEng = false;
+      
     }
     else if (this.showTha === true && this.showEng === false)
     {
-      this.showEng = true;
       this.showBtnTha = false;
+      this.showEng = true;
+      
     }
   }
 
   onShowEng(){
     if(this.showTha === true && this.showEng === true)
     {
-      this.showTha = false;
       this.showBtnEng = true;
+      this.showTha = false;
+      
     }
     else if (this.showTha === false && this.showEng === true)
     {
-      this.showTha = true;
       this.showBtnEng = false;
+      this.showTha = true;
+      
     }
   }
 
 
   appvWelcomehome(){
-    const dataSave = {} as modelWelcome;
-    dataSave.receiveWelcomehome = this.checkWelcomehome;
-    dataSave.hyrf_id = this.hyrf_id
+    // const dataSave = {} as modelWelcome;
+    // dataSave.receiveWelcomehome = this.checkWelcomehome;
+    // dataSave.hyrf_id = this.hyrf_id
     this.MSsrv.AcceptWelcomehome(this.hyrf_id,this.checkWelcomehome).subscribe(resp => {})
     // console.log('success', this.checkWelcomehome);
   }

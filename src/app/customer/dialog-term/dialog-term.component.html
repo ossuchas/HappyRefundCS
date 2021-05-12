@@ -9,8 +9,8 @@
 
 <mat-dialog-content class="mat-typography">
   <div>
-    <details *ngIf="showTha==true" (click)="onShowTha()">
-      <summary style="font-size: 18px;">Thai</summary>
+    <details  *ngIf="showTha==true">
+      <summary *ngIf="showTha==true" (click)="onShowTha()" style="font-size: 18px;">Thai</summary>
       <!-- <h3>ข้อตกลงและเงื่อนไขการใช้บริการเว็บไซต์ของ บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (“เอพี”)</h3> -->
       <br>
       <h4><b>ข้อตกลงและเงื่อนไขการใช้บริการเว็บไซต์ของ บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (“เอพี”)</b></h4>
@@ -336,16 +336,16 @@
         10110
       </p>
       
-
-      
-
-      
       <p><b>ช่องทางการติดต่อ</b></p>
       <p><b>โทรศัพท์ :</b> 02-018-9999</p>
       <p><b>E-mail :</b> dpo@apthai.com</p>
-      <div *ngIf="showTha==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null" (click)="onShowTha()">
+      <div *ngIf="showTha==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null">
         <br>
-        <input type="checkbox" name="checkBtn" [(ngModel)]="checkWelcomehome"><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> คุณต้องการรับสิทธิหรือไม่</label>
+        <input 
+          type="checkbox" 
+          name="checkBtn" 
+          [(ngModel)]="checkWelcomehome"
+          ><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> คุณต้องการรับสิทธิหรือไม่</label>
         <br><br> 
       </div>
       <br>
@@ -368,8 +368,10 @@
 
   <br>
   <div>
-    <details *ngIf="showEng==true" (click)="onShowEng()">
-      <summary style="font-size: 18px;">English</summary>
+    <details *ngIf="showEng==true">
+
+      <summary  *ngIf="showEng==true" (click)="onShowEng()" style="font-size: 18px;">English</summary>
+ 
       <!-- <h3>ข้อตกลงและเงื่อนไขการใช้บริการเว็บไซต์ของ บริษัท เอพี (ไทยแลนด์) จำกัด (มหาชน) (“เอพี”)</h3> -->
       <br>
       <h4 style="font-weight: bold;">Terms and conditions of use of AP (Thailand) PCL.’s website (“AP”)</h4>
@@ -697,8 +699,11 @@
       <p><b>Contact Tel :</b> 02-018-9999</p>
       <p><b>E-mail :</b> dpo@apthai.com</p>
 
-      <div *ngIf="showEng==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null" (click)="onShowEng()">
-      <input type="checkbox"  name="checkBtn" [(ngModel)]="checkWelcomehome"
+      <div *ngIf="showEng==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null">
+      <input 
+        type="checkbox"  
+        name="checkBtn" 
+        [(ngModel)]="checkWelcomehome"
       ><label>&nbsp;&nbsp;You have a cash back from <b>Welcome Home</b> Promotion. Please  select the checkbox to receive the rights.</label>
     </div>
     <br>
