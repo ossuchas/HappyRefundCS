@@ -42,6 +42,7 @@ export class DialogTermComponent implements OnInit {
   console.log('testttttttt',this.welcomeHomeAcceptDatetime);
   }
 
+  
   openButton = false;
 
   // onClick(){
