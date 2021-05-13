@@ -339,12 +339,15 @@
       <p><b>ช่องทางการติดต่อ</b></p>
       <p><b>โทรศัพท์ :</b> 02-018-9999</p>
       <p><b>E-mail :</b> dpo@apthai.com</p>
-      <div *ngIf="showTha==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null">
+      <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
+      <div *ngIf="showTha==true">
         <br>
         <input 
           type="checkbox" 
           name="checkBtn" 
           [(ngModel)]="checkWelcomehome"
+          [defaultChecked]="checkWelcomehome"
+          [disabled]="welcomeHomeAcceptDatetime!==null"
           ><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> คุณต้องการรับสิทธิหรือไม่</label>
         <br><br> 
       </div>
@@ -698,12 +701,15 @@
       <p><b>Contact Address :</b> 170/57 Ocean Tower 1, 18 Fl., Ratchadapisek Rd., Klongteoy, Bangkok 10110</p>
       <p><b>Contact Tel :</b> 02-018-9999</p>
       <p><b>E-mail :</b> dpo@apthai.com</p>
-
-      <div *ngIf="showEng==true && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null">
+      <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
+      <br>
+      <div *ngIf="showEng==true ">
       <input 
         type="checkbox"  
         name="checkBtn" 
         [(ngModel)]="checkWelcomehome"
+        [defaultChecked]="checkWelcomehome"
+        [disabled]="welcomeHomeAcceptDatetime!==null"
       ><label>&nbsp;&nbsp;You have a cash back from <b>Welcome Home</b> Promotion. Please  select the checkbox to receive the rights.</label>
     </div>
     <br>

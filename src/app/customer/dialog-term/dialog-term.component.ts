@@ -31,7 +31,13 @@ export class DialogTermComponent implements OnInit {
   ngOnInit() {
   this.showTha = true;
   this.showEng = true;
-  this.checkWelcomehome = false;
+
+  if(this.welcomeHomeAcceptDatetime === null){
+    this.checkWelcomehome = false;
+  }else {
+    this.checkWelcomehome = true;
+  }
+  
   console.log('testttttttt',this.welcomeHomeFlag);
   console.log('testttttttt',this.welcomeHomeAcceptDatetime);
   }
