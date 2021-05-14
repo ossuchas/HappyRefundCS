@@ -107,7 +107,7 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Refund Amount (Baht)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{ (element.remainingtotalamount<=1000?0:element.remainingtotalamount) | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="welcomehomeamount">
@@ -122,7 +122,7 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Total Amount (Baht)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount + element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{ (element.remainingtotalamount<=1000?0:element.remainingtotalamount) + element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="doc_sent_status">
