@@ -40,7 +40,7 @@ export class CustomerComponent implements OnInit {
     sentDataRefund: CrmContactRefund[] = [];
 
     totalAmount:number;
-        
+
     displayedColumn: string[] = [
         'Options',
         'project',
@@ -85,7 +85,7 @@ export class CustomerComponent implements OnInit {
                 this.listData = new MatTableDataSource(data);
                 this.sentDataRefund = data;
                 // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
-                
+
                 // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 // KAI 2019-12-14
@@ -99,7 +99,7 @@ export class CustomerComponent implements OnInit {
                     this.isValidateUpload = true;
                 }
             },
-            
+
             error => {
                 console.log(error)
                 if (error.error&&error.error.message==='No Data Found'){
@@ -187,14 +187,15 @@ export class CustomerComponent implements OnInit {
         localStorage.setItem('bankaccountno', bankaccountno);
         localStorage.setItem('bankcode', bankcode);
         localStorage.setItem('bankBranchName',bankBranchName);
-       
-        
+
+
 
         const dialogRef = this.dialog.open(DialogTermComponent);
         dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
         dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
         dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
         dialogRef.componentInstance.welcomehomeAmount = this.sentDataRefund[0].welcomehome_amount;
+        dialogRef.componentInstance.refundAmount = this.sentDataRefund[0].remainingtotalamount;
 
         dialogRef.afterClosed().subscribe(result => {
 
@@ -213,7 +214,7 @@ export class CustomerComponent implements OnInit {
                             this.isValidate = true;
                             this.listData = new MatTableDataSource(data);
                             // console.log(data);
-                            //console.log('asdasdasd',result1)
+                            // console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -234,7 +235,7 @@ export class CustomerComponent implements OnInit {
             }
         });
     }
-    openTooltip(){
+    openTooltip() {
         this.dialog.open(DialogTooltipComponent);
     }
 

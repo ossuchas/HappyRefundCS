@@ -345,13 +345,14 @@
       <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
       <div *ngIf="showTha==true">
         <br>
-        <input 
+        <input *ngIf="welcomeHomeFlag==='Y'"
           type="checkbox" 
           name="checkBtn" 
           [(ngModel)]="checkWelcomehome"
           [defaultChecked]="checkWelcomehome"
           [disabled]="welcomeHomeAcceptDatetime!==null"
-          ><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
+          ><label
+          *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
         <br><br> 
       </div>
       <br>
@@ -361,7 +362,7 @@
     </div>
     </details>
 
-    <mat-dialog-actions align="end" *ngIf="showBtnTha==true">
+    <mat-dialog-actions align="end" *ngIf="showBtnTha==true && refundAmount > 1000">
       <button type="button" mat-button mat-dialog-close style="background-color: #f44336; color: white;">ไม่ยินยอม/Disagree</button>
       <button type="button" mat-button [mat-dialog-close]="true" style="background-color: #1e7e34; color: white;"
         cdkFocusInitial
@@ -369,6 +370,17 @@
         (click)="appvWelcomehome()"
         >ยินยอม/Agree</button>
         
+    </mat-dialog-actions>
+
+    <mat-dialog-actions align="end" *ngIf="showBtnTha==true && refundAmount <= 1000">
+      <button mat-button mat-dialog-close style="background-color: #f44336; color: white;">ไม่ยินยอม/Disagree</button>
+      <button 
+      mat-button mat-dialog-close 
+      style="background-color: #1e7e34; color: white;"
+      cdkFocusInitial
+      [disabled]="welcomeHomeFlag === 'Y' && checkWelcomehome === false  && welcomeHomeAcceptDatetime === null"
+      (click)="appvWelcomehomeOnly()"
+        >test</button>
     </mat-dialog-actions>
   </div>
 
@@ -707,13 +719,13 @@
       <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
       <br>
       <div *ngIf="showEng==true ">
-      <input 
+      <input  *ngIf="welcomeHomeFlag==='Y'"
         type="checkbox"  
         name="checkBtn" 
         [(ngModel)]="checkWelcomehome"
         [defaultChecked]="checkWelcomehome"
         [disabled]="welcomeHomeAcceptDatetime!==null"
-      ><label>&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Promotion. Please  select the checkbox to receive the rights.</label>
+      ><label *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Promotion. Please  select the checkbox to receive the rights.</label>
     </div>
     <br>
     <br>
@@ -726,7 +738,7 @@
     </details>
 
     
-    <mat-dialog-actions align="end" *ngIf="showBtnEng==true">
+    <mat-dialog-actions align="end" *ngIf="showBtnEng==true && refundAmount > 1000">
       <button mat-button mat-dialog-close style="background-color: #f44336; color: white;">ไม่ยินยอม/Disagree</button>
       <button 
       mat-button [mat-dialog-close]="true" 
@@ -735,7 +747,17 @@
       [disabled]="welcomeHomeFlag === 'Y' && checkWelcomehome === false  && welcomeHomeAcceptDatetime === null"
       (click)="appvWelcomehome()"
         >ยินยอม/Agree</button>
-        
+    </mat-dialog-actions>
+
+    <mat-dialog-actions align="end" *ngIf="showBtnEng==true && refundAmount <= 1000">
+      <button mat-button mat-dialog-close style="background-color: #f44336; color: white;">ไม่ยินยอม/Disagree</button>
+      <button 
+      mat-button mat-dialog-close 
+      style="background-color: #1e7e34; color: white;"
+      cdkFocusInitial
+      [disabled]="welcomeHomeFlag === 'Y' && checkWelcomehome === false  && welcomeHomeAcceptDatetime === null"
+      (click)="appvWelcomehomeOnly()"
+        >test</button>
     </mat-dialog-actions>
 
   </div>

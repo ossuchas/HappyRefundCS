@@ -21,6 +21,7 @@ export class DialogTermComponent implements OnInit {
   @Input() welcomeHomeAcceptDatetime: Date;
   @Input() hyrf_id: number;
   @Input() welcomehomeAmount: number;
+  @Input() refundAmount: number;
 
   showTha: any;
   showEng: any;
@@ -84,6 +85,14 @@ export class DialogTermComponent implements OnInit {
 
 
   appvWelcomehome() {
+    // const dataSave = {} as modelWelcome;
+    // dataSave.receiveWelcomehome = this.checkWelcomehome;
+    // dataSave.hyrf_id = this.hyrf_id
+    this.MSsrv.AcceptWelcomehome(this.hyrf_id, this.checkWelcomehome).subscribe(resp => {});
+    // console.log('success', this.checkWelcomehome);
+  }
+
+  appvWelcomehomeOnly() {
     // const dataSave = {} as modelWelcome;
     // dataSave.receiveWelcomehome = this.checkWelcomehome;
     // dataSave.hyrf_id = this.hyrf_id
