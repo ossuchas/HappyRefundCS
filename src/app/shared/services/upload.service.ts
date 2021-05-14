@@ -26,6 +26,7 @@ export class UploadService {
         console.log('Hello World Upload service111');
     }
 
+
     // POST
     imageMerge2PDF(_hyrf_id: string): Observable<any> {
         // console.log(_hyrf_id);
