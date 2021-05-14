@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MasterService } from 'src/app/shared';
-export interface modelWelcome{
-  hyrf_id:number;
-  receiveWelcomehome:boolean;
-}
+// export interface modelWelcome {
+//   hyrf_id: number;
+//   receiveWelcomehome: boolean;
+// }
 @Component({
   selector: 'app-dialog-term',
   templateUrl: './dialog-term.component.html',
@@ -20,30 +20,32 @@ export class DialogTermComponent implements OnInit {
   @Input() welcomeHomeFlag: string;
   @Input() welcomeHomeAcceptDatetime: Date;
   @Input() hyrf_id: number;
-  
-  showTha:any;
-  showEng:any;
+  @Input() welcomehomeAmount: number;
 
-  showBtnTha:any;
-  showBtnEng:any;
+  showTha: any;
+  showEng: any;
 
-  checkWelcomehome:boolean;
+  showBtnTha: any;
+  showBtnEng: any;
+
+  checkWelcomehome: boolean;
+
+
+  openButton = false;
+
   ngOnInit() {
   this.showTha = true;
   this.showEng = true;
 
-  if(this.welcomeHomeAcceptDatetime === null){
+  if (this.welcomeHomeAcceptDatetime === null) {
     this.checkWelcomehome = false;
-  }else {
+  } else {
     this.checkWelcomehome = true;
   }
-  
-  console.log('testttttttt',this.welcomeHomeFlag);
-  console.log('testttttttt',this.welcomeHomeAcceptDatetime);
-  }
 
-  
-  openButton = false;
+  console.log('testttttttt', this.welcomeHomeFlag);
+  console.log('testttttttt', this.welcomeHomeAcceptDatetime);
+  }
 
   // onClick(){
   //   console.log('before',this.openButton)
@@ -55,43 +57,37 @@ export class DialogTermComponent implements OnInit {
   //   }
   //   console.log('after',this.openButton)
   // }
-  
-  onShowTha(){
-    if(this.showTha === true && this.showEng === true)
-    {
+
+  onShowTha() {
+    if (this.showTha === true && this.showEng === true) {
       this.showBtnTha = true;
       this.showEng = false;
-      
-    }
-    else if (this.showTha === true && this.showEng === false)
-    {
+
+    } else if (this.showTha === true && this.showEng === false) {
       this.showBtnTha = false;
       this.showEng = true;
-      
+
     }
   }
 
-  onShowEng(){
-    if(this.showTha === true && this.showEng === true)
-    {
+  onShowEng() {
+    if (this.showTha === true && this.showEng === true) {
       this.showBtnEng = true;
       this.showTha = false;
-      
-    }
-    else if (this.showTha === false && this.showEng === true)
-    {
+
+    } else if (this.showTha === false && this.showEng === true) {
       this.showBtnEng = false;
       this.showTha = true;
-      
+
     }
   }
 
 
-  appvWelcomehome(){
+  appvWelcomehome() {
     // const dataSave = {} as modelWelcome;
     // dataSave.receiveWelcomehome = this.checkWelcomehome;
     // dataSave.hyrf_id = this.hyrf_id
-    this.MSsrv.AcceptWelcomehome(this.hyrf_id,this.checkWelcomehome).subscribe(resp => {})
+    this.MSsrv.AcceptWelcomehome(this.hyrf_id, this.checkWelcomehome).subscribe(resp => {});
     // console.log('success', this.checkWelcomehome);
   }
 }

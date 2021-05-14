@@ -8,6 +8,7 @@
 <br>
 
 
+
 <mat-dialog-content class="mat-typography">
   <div>
     <details  *ngIf="showTha==true">
@@ -349,7 +350,7 @@
           [(ngModel)]="checkWelcomehome"
           [defaultChecked]="checkWelcomehome"
           [disabled]="welcomeHomeAcceptDatetime!==null"
-          ><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> คุณต้องการรับสิทธิหรือไม่</label>
+          ><label>&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์*</label>
         <br><br> 
       </div>
       <br>

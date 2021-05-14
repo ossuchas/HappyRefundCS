@@ -194,6 +194,7 @@ export class CustomerComponent implements OnInit {
         dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
         dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
         dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
+        dialogRef.componentInstance.welcomehomeAmount = this.sentDataRefund[0].welcomehome_amount;
 
         dialogRef.afterClosed().subscribe(result => {
 
