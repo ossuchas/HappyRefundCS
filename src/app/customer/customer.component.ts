@@ -82,8 +82,9 @@ export class CustomerComponent implements OnInit {
             data => {
                 localStorage.setItem('flag_appv', data[0].ac01_appv_flag);
                 this.isValidate = true;
-                this.listData = new MatTableDataSource(data);
-                this.sentDataRefund = data;
+                this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
+                // this.sentDataRefund = data.filter((item) => item.bringtolegalentity_flag === 'N');
+                console.log(  this.sentDataRefund);
                 // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
 
                 // console.log(data);
@@ -159,7 +160,7 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data);
+                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
                             // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -181,26 +182,26 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string, bankBranchName: string, welcomehome_flag: string, welcomehome_accept_datetime: string) {
-        console.log('uploadByid = ' + _hyrf_id);
-        localStorage.setItem('_hyrf_id', _hyrf_id.toString());
+    uploadByid(item: CrmContactRefund) {
+        console.log(item);
+        // console.log('uploadByid = ' + item.hyrf_id);
+        // localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
 
-        localStorage.setItem('bankaccountname', bankaccountname);
-        localStorage.setItem('bankaccountno', bankaccountno);
-        localStorage.setItem('bankcode', bankcode);
-        localStorage.setItem('bankBranchName', bankBranchName);
-        localStorage.setItem('_welcomehomeflag', welcomehome_flag);
-        localStorage.setItem('_welcomehome_accept_date', welcomehome_accept_datetime);
+        // localStorage.setItem('bankaccountname', item.bankaccountname);
+        // localStorage.setItem('bankaccountno', item.bankaccountno);
+        // localStorage.setItem('bankcode', item.bankcode);
+        // localStorage.setItem('bankBranchName', item.bot_bank_branch_name);
+        // localStorage.setItem('_welcomehomeflag', item.welcomehome_flag);
+        // localStorage.setItem('_welcomehome_accept_date', item.welcomehome_accept_datetime.toString());
 
-        console.log('welcomehome_flag', this.sentDataRefund[0].welcomehome_flag);
 
         const dialogRef = this.dialog.open(DialogTermComponent);
-        // dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
+        dialogRef.componentInstance.hyrf_id = item.hyrf_id;
 
-        // dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
-        // dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
-        // dialogRef.componentInstance.welcomehomeAmount = this.sentDataRefund[0].welcomehome_amount;
-        // dialogRef.componentInstance.refundAmount = this.sentDataRefund[0].remainingtotalamount;
+        dialogRef.componentInstance.welcomeHomeFlag = item.welcomehome_flag;
+        dialogRef.componentInstance.welcomeHomeAcceptDatetime = item.welcomehome_accept_datetime;
+        dialogRef.componentInstance.welcomehomeAmount = item.welcomehome_amount;
+        dialogRef.componentInstance.refundAmount = item.remainingtotalamount;
 
         dialogRef.afterClosed().subscribe(result => {
 
@@ -217,7 +218,7 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data);
+                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
                             // console.log(data);
                             // console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
@@ -225,7 +226,7 @@ export class CustomerComponent implements OnInit {
 
                             // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
 
-                            localStorage.setItem('_hyrf_id', _hyrf_id.toString());
+                            localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].welcomehome_flag);
                         },

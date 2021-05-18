@@ -16,7 +16,9 @@ export class DialogTermComponent implements OnInit {
   constructor(
     private MSsrv: MasterService,
   ) { }
-
+  @Input() hyrf_id: number;
+  @Input() welcomeHomeFlag: string;
+  @Input() welcomeHomeAcceptDatetime: Date;
   @Input() welcomehomeAmount: number;
   @Input() refundAmount: number;
 
@@ -27,26 +29,21 @@ export class DialogTermComponent implements OnInit {
   showBtnEng: any;
 
   checkWelcomehome: boolean;
-  welcomehome_flag: string;
-  welcomehome_accept_datetime: string;
 
   openButton = false;
-  hyrf_id: number = +localStorage.getItem('_hyrf_id');
+
   ngOnInit() {
 
-  this.welcomehome_accept_datetime = localStorage.getItem('_welcomehome_accept_date');
-
-  this.welcomehome_flag = localStorage.getItem('_welcomehomeflag');
+  this.welcomeHomeFlag = localStorage.getItem('_welcomehomeflag');
   this.showTha = true;
   this.showEng = true;
 
-  if (this.welcomehome_accept_datetime === 'null') {
+  if (this.welcomeHomeAcceptDatetime === null) {
     this.checkWelcomehome = false;
   } else {
     this.checkWelcomehome = true;
   }
-  console.log('_welcomehomeflag', this.welcomehome_flag);
-  console.log('WelcomehomeAcceptDate', this.welcomehome_accept_datetime);
+
   }
 
   // onClick(){

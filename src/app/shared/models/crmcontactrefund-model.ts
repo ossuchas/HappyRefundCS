@@ -87,7 +87,10 @@ export class CrmContactRefund {
     bankaccountno: string;
     bankcode: string;
 
-    welcomehome_flag:string;
-    welcomehome_amount:number;
-    welcomehome_accept_datetime:Date;
+    welcomehome_flag: string;
+    welcomehome_amount: number;
+    welcomehome_accept_datetime: Date;
+
+    bringtolegalentity_flag: string;
+    bot_bank_branch_name: string;
 }
