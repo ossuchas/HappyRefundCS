@@ -115,7 +115,7 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Welcome Home Amount (Baht)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.welcomehome_amount === null?'-':element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{element.welcomehome_amount === null?'-':element.welcomehome_amount === 0?'-':element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="totalamount">
             <mat-header-cell
