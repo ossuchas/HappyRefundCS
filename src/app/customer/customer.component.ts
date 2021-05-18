@@ -82,8 +82,8 @@ export class CustomerComponent implements OnInit {
             data => {
                 localStorage.setItem('flag_appv', data[0].ac01_appv_flag);
                 this.isValidate = true;
-                this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
-                // this.sentDataRefund = data.filter((item) => item.bringtolegalentity_flag === 'N');
+                this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
+                // this.sentDataRefund = data.filter((item) => item.bringtolegalentity_flag !== 'Y');
                 console.log(  this.sentDataRefund);
                 // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
 
@@ -160,7 +160,7 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
+                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
                             // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -218,7 +218,7 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag === 'N'));
+                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
                             // console.log(data);
                             // console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
