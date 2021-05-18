@@ -199,7 +199,7 @@
             <mat-cell *matCellDef="let element">
                 <button
                     mat-raised-button
-                    (click)="uploadByid(element.hyrf_id, element.bankaccountname, element.bankaccountno, element.bankcode)"
+                    (click)="uploadByid(element.hyrf_id, element.bankaccountname, element.bankaccountno, element.bankcode,element.bankBranchName, element.welcomehome_flag,element.welcomehome_accept_datetime)"
                     class="btn btn-primary"
                     *ngIf="element.doc_sent_status != 'A'"
                     style="margin-left: 10px;"

@@ -345,20 +345,20 @@
       <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
       <div *ngIf="showTha==true">
         <br>
-        <input *ngIf="welcomeHomeFlag==='Y'"
+        <input *ngIf="welcomehome_flag==='Y'"
           type="checkbox" 
           name="checkBtn" 
           [(ngModel)]="checkWelcomehome"
           [defaultChecked]="checkWelcomehome"
-          [disabled]="welcomeHomeAcceptDatetime!==null"
+          [disabled]="welcomehome_accept_datetime !== 'null'"
           ><label
-          *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
+          *ngIf="welcomehome_flag==='Y'">&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
         <br><br> 
       </div>
       <br>
       <div>
-      <p class="welcomehome-warning" *ngIf="checkWelcomehome === false && welcomeHomeFlag === 'Y'  && welcomeHomeAcceptDatetime === null">กรุณากดยินยอมรับเงินคืน <b>Welcome Home</b></p>
-      <p class="welcomehome-warning" *ngIf="checkWelcomehome === true && welcomeHomeFlag === 'Y'">&nbsp;</p>
+      <p class="welcomehome-warning" *ngIf="checkWelcomehome === false && welcomehome_flag === 'Y'  && welcomehome_accept_datetime === 'null'">กรุณากดยินยอมรับเงินคืน <b>Welcome Home</b></p>
+      <p class="welcomehome-warning" *ngIf="checkWelcomehome === true && welcomehome_flag === 'Y'">&nbsp;</p>
     </div>
     </details>
 
@@ -366,7 +366,7 @@
       <button type="button" mat-button mat-dialog-close style="background-color: #f44336; color: white;">ไม่ยินยอม/Disagree</button>
       <button type="button" mat-button [mat-dialog-close]="true" style="background-color: #1e7e34; color: white;"
         cdkFocusInitial
-        [disabled]="welcomeHomeFlag === 'Y' && checkWelcomehome === false  && welcomeHomeAcceptDatetime === null" 
+        [disabled]="welcomehome_flag === 'Y' && checkWelcomehome === false  && welcomehome_accept_datetime === 'null'" 
         (click)="appvWelcomehome()"
         >ยินยอม/Agree</button>
         
@@ -720,20 +720,20 @@
       <!-- && welcomeHomeFlag==='Y' && welcomeHomeAcceptDatetime === null -->
       <br>
       <div *ngIf="showEng==true ">
-      <input  *ngIf="welcomeHomeFlag==='Y'"
+      <input  *ngIf="welcomehome_flag==='Y'"
         type="checkbox"  
         name="checkBtn" 
         [(ngModel)]="checkWelcomehome"
         [defaultChecked]="checkWelcomehome"
-        [disabled]="welcomeHomeAcceptDatetime!==null"
-      ><label *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Promotion. Please  select the checkbox to receive the rights.</label>
+        [disabled]="welcomehome_accept_datetime !== 'null'"
+      ><label *ngIf="welcomehome_flag==='Y'">&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Promotion. Please  select the checkbox to receive the rights.</label>
     </div>
     <br>
     <br>
     <div>
-      <p class="welcomehome-warning" *ngIf="checkWelcomehome === false && welcomeHomeFlag === 'Y' && welcomeHomeAcceptDatetime === null"
+      <p class="welcomehome-warning" *ngIf="checkWelcomehome === false && welcomehome_flag === 'Y' && welcomehome_accept_datetime === 'null'"
       >Please select the checkbox to receive<b> Welcome Home</b> cash back.</p>
-      <p class="welcomehome-warning" *ngIf="checkWelcomehome === true && welcomeHomeFlag === 'Y'">&nbsp;</p>
+      <p class="welcomehome-warning" *ngIf="checkWelcomehome === true && welcomehome_flag === 'Y'">&nbsp;</p>
     </div>
 
     </details>
@@ -745,7 +745,7 @@
       mat-button [mat-dialog-close]="true" 
       style="background-color: #1e7e34; color: white;"
       cdkFocusInitial
-      [disabled]="welcomeHomeFlag === 'Y' && checkWelcomehome === false  && welcomeHomeAcceptDatetime === null"
+      [disabled]="welcomehome_flag === 'Y' && checkWelcomehome === false  && welcomehome_accept_datetime === null"
       (click)="appvWelcomehome()"
         >ยินยอม/Agree</button>
     </mat-dialog-actions>

@@ -34,12 +34,12 @@ export class CustomerComponent implements OnInit {
     isValidateUpload = false;
     listData: MatTableDataSource<any>;
     btnUpload = true;
-    Remark:string;
-    personalid:string;
-    tooltips = false
+    Remark: string;
+    personalid: string;
+    tooltips = false;
     sentDataRefund: CrmContactRefund[] = [];
 
-    totalAmount:number;
+    totalAmount: number;
 
     displayedColumn: string[] = [
         'Options',
@@ -80,7 +80,7 @@ export class CustomerComponent implements OnInit {
         // console.log(form.value);
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             data => {
-                localStorage.setItem('flag_appv',data[0].ac01_appv_flag);
+                localStorage.setItem('flag_appv', data[0].ac01_appv_flag);
                 this.isValidate = true;
                 this.listData = new MatTableDataSource(data);
                 this.sentDataRefund = data;
@@ -101,11 +101,11 @@ export class CustomerComponent implements OnInit {
             },
 
             error => {
-                console.log(error)
-                if (error.error&&error.error.message==='No Data Found'){
+                console.log(error);
+                if (error.error && error.error.message === 'No Data Found') {
                     this.isValidate = false;
                     this.toasterService.error('ไม่พบข้อมูลเลขที่บัตรประชาชนหรือพาสปอร์ต/Your Personal ID or Passport ID not found in the system!');
-                }else{
+                } else {
                 this.isValidate = false;
                 this.toasterService.error('กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID');
             }
@@ -131,6 +131,7 @@ export class CustomerComponent implements OnInit {
         dialogConfig.height = '500px';
         dialogConfig.data = {
             hyrf_id: _hyrf_id
+
         };
         this.dialog.open(ImgviewPageComponent, dialogConfig);
     }
@@ -166,6 +167,7 @@ export class CustomerComponent implements OnInit {
 
                             localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+                            console.log('data', data);
                         },
                         error => {
                             this.isValidate = false;
@@ -179,23 +181,26 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string,bankBranchName: string) {
+    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string, bankBranchName: string, welcomehome_flag: string, welcomehome_accept_datetime: string) {
         console.log('uploadByid = ' + _hyrf_id);
         localStorage.setItem('_hyrf_id', _hyrf_id.toString());
 
         localStorage.setItem('bankaccountname', bankaccountname);
         localStorage.setItem('bankaccountno', bankaccountno);
         localStorage.setItem('bankcode', bankcode);
-        localStorage.setItem('bankBranchName',bankBranchName);
+        localStorage.setItem('bankBranchName', bankBranchName);
+        localStorage.setItem('_welcomehomeflag', welcomehome_flag);
+        localStorage.setItem('_welcomehome_accept_date', welcomehome_accept_datetime);
 
-
+        console.log('welcomehome_flag', this.sentDataRefund[0].welcomehome_flag);
 
         const dialogRef = this.dialog.open(DialogTermComponent);
-        dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
-        dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
-        dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
-        dialogRef.componentInstance.welcomehomeAmount = this.sentDataRefund[0].welcomehome_amount;
-        dialogRef.componentInstance.refundAmount = this.sentDataRefund[0].remainingtotalamount;
+        // dialogRef.componentInstance.hyrf_id = this.sentDataRefund[0].hyrf_id;
+
+        // dialogRef.componentInstance.welcomeHomeFlag = this.sentDataRefund[0].welcomehome_flag;
+        // dialogRef.componentInstance.welcomeHomeAcceptDatetime = this.sentDataRefund[0].welcomehome_accept_datetime;
+        // dialogRef.componentInstance.welcomehomeAmount = this.sentDataRefund[0].welcomehome_amount;
+        // dialogRef.componentInstance.refundAmount = this.sentDataRefund[0].remainingtotalamount;
 
         dialogRef.afterClosed().subscribe(result => {
 
@@ -222,8 +227,9 @@ export class CustomerComponent implements OnInit {
 
                             localStorage.setItem('_hyrf_id', _hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
-
+                            localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].welcomehome_flag);
                         },
+
                         error => {
                             this.isValidate = false;
                             this.snackBar.open(error.error['message'], '', {

@@ -17,9 +17,6 @@ export class DialogTermComponent implements OnInit {
     private MSsrv: MasterService,
   ) { }
 
-  @Input() welcomeHomeFlag: string;
-  @Input() welcomeHomeAcceptDatetime: Date;
-  @Input() hyrf_id: number;
   @Input() welcomehomeAmount: number;
   @Input() refundAmount: number;
 
@@ -30,22 +27,26 @@ export class DialogTermComponent implements OnInit {
   showBtnEng: any;
 
   checkWelcomehome: boolean;
-
+  welcomehome_flag: string;
+  welcomehome_accept_datetime: string;
 
   openButton = false;
-
+  hyrf_id: number = +localStorage.getItem('_hyrf_id');
   ngOnInit() {
+
+  this.welcomehome_accept_datetime = localStorage.getItem('_welcomehome_accept_date');
+
+  this.welcomehome_flag = localStorage.getItem('_welcomehomeflag');
   this.showTha = true;
   this.showEng = true;
 
-  if (this.welcomeHomeAcceptDatetime === null) {
+  if (this.welcomehome_accept_datetime === 'null') {
     this.checkWelcomehome = false;
   } else {
     this.checkWelcomehome = true;
   }
-
-  console.log('testttttttt', this.welcomeHomeFlag);
-  console.log('testttttttt', this.welcomeHomeAcceptDatetime);
+  console.log('_welcomehomeflag', this.welcomehome_flag);
+  console.log('WelcomehomeAcceptDate', this.welcomehome_accept_datetime);
   }
 
   // onClick(){
@@ -88,14 +89,7 @@ export class DialogTermComponent implements OnInit {
     // const dataSave = {} as modelWelcome;
     // dataSave.receiveWelcomehome = this.checkWelcomehome;
     // dataSave.hyrf_id = this.hyrf_id
-    this.MSsrv.AcceptWelcomehome(this.hyrf_id, this.checkWelcomehome).subscribe(resp => {});
-    // console.log('success', this.checkWelcomehome);
-  }
-
-  appvWelcomehomeOnly() {
-    // const dataSave = {} as modelWelcome;
-    // dataSave.receiveWelcomehome = this.checkWelcomehome;
-    // dataSave.hyrf_id = this.hyrf_id
+    console.log('accept_id' , this.hyrf_id);
     this.MSsrv.AcceptWelcomehome(this.hyrf_id, this.checkWelcomehome).subscribe(resp => {});
     // console.log('success', this.checkWelcomehome);
   }

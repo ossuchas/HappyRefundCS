@@ -19,8 +19,8 @@ export class ImgviewPageComponent implements OnInit {
         public service: CrmContactRefundListImgUrlService,
         private snackBar: MatSnackBar,
         private master: MasterService,
-        private authen:AuthenticationService,
-        private toasterService:ToastrService,
+        private authen: AuthenticationService,
+        private toasterService: ToastrService,
         public dialogRef: MatDialogRef<DialogComponent>,
         public dialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public data: any
@@ -30,7 +30,7 @@ export class ImgviewPageComponent implements OnInit {
             this.refreshDataList(this.data.hyrf_id);
         });
     }
-    
+
     listData: MatTableDataSource<any>;
     displayedColumn: string[] = ['View-Delete', 'img_name', 'creatdate'];
     appv_flag: string;
@@ -47,10 +47,10 @@ export class ImgviewPageComponent implements OnInit {
     refreshDataList(id: number) {
         this.service.getImgList(id).subscribe(data => {
             this.listData = new MatTableDataSource(data);
-            console.log(this.listData)
+            console.log(this.listData);
         },
-        err => { this.listData= new MatTableDataSource()
-        },);
+        err => { this.listData = new MatTableDataSource();
+        }, );
     }
 
     onView(data: CrmContactRefundListImgUrl) {
@@ -59,23 +59,23 @@ export class ImgviewPageComponent implements OnInit {
         window.open(img_url, '_blank');
     }
 
-    onDelete(Data: CrmContactRefundListImgUrl){
+    onDelete(Data: CrmContactRefundListImgUrl) {
 
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
             data: 'คุณต้องการลบไฟล์นี้ใช่หรือไม่ / Do you want to delete this file?'
         });
-        
+
         dialogRef.afterClosed().subscribe(result => {
         if (result) {
             this.authen.LoginCRM().subscribe(data => {
-                this.master.deleteImg(data.token,Data.img_id).subscribe(data =>{
+                this.master.deleteImg(data.token, Data.img_id).subscribe(data => {
                     console.log(Data.img_id);
                     this.refreshDataList(this.data.hyrf_id);
                     this.toasterService.success('Delete Success');
-                })
+                });
             });
-            
+
         }
     });
     }
