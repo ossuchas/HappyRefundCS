@@ -353,6 +353,8 @@
           [disabled]="welcomeHomeAcceptDatetime !== null"
           ><label
           *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
+          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="" *ngIf="welcomeHomeFlag==='Y'">คลิกเพื่อดาวน์โหลดเอกสารรับสิทธิ Welcome Home</a>
         <br><br> 
       </div>
       <br>
@@ -727,6 +729,8 @@
         [defaultChecked]="checkWelcomehome"
         [disabled]="welcomeHomeAcceptDatetime !== null"
       ><label *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Promotion. Please  select the checkbox to receive the rights.</label>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="" *ngIf="welcomeHomeFlag==='Y'">Click to download Memo for Welcome Home Promotion</a>
     </div>
     <br>
     <br>
