@@ -73,6 +73,7 @@ export class CustomerComponent implements OnInit {
         } else {
             localStorage.setItem('isMobile', '0');
         }
+
     }
 
 
@@ -82,7 +83,7 @@ export class CustomerComponent implements OnInit {
             data => {
                 localStorage.setItem('flag_appv', data[0].ac01_appv_flag);
                 this.isValidate = true;
-                this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
+                this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
                 // this.sentDataRefund = data.filter((item) => item.bringtolegalentity_flag !== 'Y');
                 console.log(  this.sentDataRefund);
                 // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
@@ -159,8 +160,9 @@ export class CustomerComponent implements OnInit {
                     const per_id = localStorage.getItem('_personal_id');
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
+
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
+                            this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
                             // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -171,7 +173,7 @@ export class CustomerComponent implements OnInit {
                             console.log('data', data);
                         },
                         error => {
-                            this.isValidate = false;
+                            // this.isValidate = false;
                             this.snackBar.open(error.error['message'], '', {
                                 duration: 5000
                             });
@@ -185,12 +187,12 @@ export class CustomerComponent implements OnInit {
     uploadByid(item: CrmContactRefund) {
         console.log(item);
         // console.log('uploadByid = ' + item.hyrf_id);
-        // localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
+        localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
 
-        // localStorage.setItem('bankaccountname', item.bankaccountname);
-        // localStorage.setItem('bankaccountno', item.bankaccountno);
-        // localStorage.setItem('bankcode', item.bankcode);
-        // localStorage.setItem('bankBranchName', item.bot_bank_branch_name);
+        localStorage.setItem('bankaccountname', item.bankaccountname);
+        localStorage.setItem('bankaccountno', item.bankaccountno);
+        localStorage.setItem('bankcode', item.bankcode);
+        localStorage.setItem('bankBranchName', item.bot_bank_branch_name);
         // localStorage.setItem('_welcomehomeflag', item.welcomehome_flag);
         // localStorage.setItem('_welcomehome_accept_date', item.welcomehome_accept_datetime.toString());
 
@@ -218,7 +220,7 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter((item) => item.bringtolegalentity_flag !== 'Y'));
+                            this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
                             // console.log(data);
                             // console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
@@ -228,7 +230,7 @@ export class CustomerComponent implements OnInit {
 
                             localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
-                            localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].welcomehome_flag);
+                            // localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].welcomehome_flag);
                         },
 
                         error => {
