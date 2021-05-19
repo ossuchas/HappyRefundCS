@@ -33,8 +33,7 @@ export class DialogTermComponent implements OnInit {
   openButton = false;
 
   ngOnInit() {
-
-  this.welcomeHomeFlag = localStorage.getItem('_welcomehomeflag');
+    console.log('welcomeHomeFlag', this.welcomeHomeFlag);
   this.showTha = true;
   this.showEng = true;
 
