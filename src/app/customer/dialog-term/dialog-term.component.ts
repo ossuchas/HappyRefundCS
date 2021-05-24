@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService, CrmGetAgreement, MasterService } from 'src/app/shared';
 
 @Component({
@@ -14,6 +15,7 @@ export class DialogTermComponent implements OnInit {
     private MSsrv: MasterService,
     private master: MasterService,
     private authen: AuthenticationService,
+    private toasterService: ToastrService,
   ) { }
   @Input() hyrf_id: number;
   @Input() welcomeHomeFlag: string;
@@ -100,8 +102,10 @@ export class DialogTermComponent implements OnInit {
           this.dataItem = data2;
           this.master.exportTransPromotionPrintFormUrlAsync$(data.token, this.dataItem.agreementID).subscribe(item => {
             this.dataItem2 = item;
-            console.log(this.dataItem2.url);
+            console.log('agreement_id', this.dataItem.agreementID);
+            console.log('url', this.dataItem2.url);
             this.master.openWindowWithPost(this.dataItem2.url, { params: this.dataItem2.params });
+            this.toasterService.success('Success');
           });
         });
     });

@@ -80,7 +80,7 @@ export class MasterService {
       })
     };
     const crmtransferPromotion = environment.apiCRMTransferPromotion;
-    return this.http.post(crmtransferPromotion + 'ExportTransPromotionPrintFormUrl', { agreementID: agreementID}, httpOptions);
+    return this.http.post(crmtransferPromotion + 'ExportTransPromotionPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
   }
 
   openWindowWithPost(url, data) {
