@@ -354,7 +354,9 @@
           ><label
           *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;คุณมียอดเงินคืน <b>Welcome Home</b> จำนวน {{welcomehomeAmount | number : '1.2-2' }} บาท กรุณายืนยันรับสิทธิ์</label>
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="" *ngIf="welcomeHomeFlag==='Y'">คลิกเพื่อดาวน์โหลดเอกสารรับสิทธิ์ Welcome Home</a>
+          <button class="btn" type="button" style="font-size:12px;color: blue;border: none;background-color:white;"
+          *ngIf="welcomeHomeFlag==='Y'"
+          (click)="getWelcomeMemo()"><u>คลิกเพื่อดาวน์โหลดเอกสารรับสิทธิ์ Welcome Home</u></button>
         <br><br> 
       </div>
       <br>
@@ -729,8 +731,12 @@
         [defaultChecked]="checkWelcomehome"
         [disabled]="welcomeHomeAcceptDatetime !== null"
       ><label *ngIf="welcomeHomeFlag==='Y'">&nbsp;&nbsp;You have {{welcomehomeAmount | number : '1.2-2' }} Baht cash back from <b>Welcome Home Promotion</b>. Please  select the checkbox to receive the rights.</label>
+
       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="" *ngIf="welcomeHomeFlag==='Y'">Click to download Memo for Welcome Home Promotion</a>
+          <button class="btn" type="button" style="font-size:12px;color: blue;border: none;background-color:white;"
+          *ngIf="welcomeHomeFlag==='Y'"
+          (click)="getWelcomeMemo()"><u>Click to download Memo for Welcome Home Promotion</u></button>
+        <br><br>
     </div>
     <br>
     <br>

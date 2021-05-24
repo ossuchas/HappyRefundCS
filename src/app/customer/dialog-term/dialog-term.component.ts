@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MasterService } from 'src/app/shared';
-// export interface modelWelcome {
-//   hyrf_id: number;
-//   receiveWelcomehome: boolean;
-// }
+import { AuthenticationService, CrmGetAgreement, MasterService } from 'src/app/shared';
+
 @Component({
   selector: 'app-dialog-term',
   templateUrl: './dialog-term.component.html',
@@ -15,12 +12,15 @@ export class DialogTermComponent implements OnInit {
 
   constructor(
     private MSsrv: MasterService,
+    private master: MasterService,
+    private authen: AuthenticationService,
   ) { }
   @Input() hyrf_id: number;
   @Input() welcomeHomeFlag: string;
   @Input() welcomeHomeAcceptDatetime: Date;
   @Input() welcomehomeAmount: number;
   @Input() refundAmount: number;
+  @Input() transfer_id: string;
 
   showTha: any;
   showEng: any;
@@ -31,6 +31,9 @@ export class DialogTermComponent implements OnInit {
   checkWelcomehome: boolean;
 
   openButton = false;
+  urlMemo: string;
+  dataItem: any;
+  dataItem2: any;
 
   ngOnInit() {
     console.log('welcomeHomeFlag', this.welcomeHomeFlag);
@@ -89,4 +92,18 @@ export class DialogTermComponent implements OnInit {
     this.MSsrv.AcceptWelcomehome(this.hyrf_id, this.checkWelcomehome).subscribe(resp => {});
     // console.log('success', this.checkWelcomehome);
   }
+
+  getWelcomeMemo() {
+    this.authen.LoginCRM().subscribe(data => {
+        this.master.getWelcomeMemo(data.token, this.transfer_id).subscribe(data2 => {
+          // console.log(data2);
+          this.dataItem = data2;
+          this.master.exportTransPromotionPrintFormUrlAsync$(data.token, this.dataItem.agreementID).subscribe(item => {
+            this.dataItem2 = item;
+            console.log(this.dataItem2.url);
+            this.master.openWindowWithPost(this.dataItem2.url, { params: this.dataItem2.params });
+          });
+        });
+    });
+}
 }

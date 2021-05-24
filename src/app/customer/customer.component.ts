@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UploadService, CustomerService, CrmContactRefund } from '../shared';
+import { UploadService, CustomerService, CrmContactRefund, CrmGetAgreement, MasterService, AuthenticationService } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig, MatCell, MatCellDef, MatColumnDef } from '@angular/material';
 
@@ -26,6 +26,8 @@ export class CustomerComponent implements OnInit {
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
         public dialog: MatDialog,
+        private master: MasterService,
+        private authen: AuthenticationService,
         private toasterService: ToastrService,
     ) { }
     @Output() welcomeHomeFlag = new EventEmitter<string>();
@@ -204,6 +206,7 @@ export class CustomerComponent implements OnInit {
         dialogRef.componentInstance.welcomeHomeAcceptDatetime = item.welcomehome_accept_datetime;
         dialogRef.componentInstance.welcomehomeAmount = item.welcomehome_amount;
         dialogRef.componentInstance.refundAmount = item.remainingtotalamount;
+        dialogRef.componentInstance.transfer_id = item.transferid;
 
         dialogRef.afterClosed().subscribe(result => {
 
@@ -247,5 +250,4 @@ export class CustomerComponent implements OnInit {
     openTooltip() {
         this.dialog.open(DialogTooltipComponent);
     }
-
 }
