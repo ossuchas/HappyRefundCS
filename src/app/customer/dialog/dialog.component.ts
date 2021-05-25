@@ -411,4 +411,8 @@ export class DialogComponent implements OnInit {
     }
 
 
+    onclick() {
+        this.toasterService.success('Success');
+    }
+
 }

@@ -249,5 +249,6 @@ export class CustomerComponent implements OnInit {
     }
     openTooltip() {
         this.dialog.open(DialogTooltipComponent);
+        this.toasterService.success('Success');
     }
 }
