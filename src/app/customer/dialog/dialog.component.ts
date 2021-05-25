@@ -99,6 +99,9 @@ export class DialogComponent implements OnInit {
 
     id: string;
 
+    picName: string;
+    cutPicName: string;
+
     ngOnInit() {
         this.id = localStorage.getItem('_hyrf_id');
         this.dropdownBankMasterRefresh();
@@ -198,13 +201,24 @@ export class DialogComponent implements OnInit {
         const files: { [key: string]: File } = this.file.nativeElement.files;
         console.log(this.file.nativeElement.files[0].name);
         console.log(regexp.test(this.file.nativeElement.files[0].name));
+        this.picName = this.file.nativeElement.files[0].name;
+        this.cutPicName = this.picName.substr(this.picName.indexOf('.') + 1, this.picName.length);
+        console.log(this.cutPicName);
+
         if (regexp.test(this.file.nativeElement.files[0].name)) {
-            for (const key in files) {
-                if (!isNaN(parseInt(key))) {
-                    this.files.add(files[key]);
+            if (this.cutPicName === '.JPG' || this.cutPicName === '.PNG' || this.cutPicName === '.JPEG') {
+                for (const key in files) {
+                    if (!isNaN(parseInt(key))) {
+                        this.files.add(files[key]);
+                    }
                 }
+                this.showButton = true;
+            } else {
+                const dialogRef = this.dialog.open(WarningDialogComponent, {
+                    width: '430px',
+                    data: 'นามสกุลของไฟล์แนบต้องเป็น JPG, JPEG, PNG เท่านั้น\nOnly JPG, JPEG, PNG files are allowed.'
+                });
             }
-            this.showButton = true;
         } else {
             const dialogRef = this.dialog.open(WarningDialogComponent, {
                 width: '300px',
