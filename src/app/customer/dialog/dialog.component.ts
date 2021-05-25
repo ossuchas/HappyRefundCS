@@ -206,7 +206,7 @@ export class DialogComponent implements OnInit {
         console.log(this.cutPicName);
 
         if (regexp.test(this.file.nativeElement.files[0].name)) {
-            if (this.cutPicName === '.JPG' || this.cutPicName === '.PNG' || this.cutPicName === '.JPEG') {
+            if (this.cutPicName === 'JPG' || this.cutPicName === 'PNG' || this.cutPicName === 'JPEG' || this.cutPicName === 'jpg' || this.cutPicName === 'png' || this.cutPicName === 'jpeg') {
                 for (const key in files) {
                     if (!isNaN(parseInt(key))) {
                         this.files.add(files[key]);
