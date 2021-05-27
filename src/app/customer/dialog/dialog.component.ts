@@ -101,6 +101,7 @@ export class DialogComponent implements OnInit {
 
     picName: string;
     cutPicName: string;
+    bankAccName: any;
 
     ngOnInit() {
         this.id = localStorage.getItem('_hyrf_id');
@@ -339,9 +340,10 @@ export class DialogComponent implements OnInit {
 
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
+            const bankAccName = data.filter(item => item.bringtolegalentity_flag === 'N');
             this.listItemsBankName.push('---กรุณาเลือกชื่อบัญชีธนาคาร---');
-            data.forEach(element => {
-                this.listItemsBankName.push(element['fullname']);
+            bankAccName.forEach(element => {
+                this.listItemsBankName.push(element.fullname);
             });
         });
     }
