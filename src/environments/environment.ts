@@ -14,6 +14,7 @@ export const environment = {
   apiCRMMaster: 'http://crmrevo-masterdata-api-crmrevo-dev.devops-app.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
   apiCRMRefund: 'http://crmrevo-refund-api-crmrevo-dev.devops-app.apthai.com/api/Refund/',
   apiCRMTransferPromotion: 'http://crmrevo-promotion-api-crmrevo-dev.devops-app.apthai.com/api/TransferPromotions/',
+  apiCRMSalePromotion: 'http://crmrevo-sale-api-crmrevo-dev.devops-app.apthai.com/api/Agreement/',
   clientId: 'crmdigital',
   clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
 

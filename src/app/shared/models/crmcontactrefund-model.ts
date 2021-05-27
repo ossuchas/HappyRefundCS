@@ -94,6 +94,8 @@ export class CrmContactRefund {
     bringtolegalentity_flag: string;
     bot_bank_branch_name: string;
     transferid: string;
+    welcomehome_stage: string;
+
 }
 
 export class CrmGetAgreement {

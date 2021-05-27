@@ -61,7 +61,7 @@ export class MasterService {
     return this.http.post(crmrefund + imgID + '/DeleteRefund', { img_id: imgID}, httpOptions);
   }
 
-  getWelcomeMemo(token, trandferID) {
+  getWelcomeMemoAgreement(token, trandferID) {
     const  httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -82,6 +82,18 @@ export class MasterService {
     const crmtransferPromotion = environment.apiCRMTransferPromotion;
     return this.http.post(crmtransferPromotion + 'ExportTransPromotionPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
   }
+
+  exportAgreementPrintFormUrlAsync$(token, agreementID) {
+    const  httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + token
+      })
+    };
+    const crmSalePromotion = environment.apiCRMSalePromotion;
+    return this.http.post(crmSalePromotion + 'ExportAgreementPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
+  }
+
 
   openWindowWithPost(url, data) {
     return new Promise<any>(resolve => {

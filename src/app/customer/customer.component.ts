@@ -207,6 +207,7 @@ export class CustomerComponent implements OnInit {
         dialogRef.componentInstance.welcomehomeAmount = item.welcomehome_amount;
         dialogRef.componentInstance.refundAmount = item.remainingtotalamount;
         dialogRef.componentInstance.transfer_id = item.transferid;
+        dialogRef.componentInstance.welcomehome_stage = item.welcomehome_stage;
 
         dialogRef.afterClosed().subscribe(result => {
 

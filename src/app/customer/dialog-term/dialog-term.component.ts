@@ -36,6 +36,7 @@ export class DialogTermComponent implements OnInit {
   urlMemo: string;
   dataItem: any;
   dataItem2: any;
+  welcomehome_stage: string;
 
   ngOnInit() {
     console.log('welcomeHomeFlag', this.welcomeHomeFlag);
@@ -96,18 +97,30 @@ export class DialogTermComponent implements OnInit {
   }
 
   getWelcomeMemo() {
+    if (this.welcomehome_stage === 'TransferPromotion') {
     this.authen.LoginCRM().subscribe(data => {
-        this.master.getWelcomeMemo(data.token, this.transfer_id).subscribe(data2 => {
+        this.master.getWelcomeMemoAgreement(data.token, this.transfer_id).subscribe(data2 => {
           // console.log(data2);
           this.dataItem = data2;
           this.master.exportTransPromotionPrintFormUrlAsync$(data.token, this.dataItem.agreementID).subscribe(item => {
             this.dataItem2 = item;
-            console.log('agreement_id', this.dataItem.agreementID);
-            console.log('url', this.dataItem2.url);
             this.master.openWindowWithPost(this.dataItem2.url, { params: this.dataItem2.params });
             this.toasterService.success('Success');
           });
         });
     });
-}
+    } else if (this.welcomehome_stage === 'SalePromotion') {
+      this.authen.LoginCRM().subscribe(data => {
+        this.master.getWelcomeMemoAgreement(data.token, this.transfer_id).subscribe(data2 => {
+          // console.log(data2);
+          this.dataItem = data2;
+          this.master.exportAgreementPrintFormUrlAsync$(data.token, this.dataItem.agreementID).subscribe(item => {
+            this.dataItem2 = item;
+            this.master.openWindowWithPost(this.dataItem2.url, { params: this.dataItem2.params });
+            this.toasterService.success('Success');
+          });
+        });
+      });
+    }
+  }
 }
