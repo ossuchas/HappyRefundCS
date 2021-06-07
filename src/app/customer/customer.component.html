@@ -182,6 +182,12 @@
                                 element.ac01_appv_date === null &&
                                 element.tf02_appv_date === null"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
+
+                                <div *ngIf="element.tf01_appv_flag === 'R' && 
+                                element.remainingtotalamount <= 1000 &&
+                                element.welcomehome_flag === 'Y'">
+                                  หมายเหตุ : {{element.ac01_remarks}}
+                                </div>
                             <!-- </div>
                         </div>
                     </div>
