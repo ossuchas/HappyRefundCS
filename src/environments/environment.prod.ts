@@ -6,7 +6,8 @@ export const environment = {
 // apiCRM: 'https://identity-api-crmrevo.apthai.com/api/Token/ClientLogin',
 // apiCRMMaster: 'https://masterdata-api-crmrevo.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
 // apiCRMRefund: 'https://refund-api-crmrevo.apthai.com/api/Refund/',
-// apiCRMTransferPromotion: '',
+// apiCRMTransferPromotion: 'https://promotion-api-crmrevo.apthai.com/api/TransferPromotions/',
+// apiCRMSalePromotion: 'https://saleapp-crmrevo.apthai.com/api/Agreement/',
 // clientId: 'crmdigital',
 // clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
 
