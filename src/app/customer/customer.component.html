@@ -151,7 +151,8 @@
                                 element.tf01_appv_flag !== 'N' &&
                                 element.tf02_appv_flag !== 'A' &&
                                 element.ac02_appv_date > element.tf02_appv_date &&
-                                element.ac02_appv_date > element.tf01_appv_date"
+                                element.ac02_appv_date > element.tf01_appv_date && 
+                                element.remainingtotalamount > 1000"
                                 >หมายเหตุ : {{element.ac01_remarks}}</div>
 
                                 <div *ngIf="element.tf02_appv_flag === 'N' && 
@@ -160,7 +161,8 @@
                                 element.tf01_appv_flag === 'R' &&
                                 element.ac01_appv_flag !== null &&
                                 element.tf02_appv_date > element.ac01_appv_date &&
-                                element.tf02_appv_date > element.tf01_appv_date"
+                                element.tf02_appv_date > element.tf01_appv_date && 
+                                element.remainingtotalamount > 1000"
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
                                 <div *ngIf="element.tf02_appv_flag === 'N' && 
@@ -168,19 +170,22 @@
                                 element.tf02_remarks !== null &&
                                 element.tf01_appv_flag === 'R' &&
                                 element.ac01_appv_date === null &&
-                                element.tf02_appv_date > element.tf01_appv_date"
+                                element.tf02_appv_date > element.tf01_appv_date && 
+                                element.remainingtotalamount > 1000"
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
                                 element.ac01_appv_date !== null &&
                                 element.tf02_appv_date !== null &&
                                 element.tf01_appv_date > element.ac01_appv_date &&
-                                element.tf01_appv_date > element.tf02_appv_date"
+                                element.tf01_appv_date > element.tf02_appv_date && 
+                                element.remainingtotalamount > 1000"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
                                 element.ac01_appv_date === null &&
-                                element.tf02_appv_date === null"
+                                element.tf02_appv_date === null && 
+                                element.remainingtotalamount > 1000"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
