@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { DialogFirstComponent } from '../dialog-first/dialog-first.component';
 import { JsonpClientBackend } from '@angular/common/http';
+import { ConditionalExpr } from '@angular/compiler';
 
 
 export interface ddlBank {
@@ -202,6 +203,8 @@ export class DialogComponent implements OnInit {
         const files: { [key: string]: File } = this.file.nativeElement.files;
         console.log(this.file.nativeElement.files[0].name);
         console.log(regexp.test(this.file.nativeElement.files[0].name));
+
+
         this.picName = this.file.nativeElement.files[0].name;
         this.cutPicName = this.picName.substr(this.picName.indexOf('.') + 1, this.picName.length);
         console.log(this.cutPicName);
@@ -235,9 +238,21 @@ export class DialogComponent implements OnInit {
         console.log(this.bankbranch.bankBranchName);
         console.log(this.bankAccountNo);
         console.log(this.bankAccountName);
+        
+        
 
         if (((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName) && (this.bankAccountNo && this.bankAccountNo) && (this.bankAccountName)) || (this.bankName.bankno === '999' && !(this.bankbranch && this.bankbranch.bankBranchName)))) {
-           this.file.nativeElement.click();
+            
+            // if(this.bankAccountNo.match(pattern_thai)){
+                 this.file.nativeElement.click();
+            // } else {
+            //     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            //         width: '300px',
+            //         data: 'ไม่สามารถระบุภาษาไทยได้'
+            //     });
+            // }
+           
+            
         } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '300px',
@@ -245,7 +260,19 @@ export class DialogComponent implements OnInit {
             });
         }
     }
-
+    changeBankAccNo(){
+        const pattern_thai = '^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$';
+        console.log(this.bankAccountNo.match(pattern_thai))
+        let checkTha = this.bankAccountNo.match(pattern_thai);
+        console.log(checkTha)
+        if(!this.bankAccountNo.match(pattern_thai)){
+           const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+               width: '300px',
+               data: 'ไม่สามารถระบุภาษาไทยได้ / Cannot fill up Thai language this field.'
+           });
+           this.bankAccountNo = undefined;
+       }
+    }
 
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {

@@ -231,6 +231,7 @@
                         #bankaccountno="ngModel"
                         [(ngModel)]="bankAccountNo"
                         placeholder="กรุณากรอกเลขบัญชี/Please fill in Bank Account Number"
+                        (change)="changeBankAccNo()"
                     >
                 </div>
                 <div class="col-md-6 col-12">
