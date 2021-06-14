@@ -238,21 +238,9 @@ export class DialogComponent implements OnInit {
         console.log(this.bankbranch.bankBranchName);
         console.log(this.bankAccountNo);
         console.log(this.bankAccountName);
-        
-        
 
         if (((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName) && (this.bankAccountNo && this.bankAccountNo) && (this.bankAccountName)) || (this.bankName.bankno === '999' && !(this.bankbranch && this.bankbranch.bankBranchName)))) {
-            
-            // if(this.bankAccountNo.match(pattern_thai)){
                  this.file.nativeElement.click();
-            // } else {
-            //     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-            //         width: '300px',
-            //         data: 'ไม่สามารถระบุภาษาไทยได้'
-            //     });
-            // }
-           
-            
         } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '300px',
@@ -267,8 +255,8 @@ export class DialogComponent implements OnInit {
         console.log(checkTha)
         if(!this.bankAccountNo.match(pattern_thai)){
            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-               width: '300px',
-               data: 'ไม่สามารถระบุภาษาไทยได้ / Cannot fill up Thai language this field.'
+               width: '360px',
+               data: 'ไม่สามารถกรอกเลขที่บัญชีเป็นภาษาไทยได้\nCannot fill up Bank Account Number in Thai language.'
            });
            this.bankAccountNo = undefined;
        }
