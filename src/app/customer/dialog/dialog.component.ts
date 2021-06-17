@@ -249,14 +249,15 @@ export class DialogComponent implements OnInit {
         }
     }
     changeBankAccNo(){
-        const pattern_thai = '^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$';
-        console.log(this.bankAccountNo.match(pattern_thai))
-        let checkTha = this.bankAccountNo.match(pattern_thai);
+        // const pattern_thai = '^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$';
+        const numBer = '^[0-9]+$';
+        console.log(this.bankAccountNo.match(numBer))
+        let checkTha = this.bankAccountNo.match(numBer);
         console.log(checkTha)
-        if(!this.bankAccountNo.match(pattern_thai)){
-           const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-               width: '360px',
-               data: 'ไม่สามารถกรอกเลขที่บัญชีเป็นภาษาไทยได้\nCannot fill up Bank Account Number in Thai language.'
+        if(!this.bankAccountNo.match(numBer)){
+           const dialogRef = this.dialog.open(WarningDialogComponent, {
+               width: '340px',
+               data: 'กรุณากรอกเลขที่บัญชีด้วยตัวเลขเท่านั้น\nPleae fill out Bank Account Number with number only.'
            });
            this.bankAccountNo = undefined;
        }
