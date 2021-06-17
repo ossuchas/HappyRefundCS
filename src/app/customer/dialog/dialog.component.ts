@@ -267,7 +267,7 @@ export class DialogComponent implements OnInit {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
             data: 'คุณต้องการยืนยันการแนบเอกสารใช่หรือไม่ Do you want to confirm your attached files?'
-        });
+        }); 
 
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
