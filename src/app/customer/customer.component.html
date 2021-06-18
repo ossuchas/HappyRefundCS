@@ -152,7 +152,8 @@
                                 element.tf02_appv_flag !== 'A' &&
                                 element.ac02_appv_date > element.tf02_appv_date &&
                                 element.ac02_appv_date > element.tf01_appv_date && 
-                                element.remainingtotalamount > 1000"
+                                element.remainingtotalamount > 1000 && 
+                                element.doc_sent_status !== 'A'"
                                 >หมายเหตุ : {{element.ac01_remarks}}</div>
 
                                 <div *ngIf="element.tf02_appv_flag === 'N' && 
@@ -162,7 +163,8 @@
                                 element.ac01_appv_flag !== null &&
                                 element.tf02_appv_date > element.ac01_appv_date &&
                                 element.tf02_appv_date > element.tf01_appv_date && 
-                                element.remainingtotalamount > 1000"
+                                element.remainingtotalamount > 1000 && 
+                                element.doc_sent_status !== 'A'"
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
                                 <div *ngIf="element.tf02_appv_flag === 'N' && 
@@ -171,7 +173,8 @@
                                 element.tf01_appv_flag === 'R' &&
                                 element.ac01_appv_date === null &&
                                 element.tf02_appv_date > element.tf01_appv_date && 
-                                element.remainingtotalamount > 1000"
+                                element.remainingtotalamount > 1000 && 
+                                element.doc_sent_status !== 'A'"
                                 >หมายเหตุ : {{element.tf02_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
@@ -179,18 +182,21 @@
                                 element.tf02_appv_date !== null &&
                                 element.tf01_appv_date > element.ac01_appv_date &&
                                 element.tf01_appv_date > element.tf02_appv_date && 
-                                element.remainingtotalamount > 1000"
+                                element.remainingtotalamount > 1000 && 
+                                element.doc_sent_status !== 'A'"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
                                 element.ac01_appv_date === null &&
                                 element.tf02_appv_date === null && 
-                                element.remainingtotalamount > 1000"
+                                element.remainingtotalamount > 1000 && 
+                                element.doc_sent_status !== 'A'"
                                 >หมายเหตุ : {{element.tf01_remarks}}</div>
 
                                 <div *ngIf="element.tf01_appv_flag === 'R' && 
                                 element.remainingtotalamount <= 1000 &&
-                                element.welcomehome_flag === 'Y'">
+                                element.welcomehome_flag === 'Y' && 
+                                element.doc_sent_status !== 'A'">
                                   หมายเหตุ : {{element.ac01_remarks}}
                                 </div>
                             <!-- </div>
