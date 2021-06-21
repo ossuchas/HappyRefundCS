@@ -257,7 +257,7 @@ export class DialogComponent implements OnInit {
         if(!this.bankAccountNo.match(numBer)){
            const dialogRef = this.dialog.open(WarningDialogComponent, {
                width: '340px',
-               data: 'กรุณากรอกเลขที่บัญชีด้วยตัวเลขเท่านั้น\nPleae fill out Bank Account Number with number only.'
+               data: 'กรุณากรอกเลขที่บัญชีด้วยตัวเลขเท่านั้น\nPlease fill out Bank Account Number with number only.'
            });
            this.bankAccountNo = undefined;
        }
