@@ -239,7 +239,13 @@ export class DialogComponent implements OnInit {
         console.log(this.bankAccountNo);
         console.log(this.bankAccountName);
 
-        if (((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName) && (this.bankAccountNo && this.bankAccountNo) && (this.bankAccountName)) || (this.bankName.bankno === '999' && !(this.bankbranch && this.bankbranch.bankBranchName)))) {
+        if (this.bankAccountName === '---กรุณาเลือกชื่อบัญชีธนาคาร---' || this.bankAccountName === 'กรุณาเลือกชื่อบัญชี'){
+            this.bankAccountName = null
+        }
+        
+        if (((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName) && 
+        (this.bankAccountNo && this.bankAccountNo) && (this.bankAccountName)) || 
+        (this.bankName.bankno === '999' && !(this.bankbranch && this.bankbranch.bankBranchName)))) {
                  this.file.nativeElement.click();
         } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -415,7 +421,7 @@ export class DialogComponent implements OnInit {
 
             this.bankAccountNo = data.bankaccountno;
             // console.log('data.bankaccountname',data);
-            this.bankAccountName = data.bankaccountname !== undefined && data.bankaccountname !== null ? data.bankaccountname : 'กรุณาเลือก';
+            this.bankAccountName = data.bankaccountname !== undefined && data.bankaccountname !== null ? data.bankaccountname : 'กรุณาเลือกชื่อบัญชี';
             // this.listItemsBankName.push('');
             // console.log('this.bankAccountName','');
 
