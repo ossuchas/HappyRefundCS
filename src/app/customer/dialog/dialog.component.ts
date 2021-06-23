@@ -159,6 +159,7 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
+        console.log('สาขาธนาคาร',this.bankbranch.bankBranchName);
 
         if (this.bankName.bankno === '999') {
             this.bankbranch.bankBranchCode = '0000';
@@ -167,8 +168,11 @@ export class DialogComponent implements OnInit {
             this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
             this.bankbranch.bankBranchCode = '0001';
         }
-
-        if (this.bankAccountNo && this.bankName.bankname && this.bankAccountName && ((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName)) || (this.bankName.bankno === '999' && (this.bankbranch && this.bankbranch.bankBranchName)))) {
+        if (this.bankAccountName === '---กรุณาเลือกชื่อบัญชีธนาคาร---' || this.bankAccountName === 'กรุณาเลือกชื่อบัญชี'){
+            this.bankAccountName = null
+        }
+        if (this.bankAccountNo && this.bankName.bankname && this.bankAccountName !== null && 
+            ((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName)) || (this.bankName.bankno === '999' && (this.bankbranch && this.bankbranch.bankBranchName)))) {
             this.busy = this.master.bankSubmit(this._hyrf_id,
                                    this.bankName.adbankname,
                                    this.bankAccountNo,
@@ -235,7 +239,7 @@ export class DialogComponent implements OnInit {
     addFiles() {
 
         console.log(this.bankName.bankname);
-        console.log(this.bankbranch.bankBranchName);
+        console.log(this.bankbranch);
         console.log(this.bankAccountNo);
         console.log(this.bankAccountName);
 
