@@ -12,7 +12,8 @@ import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
 import { ToastrService } from 'ngx-toastr';
 import { DialogTooltipComponent } from './tooltips/tooltip.component';
-import { elementAt } from 'rxjs/operators';
+import { WarningDialogComponent } from './dialog/warning-dialog/warning-dialog.component';
+import { CanceltbankDialogComponent } from './dialog/cancel-tbank-dialog/cancel-tbank-dialog.component';
 
 
 @Component({
@@ -59,13 +60,10 @@ export class CustomerComponent implements OnInit {
     ngOnInit() {
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
-        // dialogConfig.disableClose = true;
+        dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        // dialogConfig.width = '55%';
-        // dialogConfig.width = '250px';
-        // dialogConfig.height = '500px';
-        // dialogConfig.width = '600px';
-        // this.dialog.open(DialogFirstComponent, dialogConfig);
+        dialogConfig.width = '500px';
+        this.dialog.open(CanceltbankDialogComponent, dialogConfig);
 
         this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');

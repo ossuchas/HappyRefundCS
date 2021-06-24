@@ -34,6 +34,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
 import { WarningDialogComponent } from './dialog/warning-dialog/warning-dialog.component';
 import { DialogTooltipComponent } from './tooltips/tooltip.component';
+import { CanceltbankDialogComponent } from './dialog/cancel-tbank-dialog/cancel-tbank-dialog.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { DialogTooltipComponent } from './tooltips/tooltip.component';
         DialogFirstComponent,
         WarningDialogComponent,
         DialogTooltipComponent,
+        CanceltbankDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -70,6 +72,7 @@ import { DialogTooltipComponent } from './tooltips/tooltip.component';
             positionClass :'toast-bottom-right'
           }),
     ],
-    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent, WarningDialogComponent,DialogTooltipComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent, WarningDialogComponent,DialogTooltipComponent,
+        CanceltbankDialogComponent]
 })
 export class CustomerModule {}
