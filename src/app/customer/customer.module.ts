@@ -72,7 +72,6 @@ import { CanceltbankDialogComponent } from './dialog/cancel-tbank-dialog/cancel-
             positionClass :'toast-bottom-right'
           }),
     ],
-    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent, WarningDialogComponent,DialogTooltipComponent,
-        CanceltbankDialogComponent]
+    entryComponents: [DialogComponent, ConfirmationDialogComponent, DialogTermComponent, ImgviewPageComponent, DialogFirstComponent, WarningDialogComponent,DialogTooltipComponent,CanceltbankDialogComponent]
 })
 export class CustomerModule {}

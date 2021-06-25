@@ -14,7 +14,7 @@ RUN npm i yarn
 
 #install packages
 # you can change the version of angular CLI to the one you are using in your application
-RUN yarn global add @angular/cli@8.0.2
+RUN yarn global add @angular/cli@latest
 RUN yarn install
 
 # if you have libraries in your workspace that the angular app relies on, build them here
