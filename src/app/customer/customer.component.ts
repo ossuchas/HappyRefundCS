@@ -50,6 +50,7 @@ export class CustomerComponent implements OnInit {
     ];
 
     ngOnInit() {
+        
           // this.srvCS.formData = hyrf;
           const dialogConfig = new MatDialogConfig();
           dialogConfig.disableClose = true;
