@@ -137,6 +137,16 @@ mat-header-cell {
     flex: 0 0 14.5%;
     text-align: left;
  }
+ .mat-column-welcomehomeamount{
+    flex: 0 0 12.5%;
+    text-align: left;
+ }
+ .mat-column-totalamount{
+    flex: 0 0 12.5%;
+    text-align: left;
+ }
+
+
  .mat-column-doc_sent_status{
     flex: 0 0 16.5%;
  }
@@ -144,7 +154,8 @@ mat-header-cell {
     flex: 0 0 12.5%;
     text-align: left;
  }
-
+ 
+ 
  .information{
      align-items: right;
  }

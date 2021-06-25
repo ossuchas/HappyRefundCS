@@ -1,36 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { forkJoin ,Observable, Subscription} from 'rxjs';
+import { forkJoin , Observable, Subscription} from 'rxjs';
 import { UploadService, CustomerService, MasterService, AuthenticationService, User } from 'src/app/shared';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
-import { FormControl, FormBuilder, FormGroup} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, NgForm} from '@angular/forms';
 import { map, startWith} from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { ToastrService } from 'ngx-toastr';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { DialogFirstComponent } from '../dialog-first/dialog-first.component';
 import { JsonpClientBackend } from '@angular/common/http';
+import { ConditionalExpr } from '@angular/compiler';
 
 
 export interface ddlBank {
     bankname: string;
     adbankname: string;
-    bankno:string;
-    banknameen:string;
-    playlistbankname:string;
+    bankno: string;
+    banknameen: string;
+    playlistbankname: string;
 }
 export interface dlBankBranch {
     bankBranchName: string;
-    bankBranchCode:string;
-    bankCode:string;
+    bankBranchCode: string;
+    bankCode: string;
 }
 
 export interface CSBankDelt {
-    bankname:string;
-    bankbranchname:string;
-    bankaccountno:string;
-    bankaccountname:string;
+    bankname: string;
+    bankbranchname: string;
+    bankaccountno: string;
+    bankaccountname: string;
 }
 @Component({
     selector: 'app-dialog',
@@ -51,18 +52,20 @@ export class DialogComponent implements OnInit {
         private snackBar: MatSnackBar,
         private router: Router,
         private master: MasterService,
-        private authen:AuthenticationService,
+        private authen: AuthenticationService,
         private config: NgSelectConfig,
         private toasterService: ToastrService,
-     
-    ) { 
+
+    ) {
         this.config.notFoundText = 'Custom not found';
     }
 
     @ViewChild('file', { static: false }) file;
-    isbeingSearched: boolean = false;
-    @ViewChild('select1',{ static: false })
+    isbeingSearched = false;
+    @ViewChild('select1', { static: false })
     select1Comp: NgSelectComponent;
+
+    @Output() close = new EventEmitter();
 
     public files: Set<File> = new Set();
 
@@ -79,23 +82,27 @@ export class DialogComponent implements OnInit {
 
     bankName = {} as ddlBank;
     bankAccountNo: any;
-    bankAccountName:any;
+    bankAccountName: any;
     bankbranch = {} as dlBankBranch;
-    
-    listBankBranch:any[] = [];
+
+    listBankBranch: any[] = [];
 
     temp = {} as ddlBank;
 
     busy: Subscription;
 
     loading: boolean;
-    personalid:string;
-    txt:string;
-    tooltips=false;
+    personalid: string;
+    txt: string;
+    tooltips = false;
 
-    csbankdelt = {} as CSBankDelt
+    csbankdelt = {} as CSBankDelt;
 
-    id:string;
+    id: string;
+
+    picName: string;
+    cutPicName: string;
+    bankAccName: any;
 
     ngOnInit() {
         this.id = localStorage.getItem('_hyrf_id');
@@ -107,7 +114,7 @@ export class DialogComponent implements OnInit {
         // localStorage.setItem('bankcode', rowListData.bankcode);
 
         // this.master.getBankMaster().subscribe(data=>{
-        //     this.bankName = {} as ddlBank;       
+        //     this.bankName = {} as ddlBank;
         //     data.forEach(item=>{
         //         if(localStorage.getItem('bankcode')===item.adbankname){
         //             this.bankName.adbankname = item.adbankname;
@@ -120,31 +127,30 @@ export class DialogComponent implements OnInit {
         //     });
         // });
 
-        
+
         // this.bankName.bankno = localStorage.getItem('bankcode');
         // this.bankAccountNo = localStorage.getItem('bankaccountno') !== 'null' ? localStorage.getItem('bankaccountno') : '';
         // this.bankAccountName = localStorage.getItem('bankaccountname') !== 'null' ? localStorage.getItem('bankaccountname') : '';
 
         this.CSBankDelt();
-        //this.changdropdown();
+        // this.changdropdown();
 
     }
 
-    changdropdown()
-    {
-        //console.log('change')
-        if(this.bankName.bankno === '999'){
+    changdropdown() {
+        // console.log('change')
+        if (this.bankName.bankno === '999') {
             this.bankbranch = {} as dlBankBranch;
         }
         this.authen.LoginCRM().subscribe(data => {
-            this.master.getBankBranch(data.token,this.bankName.bankno).subscribe(data =>{
+            this.master.getBankBranch(data.token, this.bankName.bankno).subscribe(data => {
                 this.listBankBranch = data;
-                if(this.listBankBranch.length === 0 && this.bankName.bankno !== '999'){
+                if (this.listBankBranch.length === 0 && this.bankName.bankno !== '999') {
                     this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
-                }else{
+                } else {
                     this.bankbranch = {} as dlBankBranch;
                 }
-            })
+            });
           });
 
     }
@@ -153,30 +159,34 @@ export class DialogComponent implements OnInit {
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
         console.log('เลขบัญชี', this.bankAccountNo);
+        console.log('สาขาธนาคาร',this.bankbranch.bankBranchName);
 
-        if(this.bankName.bankno === '999'){
+        if (this.bankName.bankno === '999') {
             this.bankbranch.bankBranchCode = '0000';
             this.bankbranch.bankBranchName = '-';
-        }
-        else if (this.bankName.bankno !== '999' && this.listBankBranch.length === 0){
+        } else if (this.bankName.bankno !== '999' && this.listBankBranch.length === 0) {
             this.bankbranch.bankBranchName = 'สำนักงานใหญ่';
             this.bankbranch.bankBranchCode = '0001';
         }
-        
-        if (this.bankAccountNo && this.bankName.bankname && this.bankAccountName && ((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName))||(this.bankName.bankno ==='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)))) {
-            this.busy = this.master.bankSubmit(this._hyrf_id, 
-                                   this.bankName.adbankname, 
-                                   this.bankAccountNo, 
-                                   this.bankAccountName, 
+        if (this.bankAccountName === '---กรุณาเลือกชื่อบัญชีธนาคาร---' || this.bankAccountName === 'กรุณาเลือกชื่อบัญชี'){
+            this.bankAccountName = null
+        }
+        if (this.bankAccountNo && this.bankName.bankname && this.bankAccountName !== null && 
+            ((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName)) || (this.bankName.bankno === '999' && (this.bankbranch && this.bankbranch.bankBranchName)))) {
+            this.busy = this.master.bankSubmit(this._hyrf_id,
+                                   this.bankName.adbankname,
+                                   this.bankAccountNo,
+                                   this.bankAccountName,
                                    this.bankName.bankno,
                                    this.bankbranch.bankBranchCode,
-                                   this.bankbranch.bankBranchName).subscribe(res => { 
+                                   this.bankbranch.bankBranchName).subscribe(res => {
                 console.log('Submit1', res);
                 this.busy = this.uploadService.imageMerge2PDF(this._hyrf_id).subscribe(res => {
                     this.toasterService.success('ทำรายการสำเร็จ กรุณารอการตรวจสอบ / Success! Please wait for verifying your documents.');
-                    
+
                     this.dialogRef.close();
                 });
+
             });
         } else {
             this.loading = false;
@@ -188,25 +198,36 @@ export class DialogComponent implements OnInit {
     }
 
     onClose2() {
+        // this.close.emit();
         this.dialogRef.close();
     }
 
     onFilesAdded() {
-        let regexp = new RegExp('^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$');
+        const regexp = new RegExp('^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$');
         const files: { [key: string]: File } = this.file.nativeElement.files;
-        console.log(this.file.nativeElement.files[0].name)
-        console.log(regexp.test(this.file.nativeElement.files[0].name))
-        if(regexp.test(this.file.nativeElement.files[0].name))
-        {
-            for (const key in files) {
-                if (!isNaN(parseInt(key))) {
-                    this.files.add(files[key]);
+        console.log(this.file.nativeElement.files[0].name);
+        console.log(regexp.test(this.file.nativeElement.files[0].name));
+
+
+        this.picName = this.file.nativeElement.files[0].name;
+        this.cutPicName = this.picName.substr(this.picName.indexOf('.') + 1, this.picName.length);
+        console.log(this.cutPicName);
+
+        if (regexp.test(this.file.nativeElement.files[0].name)) {
+            if (this.cutPicName === 'JPG' || this.cutPicName === 'PNG' || this.cutPicName === 'JPEG' || this.cutPicName === 'jpg' || this.cutPicName === 'png' || this.cutPicName === 'jpeg') {
+                for (const key in files) {
+                    if (!isNaN(parseInt(key))) {
+                        this.files.add(files[key]);
+                    }
                 }
+                this.showButton = true;
+            } else {
+                const dialogRef = this.dialog.open(WarningDialogComponent, {
+                    width: '430px',
+                    data: 'นามสกุลของไฟล์แนบต้องเป็น JPG, JPEG, PNG เท่านั้น\nOnly JPG, JPEG, PNG files are allowed.'
+                });
             }
-            this.showButton = true;
-        }
-        else
-        {
+        } else {
             const dialogRef = this.dialog.open(WarningDialogComponent, {
                 width: '300px',
                 data: 'ชื่อไฟล์ต้องเป็นภาษาอังกฤษเท่านั้น\nThe file name must be in English only.'
@@ -214,33 +235,49 @@ export class DialogComponent implements OnInit {
         }
 
     }
-    
+
     addFiles() {
 
-        console.log(this.bankName.bankname)
-        console.log(this.bankbranch.bankBranchName)
-        console.log(this.bankAccountNo)
-        console.log(this.bankAccountName)
+        console.log(this.bankName.bankname);
+        console.log(this.bankbranch);
+        console.log(this.bankAccountNo);
+        console.log(this.bankAccountName);
 
-        if (((this.bankName.bankno !=='999'&&(this.bankbranch&&this.bankbranch.bankBranchName)&&(this.bankAccountNo&&this.bankAccountNo)&&(this.bankAccountName))||(this.bankName.bankno ==='999'&&!(this.bankbranch&&this.bankbranch.bankBranchName))))
-        {
-           this.file.nativeElement.click();
+        if (this.bankAccountName === '---กรุณาเลือกชื่อบัญชีธนาคาร---' || this.bankAccountName === 'กรุณาเลือกชื่อบัญชี'){
+            this.bankAccountName = null
         }
-        else
-        {
+        
+        if (((this.bankName.bankno !== '999' && (this.bankbranch && this.bankbranch.bankBranchName) && 
+        (this.bankAccountNo && this.bankAccountNo) && (this.bankAccountName)) || 
+        (this.bankName.bankno === '999' && !(this.bankbranch && this.bankbranch.bankBranchName)))) {
+                 this.file.nativeElement.click();
+        } else {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '300px',
                 data: 'กรุณากรอกข้อมูลให้ครบถ้วน/Please fill up all required fields.'
             });
         }
     }
-
+    changeBankAccNo(){
+        // const pattern_thai = '^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$';
+        const numBer = '^[0-9]+$';
+        console.log(this.bankAccountNo.match(numBer))
+        let checkTha = this.bankAccountNo.match(numBer);
+        console.log(checkTha)
+        if(!this.bankAccountNo.match(numBer)){
+           const dialogRef = this.dialog.open(WarningDialogComponent, {
+               width: '340px',
+               data: 'กรุณากรอกเลขที่บัญชีด้วยตัวเลขเท่านั้น\nPlease fill out Bank Account Number with number only.'
+           });
+           this.bankAccountNo = undefined;
+       }
+    }
 
     openDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '350px',
             data: 'คุณต้องการยืนยันการแนบเอกสารใช่หรือไม่ Do you want to confirm your attached files?'
-        });
+        }); 
 
         console.log('ชื่อธนาคาร', this.bankName.adbankname);
         console.log('ชื่อบัญชีลูกค้า', this.bankAccountName);
@@ -316,7 +353,7 @@ export class DialogComponent implements OnInit {
             data.forEach(element => {
                 // console.log('ชื่อธนาคาร', element);
                 this.temp = {} as ddlBank;
-                this.temp.bankname = element.bankname
+                this.temp.bankname = element.bankname;
                 this.temp.adbankname = element.adbankname;
                 this.temp.bankno = element.bankid;
                 this.temp.banknameen = element.banknameen;
@@ -329,77 +366,81 @@ export class DialogComponent implements OnInit {
 
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
+            const bankAccName = data.filter(item => item.bringtolegalentity_flag === 'N');
             this.listItemsBankName.push('---กรุณาเลือกชื่อบัญชีธนาคาร---');
-            data.forEach(element => {
-                this.listItemsBankName.push(element['fullname']);
+            bankAccName.forEach(element => {
+                this.listItemsBankName.push(element.fullname);
             });
         });
     }
-     
+
     CSBankDelt() {
         this.master.getCSBankDelt(Number(localStorage.getItem('_hyrf_id'))).subscribe(data => {
-            this.bankName = {} as ddlBank
-  
-            this.listItems.forEach(item=>{
-                if(data.bank_id===item.bankno){
+            this.bankName = {} as ddlBank;
+
+            this.listItems.forEach(item => {
+                if (data.bank_id === item.bankno) {
                     this.bankName = item;
                 }
             });
-            
-            console.log('playlistbankname',this.bankName.playlistbankname)
-            
+
+            console.log('playlistbankname', this.bankName.playlistbankname);
+
             // if(this.bankName.bankno === '999'){
             //     this.bankbranch = {} as dlBankBranch;
             // }
             this.authen.LoginCRM().subscribe(data2 => {
-                this.master.getBankBranch(data2.token,this.bankName.bankno).subscribe(data2 =>{
+                this.master.getBankBranch(data2.token, this.bankName.bankno).subscribe(data2 => {
                     this.listBankBranch = data2;
-                    this.bankbranch = {} as dlBankBranch
+                    this.bankbranch = {} as dlBankBranch;
                     const store = {} as any;
                     data2.forEach(item => {
 
-                        console.log('a',data.bot_bank_branch_code)
-                        console.log('b',item.bankBranchCode)
-                        console.log('c',item.bankCode)
+                        console.log('a', data.bot_bank_branch_code);
+                        console.log('b', item.bankBranchCode);
+                        console.log('c', item.bankCode);
 
-                        if((data.bot_bank_branch_code === item.bankBranchCode) && (item.bankCode !== '999')){
-                            console.log('1')
+                        if ((data.bot_bank_branch_code === item.bankBranchCode) && (item.bankCode !== '999')) {
+                            console.log('1');
                             this.bankbranch.bankBranchCode = data.bot_bank_branch_code;
                             this.bankbranch.bankBranchName = data.bot_bank_branch_name;
-                            this.bankbranch.bankCode = data.bankcode
+                            this.bankbranch.bankCode = data.bankcode;
                             // this.listBankBranch.push(this.bankbranch);
                             this.bankbranch = item;
                             return store.toPromise();
-                        }
-                        else if (data.bot_bank_branch_code === '0001' && item.bankCode !== '999')
-                        {
-                            console.log('2')
+                        } else if (data.bot_bank_branch_code === '0001' && item.bankCode !== '999') {
+                            console.log('2');
                             this.bankbranch = {bankBranchName: 'สำนักงานใหญ่' , bankBranchCode: '0001'} as dlBankBranch;
-                        }else if (data.bot_bank_branch_code === '999')
-                        {
-                            console.log('3')
+                        } else if (data.bot_bank_branch_code === '999') {
+                            console.log('3');
                             this.bankbranch.bankBranchCode = '0000';
                             this.bankbranch.bankBranchName = '-';
-                            this.bankbranch.bankCode = data.bankcode
+                            this.bankbranch.bankCode = data.bankcode;
                             this.listBankBranch.push(this.bankbranch);
                             return store.toPromise();
                         }
                     });
-                })
+                });
             });
-            
+
             this.bankAccountNo = data.bankaccountno;
             // console.log('data.bankaccountname',data);
-            this.bankAccountName = data.bankaccountname !== undefined && data.bankaccountname !== null ?data.bankaccountname:'กรุณาเลือก';
+            this.bankAccountName = data.bankaccountname !== undefined && data.bankaccountname !== null ? data.bankaccountname : 'กรุณาเลือกชื่อบัญชี';
             // this.listItemsBankName.push('');
             // console.log('this.bankAccountName','');
 
-            
-            if (data.bot_bank_branch_code === '0001'){
-                //console.log('in11')
+
+            if (data.bot_bank_branch_code === '0001') {
+                // console.log('in11')
                 this.changdropdown();
             }
-            
+
         });
     }
+
+
+    onclick() {
+        this.toasterService.success('Success');
+    }
+
 }
