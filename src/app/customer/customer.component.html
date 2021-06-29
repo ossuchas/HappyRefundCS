@@ -56,13 +56,13 @@
     >
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
-        
         <ng-container matColumnDef="Options">
+
             <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
             <mat-cell *matCellDef="let row">
                 <button
                     mat-icon-button
-                    (click)="onView(row.hyrf_id)"
+                    (click)="onView(row.hyrf_id, row.ac01_appv_flag)"
                 >
                     <mat-icon>image_search</mat-icon>
                 </button>

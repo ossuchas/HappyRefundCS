@@ -121,10 +121,11 @@ export class CustomerComponent implements OnInit {
     }
 
     // onView(hyrf: CrmContactRefund) {
-    onView(_hyrf_id: Number) {
+    onView(_hyrf_id: Number, ac_appv_flag: string) {
         // const _hyrf_id = localStorage.getItem('_hyrf_id');
         console.log(_hyrf_id);
-
+        console.log('flaggggggggggggggggg', ac_appv_flag)
+        localStorage.setItem('ac01_appv_flag', ac_appv_flag);
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
@@ -135,6 +136,7 @@ export class CustomerComponent implements OnInit {
             hyrf_id: _hyrf_id
 
         };
+
         this.dialog.open(ImgviewPageComponent, dialogConfig);
     }
 

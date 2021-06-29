@@ -30,14 +30,13 @@ export class ImgviewPageComponent implements OnInit {
             this.refreshDataList(this.data.hyrf_id);
         });
     }
-
+    @Input() appv_flag: string
     listData: MatTableDataSource<any>;
     displayedColumn: string[] = ['View-Delete', 'img_name', 'creatdate'];
-    appv_flag: string;
 
 
     ngOnInit() {
-        this.appv_flag = localStorage.getItem('flag_appv');
+        this.appv_flag = localStorage.getItem('ac01_appv_flag');
         this.refreshDataList(this.data.hyrf_id);
     }
 
