@@ -43,6 +43,12 @@ export class CustomerComponent implements OnInit {
     sentDataRefund: CrmContactRefund[] = [];
 
     totalAmount: number;
+    shWelcomehome: boolean;
+    shRefund: boolean;
+    shRFNandWel: boolean;
+
+    isWelcomehome: boolean;
+    isRefund: boolean;
 
     displayedColumn: string[] = [
         'Options',
@@ -68,8 +74,19 @@ export class CustomerComponent implements OnInit {
         'doc_upload_btn'
     ];
 
+    displayedColumnNoRFN: string[] = [
+        'Options',
+        'project',
+        'unitnumber',
+        'contractnumber',
+        'transferdateapprove',
+        'welcomehomeamount',
+        'doc_sent_status',
+        'doc_upload_btn'
+    ];
+
     
-    shWelcomehome: boolean;
+    
 
     ngOnInit() {
         // this.srvCS.formData = hyrf;
@@ -89,8 +106,6 @@ export class CustomerComponent implements OnInit {
         }
 
     }
-
-
     validate(form: NgForm) {
         // console.log(form.value);
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
@@ -115,12 +130,16 @@ export class CustomerComponent implements OnInit {
                     this.isValidateUpload = true;
                 }
 
-                data.forEach(item => {
+                this.isWelcomehome = false;
+                this.isRefund = false;
+                data.filter(item => item.bringtolegalentity_flag !== 'Y').forEach(item => {
                     if (item.welcomehome_flag === 'Y') {
-                        this.shWelcomehome = true
-                    } else {
-                        this.shWelcomehome = false
+                        this.isWelcomehome = true  
                     }
+                    if (item.remainingtotalamount > 1000) {
+                        this.isRefund = true
+                    }
+ad
                 })
             },
 
