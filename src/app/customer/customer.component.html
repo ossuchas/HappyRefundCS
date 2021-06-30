@@ -52,7 +52,7 @@
     <mat-table
         [dataSource]="listData"
         matSort
-        
+        *ngIf="shWelcomehome"
     >
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
@@ -107,7 +107,7 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Refund Amount (Baht)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=1000?'-':element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=1000?'0.00':element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="welcomehomeamount">
@@ -115,7 +115,7 @@
                 *matHeaderCellDef
                 mat-sort-header
             >Welcome Home Amount (Baht)</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.welcomehome_amount === null?'-':element.welcomehome_amount === 0?'-':element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
+            <mat-cell *matCellDef="let element">{{element.welcomehome_amount === null?'0.00':element.welcomehome_amount === 0?'0.00':element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="totalamount">
             <mat-header-cell
@@ -225,6 +225,186 @@
             </mat-cell>
         </ng-container>
     </mat-table>
+
+
+
+    <mat-table
+    [dataSource]="listData"
+    matSort
+    *ngIf="!shWelcomehome"
+>
+    <mat-header-row *matHeaderRowDef="displayedColumnNowel"></mat-header-row>
+    <mat-row *matRowDef="let row; columns:displayedColumnNowel;"></mat-row>
+    <ng-container matColumnDef="Options">
+
+        <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button
+                mat-icon-button
+                (click)="onView(row.hyrf_id, row.ac01_appv_flag)"
+            >
+                <mat-icon>image_search</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="project">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Project Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.project}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="unitnumber">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Unit</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.unitnumber}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="contractnumber">
+        <mat-header-cell 
+            *matHeaderCellDef
+            mat-sort-header
+        >Customer Name</mat-header-cell>
+        <!-- <mat-cell *matCellDef="let element">{{ element.namestitle }} {{ element.firstname }} {{ element.firstname }}</mat-cell> -->
+        <mat-cell *matCellDef="let element">{{ element.coownername }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="transferdateapprove">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Transfer Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.transferdateapprove | date: 'dd/MM/yyyy' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="remainingtotalamount">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Refund Amount (Baht)</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=1000?'-':element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="welcomehomeamount">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Welcome Home Amount (Baht)</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.welcomehome_amount === null?'-':element.welcomehome_amount === 0?'-':element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="totalamount">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Total Amount (Baht)</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ (element.remainingtotalamount<=1000?0:element.remainingtotalamount) + element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="doc_sent_status">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Status</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ element.doc_sent_status | tf01docstatus }}
+            <div *ngIf="element.ac01_appv_flag === 'A' || element.doc_sent_status === 'A'">
+                {{ element.ac02_due_date | date: 'dd/MM/yy' }}
+            </div>
+
+            <!-- <div *ngIf="element.ac02_appv_flag !== 'A' || element.ac02_due_date === null" >
+                <div *ngIf="element.ac01_appv_flag !== 'A'">
+                    <div *ngIf="element.tf02_appv_flag !== 'A'">
+                        <div *ngIf="element.tf01_appv_flag !== 'A'"> -->
+                            <!-- <div *ngIf="element.ac02_appv_flag === 'R' &&
+                            element.ac02_remarks !== null"
+                            >หมายเหตุ : {{element.ac02_remarks}}</div> -->
+
+                            <div *ngIf="element.ac01_appv_flag === 'N' && 
+                            element.ac02_appv_flag === 'N' && 
+                            element.ac01_remarks !== null && 
+                            element.tf01_appv_flag !== 'A' &&
+                            element.tf01_appv_flag !== 'N' &&
+                            element.tf02_appv_flag !== 'A' &&
+                            element.ac02_appv_date > element.tf02_appv_date &&
+                            element.ac02_appv_date > element.tf01_appv_date && 
+                            element.remainingtotalamount > 1000 && 
+                            element.doc_sent_status !== 'A'"
+                            >หมายเหตุ : {{element.ac01_remarks}}</div>
+
+                            <div *ngIf="element.tf02_appv_flag === 'N' && 
+                            element.ac01_appv_flag === 'N' && 
+                            element.tf02_remarks !== null &&
+                            element.tf01_appv_flag === 'R' &&
+                            element.ac01_appv_flag !== null &&
+                            element.tf02_appv_date > element.ac01_appv_date &&
+                            element.tf02_appv_date > element.tf01_appv_date && 
+                            element.remainingtotalamount > 1000 && 
+                            element.doc_sent_status !== 'A'"
+                            >หมายเหตุ : {{element.tf02_remarks}}</div>
+
+                            <div *ngIf="element.tf02_appv_flag === 'N' && 
+                            element.ac01_appv_flag === 'N' && 
+                            element.tf02_remarks !== null &&
+                            element.tf01_appv_flag === 'R' &&
+                            element.ac01_appv_date === null &&
+                            element.tf02_appv_date > element.tf01_appv_date && 
+                            element.remainingtotalamount > 1000 && 
+                            element.doc_sent_status !== 'A'"
+                            >หมายเหตุ : {{element.tf02_remarks}}</div>
+
+                            <div *ngIf="element.tf01_appv_flag === 'R' && 
+                            element.ac01_appv_date !== null &&
+                            element.tf02_appv_date !== null &&
+                            element.tf01_appv_date > element.ac01_appv_date &&
+                            element.tf01_appv_date > element.tf02_appv_date && 
+                            element.remainingtotalamount > 1000 && 
+                            element.doc_sent_status !== 'A'"
+                            >หมายเหตุ : {{element.tf01_remarks}}</div>
+
+                            <div *ngIf="element.tf01_appv_flag === 'R' && 
+                            element.ac01_appv_date === null &&
+                            element.tf02_appv_date === null && 
+                            element.remainingtotalamount > 1000 && 
+                            element.doc_sent_status !== 'A'"
+                            >หมายเหตุ : {{element.tf01_remarks}}</div>
+
+                            <div *ngIf="element.tf01_appv_flag === 'R' && 
+                            element.remainingtotalamount <= 1000 &&
+                            element.welcomehome_flag === 'Y' && 
+                            element.doc_sent_status !== 'A'">
+                              หมายเหตุ : {{element.ac01_remarks}}
+                            </div>
+                        <!-- </div>
+                    </div>
+                </div>
+            </div>
+             -->
+
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="doc_upload_btn">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+        >Upload Doc.</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button
+                mat-raised-button
+                (click)="uploadByid(element)"
+                class="btn btn-primary"
+                *ngIf="element.doc_sent_status != 'A'"
+                style="margin-left: 10px;"
+            >Upload Doc.</button>
+            <!-- <button mat-raised-button (click)="uploadByid(element.hyrf_id)" class="btn btn-primary">Upload Doc.</button> -->
+        </mat-cell>
+    </ng-container>
+</mat-table>
+
 </div>
 <div class="container col row justify-content-md-center">
         <!-- <picture>

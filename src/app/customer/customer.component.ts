@@ -57,6 +57,20 @@ export class CustomerComponent implements OnInit {
         'doc_upload_btn'
     ];
 
+    displayedColumnNowel: string[] = [
+        'Options',
+        'project',
+        'unitnumber',
+        'contractnumber',
+        'transferdateapprove',
+        'remainingtotalamount',
+        'doc_sent_status',
+        'doc_upload_btn'
+    ];
+
+    
+    shWelcomehome: boolean;
+
     ngOnInit() {
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
@@ -100,6 +114,14 @@ export class CustomerComponent implements OnInit {
                 } else {
                     this.isValidateUpload = true;
                 }
+
+                data.forEach(item => {
+                    if (item.welcomehome_flag === 'Y') {
+                        this.shWelcomehome = true
+                    } else {
+                        this.shWelcomehome = false
+                    }
+                })
             },
 
             error => {
