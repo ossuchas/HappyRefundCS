@@ -139,7 +139,6 @@ export class CustomerComponent implements OnInit {
                     if (item.remainingtotalamount > 1000) {
                         this.isRefund = true
                     }
-ad
                 })
             },
 
