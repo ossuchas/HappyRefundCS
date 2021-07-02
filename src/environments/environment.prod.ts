@@ -1,21 +1,21 @@
 export const environment = {
-  production: true,
-// //============================production============================//
-apiUrl: 'https://happyrefundapi.apthai.com/api/v1',
-apiCRM: 'https://identity-api-crmrevo.apthai.com/api/Token/ClientLogin',
-apiCRMMaster: 'https://masterdata-api-crmrevo.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
-apiCRMRefund: 'https://refund-api-crmrevo.apthai.com/api/Refund/',
-clientId: 'crmdigital',
-clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
-
-//===============================DEV===============================//
-// production: false,
-// apiUrl: 'http://happyrefund-api-testrepo.devops-app.apthai.com/api/v1',
-// apiCRM: 'http://crmrevo-identity-api-crmrevo-dev.devops-app.apthai.com/api/Token/ClientLogin',
-// apiCRMMaster: 'http://crmrevo-masterdata-api-crmrevo-dev.devops-app.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
-// apiCRMRefund: 'http://crmrevo-refund-api-crmrevo-dev.devops-app.apthai.com/api/Refund/',
+//   production: true,
+// // //============================production============================//
+// apiUrl: 'https://happyrefundapi.apthai.com/api/v1',
+// apiCRM: 'https://identity-api-crmrevo.apthai.com/api/Token/ClientLogin',
+// apiCRMMaster: 'https://masterdata-api-crmrevo.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
+// apiCRMRefund: 'https://refund-api-crmrevo.apthai.com/api/Refund/',
 // clientId: 'crmdigital',
 // clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
+
+//===============================DEV===============================//
+production: false,
+apiUrl: 'http://happyrefund-api-testrepo.devops-app.apthai.com/api/v1',
+apiCRM: 'http://crmrevo-identity-api-crmrevo-dev.devops-app.apthai.com/api/Token/ClientLogin',
+apiCRMMaster: 'http://crmrevo-masterdata-api-crmrevo-dev.devops-app.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
+apiCRMRefund: 'http://crmrevo-refund-api-crmrevo-dev.devops-app.apthai.com/api/Refund/',
+clientId: 'crmdigital',
+clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
 
 // apiUrl: 'http://happyrefundapi-happyrefunds.devops-app.apthai.com/api/v1'
 };
