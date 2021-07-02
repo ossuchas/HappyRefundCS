@@ -26,115 +26,54 @@ export class MasterService {
   // getBankMaster(): Observable<CRMMasterBank[]> {
   //   return this.http.get<CRMMasterBank[]>('https://happyrefundapi.apthai.com/api/v1/bankmasterlist');
   // }
-  getCSBankDelt(hyrf_id: number): Observable<csBankDelt> {
+  getCSBankDelt(hyrf_id: number): Observable<csBankDelt>{
     return this.http.get<csBankDelt>(this.APIUrl + '/csbankdetl/' + hyrf_id);
   }
 
 
   getBankMaster(): Observable<CRMMasterBank[]> {
-    return this.http.get<CRMMasterBank[]>(this.APIUrl + '/bankmasterlist');
+    return this.http.get<CRMMasterBank[]>(this.APIUrl+'/bankmasterlist');
   }
 
   getBankAccountName(hyrf_id: number): Observable<CRMBankNameList[]> {
-    return this.http.get<CRMBankNameList[]>(this.APIUrl + '/banknamelist/' + hyrf_id);
+    return this.http.get<CRMBankNameList[]>(this.APIUrl+'/banknamelist/' + hyrf_id);
   }
 
-  getBankBranch(token, bankID): Observable<any> {
-   const httpOptions = {
+  getBankBranch(token,bankID): Observable<any>
+  {
+   var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + token
+        'Authorization' : 'Bearer '+token
       })
     };
-    const crmmaster = environment.apiCRMMaster;
-    return this.http.get(crmmaster + '?bankCode=' + bankID, httpOptions);
+    var crmmaster = environment.apiCRMMaster;
+    return this.http.get(crmmaster+'?bankCode='+bankID,httpOptions);
   }
 
-  deleteImg(token, imgID) {
-    const  httpOptions = {
+  deleteImg(token,imgID){
+    var  httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + token
+        'Authorization' : 'Bearer '+token
       })
     };
-    const crmrefund = environment.apiCRMRefund;
-    return this.http.post(crmrefund + imgID + '/DeleteRefund', { img_id: imgID}, httpOptions);
+    var crmrefund= environment.apiCRMRefund;
+    return this.http.post(crmrefund + imgID +'/DeleteRefund',{ img_id: imgID},httpOptions);
   }
 
-  getWelcomeMemoAgreement(token, trandferID) {
-    const  httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + token
-      })
-    };
-    const crmrefund = environment.apiCRMRefund;
-    return this.http.post(crmrefund + 'GetAgreement', { transferID: trandferID}, httpOptions);
-  }
-
-  exportTransPromotionPrintFormUrlAsync$(token, agreementID) {
-    const  httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + token
-      })
-    };
-    const crmtransferPromotion = environment.apiCRMTransferPromotion;
-    return this.http.post(crmtransferPromotion + 'ExportTransPromotionPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
-  }
-
-  exportAgreementPrintFormUrlAsync$(token, agreementID) {
-    const  httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + token
-      })
-    };
-    const crmSalePromotion = environment.apiCRMSalePromotion;
-    return this.http.post(crmSalePromotion + 'ExportAgreementPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
-  }
-
-
-  openWindowWithPost(url, data) {
-    return new Promise<any>(resolve => {
-      setTimeout(() => {
-        const form = document.createElement('form');
-        form.target = '_blank';
-        form.method = 'POST';
-        form.action = url;
-        form.style.display = 'none';
-
-        for (const key in data) {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = key;
-          input.value = data[key];
-          form.appendChild(input);
-        }
-
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
-
-        resolve(true);
-      }, 2000);
-    });
-  }
-
-
-  bankSubmit(hyrf_id: string, bankcodeInput: string, bankaccountnoInput: string, bankaccountnameInput: string, botbankcodeInput: string, botbankbranchcodeInput: string, botbankbranchnameInput: string): Observable<any> {
+  bankSubmit(hyrf_id: string, bankcodeInput: string, bankaccountnoInput: string, bankaccountnameInput: string, botbankcodeInput:string, botbankbranchcodeInput: string, botbankbranchnameInput:string): Observable<any> {
     apiUrl: 'https://happyrefundapi.apthai.com/api/v1';
     // return this.http.put<any>('http://happyrefund-api-testrepo.devops-app.apthai.com/api/v1/banksubmit/' + hyrf_id, { bankcode: bankcodeInput, bankaccountno: bankaccountnoInput, bankaccountname: bankaccountnameInput }, this.httpOptions);
-    return this.http.put<any>(this.APIUrl + '/banksubmit/' + hyrf_id,
-    { bankcode: bankcodeInput,
-      bankaccountno: bankaccountnoInput,
+    console.log(botbankcodeInput);
+    console.log(botbankbranchcodeInput);
+    console.log(botbankbranchnameInput);
+    return this.http.put<any>(this.APIUrl + '/banksubmit/' + hyrf_id, 
+    { bankcode: bankcodeInput, 
+      bankaccountno: bankaccountnoInput, 
       bankaccountname: bankaccountnameInput,
-      bot_bank_code: botbankcodeInput,
-      bot_bank_branch_code: botbankbranchcodeInput,
+      bot_bank_code:botbankcodeInput,
+      bot_bank_branch_code: botbankbranchcodeInput, 
       bot_bank_branch_name: botbankbranchnameInput}, this.httpOptions);
   }
-
-  AcceptWelcomehome(hyrf_id: number , _receiveWelcomehome: boolean): Observable<any> {
-    return this.http.put<any>(this.APIUrl + '/acceptwelcome/' + hyrf_id, {receiveWelcomehome: _receiveWelcomehome}, this.httpOptions);
-}
 }

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UploadService, CustomerService, CrmContactRefund, CrmGetAgreement, MasterService, AuthenticationService } from '../shared';
+import { UploadService, CustomerService, CrmContactRefund } from '../shared';
 import { PageHeaderComponent } from '../shared/modules/page-header/page-header.component';
 import { MatSnackBar, MatTableDataSource, MatDialog, MatDialogConfig, MatCell, MatCellDef, MatColumnDef } from '@angular/material';
 
@@ -12,7 +12,6 @@ import { DialogFirstComponent } from './dialog-first/dialog-first.component';
 import { Tf01docstatusPipe } from '../shared/pipes';
 import { ToastrService } from 'ngx-toastr';
 import { DialogTooltipComponent } from './tooltips/tooltip.component';
-import { WarningDialogComponent } from './dialog/warning-dialog/warning-dialog.component';
 import { CanceltbankDialogComponent } from './dialog/cancel-tbank-dialog/cancel-tbank-dialog.component';
 
 
@@ -27,29 +26,18 @@ export class CustomerComponent implements OnInit {
         private srvCS: CustomerService,
         private snackBar: MatSnackBar,
         public dialog: MatDialog,
-        private master: MasterService,
-        private authen: AuthenticationService,
         private toasterService: ToastrService,
     ) { }
-    @Output() welcomeHomeFlag = new EventEmitter<string>();
+
     isValidate = false;
     isMobile = false;
     isValidateUpload = false;
     listData: MatTableDataSource<any>;
     btnUpload = true;
-    Remark: string;
-    personalid: string;
-    tooltips = false;
-    sentDataRefund: CrmContactRefund[] = [];
-
-    totalAmount: number;
-    shWelcomehome: boolean;
-    shRefund: boolean;
-    shRFNandWel: boolean;
-
-    isWelcomehome: boolean;
-    isRefund: boolean;
-
+    Remark:string;
+    personalid:string;
+    tooltips = false
+        
     displayedColumn: string[] = [
         'Options',
         'project',
@@ -57,44 +45,18 @@ export class CustomerComponent implements OnInit {
         'contractnumber',
         'transferdateapprove',
         'remainingtotalamount',
-        'welcomehomeamount',
-        'totalamount',
         'doc_sent_status',
         'doc_upload_btn'
     ];
-
-    displayedColumnNowel: string[] = [
-        'Options',
-        'project',
-        'unitnumber',
-        'contractnumber',
-        'transferdateapprove',
-        'remainingtotalamount',
-        'doc_sent_status',
-        'doc_upload_btn'
-    ];
-
-    displayedColumnNoRFN: string[] = [
-        'Options',
-        'project',
-        'unitnumber',
-        'contractnumber',
-        'transferdateapprove',
-        'welcomehomeamount',
-        'doc_sent_status',
-        'doc_upload_btn'
-    ];
-
-    
-    
 
     ngOnInit() {
-        // this.srvCS.formData = hyrf;
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '500px';
-        this.dialog.open(CanceltbankDialogComponent, dialogConfig);
+        
+          // this.srvCS.formData = hyrf;
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = true;
+          dialogConfig.width = '500px';
+          this.dialog.open(CanceltbankDialogComponent, dialogConfig);
 
         this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');
@@ -104,50 +66,37 @@ export class CustomerComponent implements OnInit {
         } else {
             localStorage.setItem('isMobile', '0');
         }
-
     }
+
+
     validate(form: NgForm) {
         // console.log(form.value);
         this.srvCS.checkPersonalId(form.value.personalid).subscribe(
             data => {
-                localStorage.setItem('flag_appv', data[0].ac01_appv_flag);
+                localStorage.setItem('flag_appv',data[0].ac01_appv_flag);
                 this.isValidate = true;
-                this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
-                // this.sentDataRefund = data.filter((item) => item.bringtolegalentity_flag !== 'Y');
-                console.log(  this.sentDataRefund);
-                // this.totalAmount=data[0].remainingtotalamount + data[0].welcomehome_amount;
-
+                this.listData = new MatTableDataSource(data);
                 // console.log(data);
                 localStorage.setItem('currentCs', JSON.stringify(data));
                 // KAI 2019-12-14
                 // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
                 // localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                 localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
+
                 const doc_sent_status = JSON.parse(localStorage.getItem('currentCs'))[0].doc_sent_status;
                 if (doc_sent_status === 'A') {
                     this.isValidateUpload = false;
                 } else {
                     this.isValidateUpload = true;
                 }
-
-                this.isWelcomehome = false;
-                this.isRefund = false;
-                data.filter(item => item.bringtolegalentity_flag !== 'Y').forEach(item => {
-                    if (item.welcomehome_flag === 'Y') {
-                        this.isWelcomehome = true  
-                    }
-                    if (item.remainingtotalamount > 1000) {
-                        this.isRefund = true
-                    }
-                })
             },
-
+            
             error => {
-                console.log(error);
-                if (error.error && error.error.message === 'No Data Found') {
+                console.log(error)
+                if (error.error&&error.error.message==='No Data Found'){
                     this.isValidate = false;
                     this.toasterService.error('ไม่พบข้อมูลเลขที่บัตรประชาชนหรือพาสปอร์ต/Your Personal ID or Passport ID not found in the system!');
-                } else {
+                }else{
                 this.isValidate = false;
                 this.toasterService.error('กรุณากรอกเลขบัตรประชาชนหรือพาสปอร์ต/Please fill in Personal ID or Passport ID');
             }
@@ -161,11 +110,10 @@ export class CustomerComponent implements OnInit {
     }
 
     // onView(hyrf: CrmContactRefund) {
-    onView(_hyrf_id: Number, ac_appv_flag: string) {
+    onView(_hyrf_id: Number) {
         // const _hyrf_id = localStorage.getItem('_hyrf_id');
         console.log(_hyrf_id);
-        console.log('flaggggggggggggggggg', ac_appv_flag)
-        localStorage.setItem('ac01_appv_flag', ac_appv_flag);
+
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
@@ -174,9 +122,7 @@ export class CustomerComponent implements OnInit {
         dialogConfig.height = '500px';
         dialogConfig.data = {
             hyrf_id: _hyrf_id
-
         };
-
         this.dialog.open(ImgviewPageComponent, dialogConfig);
     }
 
@@ -202,9 +148,8 @@ export class CustomerComponent implements OnInit {
                     const per_id = localStorage.getItem('_personal_id');
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
-
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
+                            this.listData = new MatTableDataSource(data);
                             // console.log(data);
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
@@ -212,10 +157,9 @@ export class CustomerComponent implements OnInit {
 
                             localStorage.setItem('_hyrf_id', JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id);
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
-                            console.log('data', data);
                         },
                         error => {
-                            // this.isValidate = false;
+                            this.isValidate = false;
                             this.snackBar.open(error.error['message'], '', {
                                 duration: 5000
                             });
@@ -226,28 +170,18 @@ export class CustomerComponent implements OnInit {
         });
     }
 
-    uploadByid(item: CrmContactRefund) {
-        console.log(item);
-        // console.log('uploadByid = ' + item.hyrf_id);
-        localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
+    uploadByid(_hyrf_id: number, bankaccountname: string, bankaccountno: string, bankcode: string,bankBranchName: string) {
+        console.log('uploadByid = ' + _hyrf_id);
+        localStorage.setItem('_hyrf_id', _hyrf_id.toString());
 
-        localStorage.setItem('bankaccountname', item.bankaccountname);
-        localStorage.setItem('bankaccountno', item.bankaccountno);
-        localStorage.setItem('bankcode', item.bankcode);
-        localStorage.setItem('bankBranchName', item.bot_bank_branch_name);
-        // localStorage.setItem('_welcomehomeflag', item.welcomehome_flag);
-        // localStorage.setItem('_welcomehome_accept_date', item.welcomehome_accept_datetime.toString());
-
+        localStorage.setItem('bankaccountname', bankaccountname);
+        localStorage.setItem('bankaccountno', bankaccountno);
+        localStorage.setItem('bankcode', bankcode);
+        localStorage.setItem('bankBranchName',bankBranchName);
+       
+        
 
         const dialogRef = this.dialog.open(DialogTermComponent);
-        dialogRef.componentInstance.hyrf_id = item.hyrf_id;
-
-        dialogRef.componentInstance.welcomeHomeFlag = item.welcomehome_flag;
-        dialogRef.componentInstance.welcomeHomeAcceptDatetime = item.welcomehome_accept_datetime;
-        dialogRef.componentInstance.welcomehomeAmount = item.welcomehome_amount;
-        dialogRef.componentInstance.refundAmount = item.remainingtotalamount;
-        dialogRef.componentInstance.transfer_id = item.transferid;
-        dialogRef.componentInstance.welcomehome_stage = item.welcomehome_stage;
 
         dialogRef.afterClosed().subscribe(result => {
 
@@ -264,19 +198,18 @@ export class CustomerComponent implements OnInit {
                     this.srvCS.checkPersonalId(per_id).subscribe(
                         data => {
                             this.isValidate = true;
-                            this.listData = new MatTableDataSource(data.filter(item => item.bringtolegalentity_flag !== 'Y'));
+                            this.listData = new MatTableDataSource(data);
                             // console.log(data);
-                            // console.log('asdasdasd',result1)
+                            //console.log('asdasdasd',result1)
                             // this.toasterService.success('Success');
                             localStorage.setItem('currentCs', JSON.stringify(data));
 
                             // const p_hyrf_id = JSON.parse(localStorage.getItem('currentCs'))[0].hyrf_id;
 
-                            localStorage.setItem('_hyrf_id', item.hyrf_id.toString());
+                            localStorage.setItem('_hyrf_id', _hyrf_id.toString());
                             localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].personcardid);
-                            // localStorage.setItem('_personal_id', JSON.parse(localStorage.getItem('currentCs'))[0].welcomehome_flag);
-                        },
 
+                        },
                         error => {
                             this.isValidate = false;
                             this.snackBar.open(error.error['message'], '', {
@@ -288,8 +221,8 @@ export class CustomerComponent implements OnInit {
             }
         });
     }
-    openTooltip() {
+    openTooltip(){
         this.dialog.open(DialogTooltipComponent);
-        this.toasterService.success('Success');
     }
+
 }
