@@ -3,4 +3,5 @@ export class CRMBankNameList {
     contractnumber: string;
     contactid: string;
     fullname: string;
+    bringtolegalentity_flag: string;
 }
