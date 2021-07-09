@@ -94,6 +94,17 @@ export class MasterService {
     return this.http.post(crmSalePromotion + 'ExportAgreementPrintFormUrl?agreementId=' + agreementID , {agreementID}, httpOptions);
   }
 
+  exportWelcomehomeMemoAsync$(token, agreementID, hyrf_id, welcomehome_stage) {
+    const  httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + token
+      })
+    };
+    const crmrefund = environment.apiCRMRefund;
+    return this.http.post(crmrefund + 'GetWelcomehomeMemoUrl?agreementID=' + agreementID + '&hyrf_id=' + hyrf_id + '&stage=' + welcomehome_stage, {agreementID, hyrf_id, welcomehome_stage}, httpOptions);
+  }
+
 
   openWindowWithPost(url, data) {
     return new Promise<any>(resolve => {
