@@ -136,7 +136,7 @@ export class CustomerComponent implements OnInit {
                     if (item.welcomehome_flag === 'Y') {
                         this.isWelcomehome = true  
                     }
-                    if (item.remainingtotalamount > 1000) {
+                    if (item.remainingtotalamount > 0) {
                         this.isRefund = true
                     }
                 })
