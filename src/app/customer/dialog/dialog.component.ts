@@ -33,6 +33,10 @@ export interface CSBankDelt {
     bankaccountno: string;
     bankaccountname: string;
 }
+
+export interface CSBankAccName {
+    bankaccname: string;
+}
 @Component({
     selector: 'app-dialog',
     templateUrl: './dialog.component.html',
@@ -103,6 +107,7 @@ export class DialogComponent implements OnInit {
     picName: string;
     cutPicName: string;
     bankAccName: any;
+    tempAccName: string;
 
     ngOnInit() {
         this.id = localStorage.getItem('_hyrf_id');
@@ -371,6 +376,8 @@ export class DialogComponent implements OnInit {
             const bankAccName = data.filter(item => item.bringtolegalentity_flag === 'N');
             this.listItemsBankName.push('---กรุณาเลือกชื่อบัญชีธนาคาร---');
             bankAccName.forEach(element => {
+   
+                console.log('bankAccName', element.fullname);
                 this.listItemsBankName.push(element.fullname);
             });
         });
