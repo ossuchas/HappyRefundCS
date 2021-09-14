@@ -90,11 +90,12 @@ export class CustomerComponent implements OnInit {
 
     ngOnInit() {
         // this.srvCS.formData = hyrf;
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.width = '500px';
-        this.dialog.open(CanceltbankDialogComponent, dialogConfig);
+        
+        // const dialogConfig = new MatDialogConfig();
+        // dialogConfig.disableClose = true;
+        // dialogConfig.autoFocus = true;
+        // dialogConfig.width = '500px';
+        // this.dialog.open(CanceltbankDialogComponent, dialogConfig);
 
         this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');
