@@ -347,6 +347,15 @@ export class DialogComponent implements OnInit {
                         // this.snackBar.open('Updated transaction Successful...!! [' + res.hyrf_id + ']', '', {
                         //     duration: 3000
                         // });
+
+
+                        this.onClose();
+                        
+
+
+
+
+
                     });
                 });
             }
