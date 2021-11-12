@@ -58,7 +58,7 @@
     >
         <mat-header-row *matHeaderRowDef="displayedColumn"></mat-header-row>
         <mat-row *matRowDef="let row; columns:displayedColumn;"></mat-row>
-        <ng-container matColumnDef="Options">
+        <!-- <ng-container matColumnDef="Options">
 
             <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -69,7 +69,7 @@
                     <mat-icon>image_search</mat-icon>
                 </button>
             </mat-cell>
-        </ng-container>
+        </ng-container> -->
     
         <ng-container matColumnDef="project">
             <mat-header-cell
@@ -108,7 +108,7 @@
             <mat-header-cell
                 *matHeaderCellDef
                 mat-sort-header
-            >Refund Amount (Baht)</mat-header-cell>
+            >Refund Amount <br>(Baht)</mat-header-cell>
             <!-- <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=1000?'0.00':element.remainingtotalamount | number : '1.2-2' }}</mat-cell> -->
             <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=0?'0.00':element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
         </ng-container>
@@ -124,7 +124,7 @@
             <mat-header-cell
                 *matHeaderCellDef
                 mat-sort-header
-            >Total Amount (Baht)</mat-header-cell>
+            >Total Amount <br>(Baht)</mat-header-cell>
             <!-- <mat-cell *matCellDef="let element">{{ (element.remainingtotalamount<=1000?0:element.remainingtotalamount) + element.welcomehome_amount | number : '1.2-2' }}</mat-cell> -->
             <mat-cell *matCellDef="let element">{{ (element.remainingtotalamount<=0?0:element.remainingtotalamount) + element.welcomehome_amount | number : '1.2-2' }}</mat-cell>
         </ng-container>
@@ -288,7 +288,7 @@
 >
     <mat-header-row *matHeaderRowDef="displayedColumnNowel"></mat-header-row>
     <mat-row *matRowDef="let row; columns:displayedColumnNowel;"></mat-row>
-    <ng-container matColumnDef="Options">
+    <!-- <ng-container matColumnDef="Options">
 
         <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
         <mat-cell *matCellDef="let row">
@@ -299,7 +299,7 @@
                 <mat-icon>image_search</mat-icon>
             </button>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="project">
         <mat-header-cell
@@ -338,7 +338,7 @@
         <mat-header-cell
             *matHeaderCellDef
             mat-sort-header
-        >Refund Amount (Baht)</mat-header-cell>
+        >Refund Amount <br>(Baht)</mat-header-cell>
         <!-- <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=1000?'-':element.remainingtotalamount | number : '1.2-2' }}</mat-cell> -->
         <mat-cell *matCellDef="let element">{{ element.remainingtotalamount<=0?'-':element.remainingtotalamount | number : '1.2-2' }}</mat-cell>
     </ng-container>
@@ -517,7 +517,7 @@
 >
     <mat-header-row *matHeaderRowDef="displayedColumnNoRFN"></mat-header-row>
     <mat-row *matRowDef="let row; columns:displayedColumnNoRFN;"></mat-row>
-    <ng-container matColumnDef="Options">
+    <!-- <ng-container matColumnDef="Options">
 
         <mat-header-cell *matHeaderCellDef>Preview Doc.</mat-header-cell>
         <mat-cell *matCellDef="let row">
@@ -528,7 +528,7 @@
                 <mat-icon>image_search</mat-icon>
             </button>
         </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="project">
         <mat-header-cell

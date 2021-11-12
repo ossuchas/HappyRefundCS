@@ -51,7 +51,7 @@ export class CustomerComponent implements OnInit {
     isRefund: boolean;
 
     displayedColumn: string[] = [
-        'Options',
+        // 'Options',
         'project',
         'unitnumber',
         'contractnumber',
@@ -64,7 +64,7 @@ export class CustomerComponent implements OnInit {
     ];
 
     displayedColumnNowel: string[] = [
-        'Options',
+        // 'Options',
         'project',
         'unitnumber',
         'contractnumber',
@@ -75,7 +75,7 @@ export class CustomerComponent implements OnInit {
     ];
 
     displayedColumnNoRFN: string[] = [
-        'Options',
+        // 'Options',
         'project',
         'unitnumber',
         'contractnumber',
