@@ -108,6 +108,7 @@ export class DialogComponent implements OnInit {
     cutPicName: string;
     bankAccName: any;
     tempAccName: string;
+    dataPass: boolean;
 
     ngOnInit() {
         this.id = localStorage.getItem('_hyrf_id');
@@ -242,7 +243,13 @@ export class DialogComponent implements OnInit {
     }
 
     addFiles() {
+        
+        this.changeBankAccNo();
+        if (this.dataPass === false) {
+            return;
+        }
 
+        
         console.log(this.bankName.bankname);
         console.log(this.bankbranch);
         console.log(this.bankAccountNo);
@@ -264,6 +271,7 @@ export class DialogComponent implements OnInit {
         }
     }
     changeBankAccNo(){
+        this.dataPass = true;
         // const pattern_thai = '^[\\sa-zA-Z\\d\\[\\]\\{\\}\\/\\\\$&+,:;=?~`@#|\'"<>.^*()%!_-]+$';
         const numBer = '^[0-9]+$';
         console.log(this.bankAccountNo.match(numBer))
@@ -275,6 +283,7 @@ export class DialogComponent implements OnInit {
                data: 'กรุณากรอกเลขที่บัญชีด้วยตัวเลขเท่านั้น\nPlease fill out Bank Account Number with number only.'
            });
            this.bankAccountNo = undefined;
+           this.dataPass = false;
        }
     }
 
