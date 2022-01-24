@@ -85,26 +85,28 @@ export class CustomerComponent implements OnInit {
         'doc_upload_btn'
     ];
 
-    
-    
+
+
 
     ngOnInit() {
         // this.srvCS.formData = hyrf;
-        
+
         // const dialogConfig = new MatDialogConfig();
         // dialogConfig.disableClose = true;
         // dialogConfig.autoFocus = true;
         // dialogConfig.width = '500px';
         // this.dialog.open(CanceltbankDialogComponent, dialogConfig);
 
-        this.isMobile = window.orientation > -1;
+        // this.isMobile = window.orientation > -1;
         // alert(this.isMobile ? 'Mobile' : 'Not mobile');
 
-        if (this.isMobile) {
-            localStorage.setItem('isMobile', '1');
-        } else {
-            localStorage.setItem('isMobile', '0');
-        }
+        // if (this.isMobile) {
+        //     localStorage.setItem('isMobile', '1');
+        // } else {
+        //     localStorage.setItem('isMobile', '0');
+        // }
+
+        localStorage.setItem('isMobile', '0'); // Fix flag Mobile = false on web browser
 
     }
     validate(form: NgForm) {
@@ -135,12 +137,12 @@ export class CustomerComponent implements OnInit {
                 this.isRefund = false;
                 data.filter(item => item.bringtolegalentity_flag !== 'Y').forEach(item => {
                     if (item.welcomehome_flag === 'Y') {
-                        this.isWelcomehome = true  
+                        this.isWelcomehome = true;
                     }
                     if (item.remainingtotalamount > 0) {
-                        this.isRefund = true
+                        this.isRefund = true;
                     }
-                })
+                });
             },
 
             error => {
@@ -165,7 +167,7 @@ export class CustomerComponent implements OnInit {
     onView(_hyrf_id: Number, ac_appv_flag: string) {
         // const _hyrf_id = localStorage.getItem('_hyrf_id');
         console.log(_hyrf_id);
-        console.log('flaggggggggggggggggg', ac_appv_flag)
+        console.log('flaggggggggggggggggg', ac_appv_flag);
         localStorage.setItem('ac01_appv_flag', ac_appv_flag);
         // this.srvCS.formData = hyrf;
         const dialogConfig = new MatDialogConfig();
