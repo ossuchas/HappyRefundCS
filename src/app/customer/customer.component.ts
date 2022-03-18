@@ -109,6 +109,7 @@ export class CustomerComponent implements OnInit {
         localStorage.setItem('isMobile', '0'); // Fix flag Mobile = false on web browser
 
 
+
     }
     validate(form: NgForm) {
         // console.log(form.value);
