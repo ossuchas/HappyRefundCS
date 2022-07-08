@@ -388,6 +388,7 @@ export class DialogComponent implements OnInit {
 
         });
     }
+    
 
     dropdownBankNameListRefresh(id: number) {
         this.master.getBankAccountName(id).subscribe(data => {
