@@ -13,12 +13,12 @@ export const environment = {
 
 // ===============================DEV===============================//
 production: false,
-apiUrl: 'http://happyrefund-api-testrepo.devops-app.apthai.com/api/v1',
-apiCRM: 'http://crmrevo-identity-api-crmrevo-dev.devops-app.apthai.com/api/Token/ClientLogin',
-apiCRMMaster: 'http://crmrevo-masterdata-api-crmrevo-dev.devops-app.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
-apiCRMRefund: 'http://crmrevo-refund-api-crmrevo-dev.devops-app.apthai.com/api/Refund/',
-apiCRMTransferPromotion: 'http://crmrevo-promotion-api-crmrevo-dev.devops-app.apthai.com/api/TransferPromotions/',
-apiCRMSalePromotion: 'http://crmrevo-sale-api-crmrevo-dev.devops-app.apthai.com/api/Agreement/',
+apiUrl: 'http://happyrefund-api-ap-project-suchat.apps.dev.apthai.com/api/v1',
+apiCRM: 'http://crmrevo-identity-api-crmrevo-dev.apps.dev.apthai.com/api/Token/ClientLogin',
+apiCRMMaster: 'http://crmrevo-masterdata-api-crmrevo-dev.apps.dev.apthai.com/api/MasterCenters/BankBranchBOTDropdownList',
+apiCRMRefund: 'http://crmrevo-refund-api-crmrevo-dev.apps.dev.apthai.com/api/Refund/',
+apiCRMTransferPromotion: 'http://crmrevo-promotion-api-crmrevo-dev.apps.dev.apthai.com/api/TransferPromotions/',
+apiCRMSalePromotion: 'http://crmrevo-sale-api-crmrevo-dev.apps.dev.apthai.com/api/Agreement/',
 clientId: 'crmdigital',
 clientSecret: 'pVcySkP6M2QFYvJm5h7fCjSQPoJkUIOmA1OBqZebj4orj8OX6E1U4xViZTu7VBxGKXcvmEiyipm7PO8HQfNPqZGv6v6WTQ',
 
